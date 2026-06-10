@@ -1,1513 +1,770 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASTUTE DIAGNOSTICS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Aesthetic Hat — Premier Dermatology & Skincare Architecture</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
-<style>
-:root{
- --primary:#0d6efd;
- --secondary:#0a58ca;
- --light:#f4f8ff;
- --dark:#1f2937;
- --success:#198754;
- --danger:#dc3545;
-}
+    <style>
+        /* Corporate Clinical Luxury Theme Configuration */
+        :root {
+            --brand-primary: #0f172a;    /* Deep Oxford Blue */
+            --brand-secondary: #0d9488;  /* Hospital Clinical Teal */
+            --brand-accent: #b45309;     /* Deep Brass / Muted Gold */
+            --bg-light: #f8fafc;         /* Pure Sterile Ivory */
+        }
 
-*{
- margin:0;
- padding:0;
- box-sizing:border-box;
- font-family:Arial,Helvetica,sans-serif;
-}
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
 
-body{
- background:#eef4ff;
- min-height:100vh;
-}
+        /* Glassmorphism & High-End Card Layouts */
+        .premium-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-/* SPLASH SCREEN */
-#splash{
- position:fixed;
- inset:0;
- background:linear-gradient(135deg,#0d6efd,#0a58ca);
- color:white;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- z-index:9999;
-}
+        .premium-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+        }
 
-.logo-circle{
- width:120px;
- height:120px;
- border-radius:50%;
- background:white;
- color:#0d6efd;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:60px;
- margin-bottom:20px;
- animation:pulse 2s infinite;
-}
+        /* Custom Clinical Scrollbar Elements */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-@keyframes pulse{
- 0%{transform:scale(1);}
- 50%{transform:scale(1.1);}
- 100%{transform:scale(1);}
-}
-
-#splash h1{
- font-size:30px;
- margin-bottom:10px;
-}
-
-#splash p{
- opacity:.9;
-}
-
-.loader{
- width:220px;
- height:10px;
- background:rgba(255,255,255,.3);
- border-radius:20px;
- margin-top:25px;
- overflow:hidden;
-}
-
-.loader span{
- display:block;
- width:0;
- height:100%;
- background:white;
- animation:load 3s forwards;
-}
-
-@keyframes load{
- from{width:0;}
- to{width:100%;}
-}
-
-/* LOGIN SCREEN */
-#loginPage{
- display:none;
- min-height:100vh;
- justify-content:center;
- align-items:center;
- padding:20px;
-}
-
-.login-card{
- width:100%;
- max-width:400px;
- background:white;
- border-radius:20px;
- padding:30px;
- box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-.login-card h2{
- text-align:center;
- color:#0d6efd;
- margin-bottom:20px;
-}
-
-.login-card input{
- width:100%;
- padding:14px;
- border:1px solid #ccc;
- border-radius:10px;
- margin-bottom:15px;
- font-size:18px;
- text-align:center;
-}
-
-.login-card button{
- width:100%;
- padding:14px;
- border:none;
- background:#0d6efd;
- color:white;
- border-radius:10px;
- cursor:pointer;
- font-size:16px;
-}
-
-.login-card button:hover{
- background:#0a58ca;
-}
-
-/* APPLICATION WRAPPER */
-#app{
- display:none;
-}
-
-.topbar{
- background:#0d6efd;
- color:white;
- padding:15px;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-
-.topbar h3{
- font-size:18px;
-}
-
-.badge{
- background:white;
- color:#0d6efd;
- padding:5px 10px;
- border-radius:20px;
- font-size:12px;
- font-weight:bold;
-}
-
-.container{
- padding:15px;
-}
-
-.card{
- background:white;
- padding:20px;
- border-radius:15px;
- margin-bottom:15px;
- box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.card h4{
- color:#0d6efd;
- margin-bottom:10px;
-}
-
-.grid{
- display:grid;
- grid-template-columns:1fr;
- gap:15px;
-}
-
-.stat{
- background:white;
- border-radius:15px;
- padding:20px;
- text-align:center;
- box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.stat h2{
- color:#0d6efd;
- margin-bottom:5px;
-}
-
-.menu-btn{
- width:100%;
- padding:15px;
- margin-top:10px;
- border:none;
- border-radius:10px;
- background:#0d6efd;
- color:white;
- cursor:pointer;
-}
-
-.menu-btn:hover{
- background:#0a58ca;
-}
-
-.footer{
- text-align:center;
- padding:20px;
- color:#666;
-}
-
-.search-input {
- width:100%;
- padding:12px;
- margin-bottom:10px;
- border:1px solid #ddd;
- border-radius:8px;
-}
-
-.action-row {
- display: flex;
- gap: 10px;
- margin-top: 12px;
-}
-.action-row button {
- flex: 1;
- margin-top: 0;
-}
-
-/* LAB REPORT OUTPUT SCHEMATICS */
-.printable-report-wrapper {
- background: #ffffff;
- padding: 25px;
- border-radius: 8px;
- border: 1px solid #ddd;
- color: #111111;
-}
-.report-header-block {
- text-align: center;
- border-bottom: 2px solid #0d6efd;
- padding-bottom: 12px;
- margin-bottom: 20px;
-}
-.report-header-block h2 {
- color: #0d6efd;
- font-size: 24px;
- letter-spacing: 1px;
-}
-.report-meta-table {
- width: 100%;
- margin-bottom: 20px;
- font-size: 14px;
- border-collapse: collapse;
-}
-.report-meta-table td {
- padding: 6px;
- vertical-align: top;
-}
-.report-data-table {
- width: 100%;
- border-collapse: collapse;
- margin-top: 15px;
- font-size: 14px;
-}
-.report-data-table th {
- background: #f4f8ff;
- color: #0d6efd;
- text-align: left;
- padding: 10px;
- border-bottom: 2px solid #ddd;
-}
-.report-data-table td {
- padding: 12px 10px;
- border-bottom: 1px solid #eee;
-}
-.flag-high {
- color: #dc3545;
- font-weight: bold;
- background: #fff5f5;
- padding: 2px 6px;
- border-radius: 4px;
-}
-.flag-low {
- color: #0d6efd;
- font-weight: bold;
- background: #f0f5ff;
- padding: 2px 6px;
- border-radius: 4px;
-}
-
-.checkbox-container {
- display: flex;
- align-items: center;
- gap: 10px;
- margin-bottom: 5px;
- cursor: pointer;
-}
-.checkbox-container input {
- width: 18px;
- height: 18px;
- cursor: pointer;
-}
-
-.inline-management-block {
- background: #f8fafc;
- padding: 15px;
- border-radius: 10px;
- margin-top: 10px;
- border: 1px solid #e2e8f0;
-}
-.inline-item-row {
- display: flex;
- justify-content: space-between;
- align-items: center;
- background: #ffffff;
- padding: 8px 12px;
- margin-bottom: 6px;
- border-radius: 6px;
- border: 1px solid #e2e8f0;
- font-size: 14px;
-}
-.analytics-table {
- width: 100%;
- border-collapse: collapse;
- margin-top: 10px;
- font-size: 12px;
-}
-.analytics-table th, .analytics-table td {
- border: 1px solid #cbd5e1;
- padding: 6px;
- text-align: left;
-}
-.analytics-table th {
- background: #f1f5f9;
-}
-
-@media(max-width:600px){
-.topbar{
- flex-direction:column;
- gap:10px;
-}
-}
-
-/* ISOLATED WINDOW PRINT CONFIGURATIONS */
-#printTargetZone {
-  display: none;
-}
-
-@media print {
-  html, body {
-    height: 99% !important;
-    max-height: 99vh !important;
-    background: #ffffff !important;
-    color: #000000 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-  #app, #splash, #loginPage, .footer, .action-row {
-    display: none !important;
-  }
-  #printTargetZone {
-    display: block !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .printable-report-wrapper {
-    border: none !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-  }
-}
-</style>
+        /* Elegant Micro-Interactions */
+        .interactive-element {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
 </head>
+<body  class="text-slate-800 antialiased selection:bg-teal-500/20 selection:text-teal-900">
+<div class="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col">
 
-<body>
+    <a href="index.html"
+       class="bg-teal-600 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg text-center">
+       S<br>K<br>I<br>N
+    </a>
 
-<div id="printTargetZone"></div>
+    <a href="mind.html"
+       class="bg-slate-800 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg mt-2 text-center">
+       M<br>I<br>N<br>D
+    </a>
 
-<div id="splash">
-<div class="logo-circle">🔬</div>
-<h1>ASTUTE DIAGNOSTICS</h1>
-<p>POONOOR</p>
-<div class="loader"><span></span></div>
-</div>
+    <a href="peace.html"
+       class="bg-slate-800 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg mt-2 text-center">
+       P<br>E<br>A<br>C<br>E
+    </a>
 
-<div id="loginPage">
-<div class="login-card">
-<h2>ASTUTE LOGIN</h2>
-<input type="password" id="pin" placeholder="Enter PIN">
-<button onclick="login()">LOGIN</button>
 </div>
-</div>
+    <div id="splashScreen" class="fixed inset-0 z-100 bg-slate-900 flex flex-col items-center justify-center p-6 transition-all duration-700 ease-in-out">
+        <div class="max-w-xl w-full text-center space-y-8 animate__animated animate__fadeIn">
+            
+            <div class="space-y-3">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-500/10 border border-teal-500/30 mb-2">
+                    <svg class="w-8 h-8 text-blue-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                    </svg>
+                </div>
+               <h1 class="text-3xl sm:text-4xl font-light tracking-tight text-white whitespace-nowrap">
+                    Dr. AESTHETIC <span class="font-semibold text-teal-400">HAT</span>
+                </h1>
+                <p class="text-xs uppercase tracking-widest text-slate-400 font-medium"> Integrated Dermatology • Diagnostics • Aesthetic Intelligence </p>
+            </div>
 
-<div id="app">
-<div class="topbar">
-<h3>ASTUTE DIAGNOSTICS</h3>
-<div id="userBadge" class="badge">STAFF</div>
-</div>
+            <div class="p-6 rounded-xl bg-slate-950/60 border border-slate-800 h-28 flex items-center justify-center shadow-inner">
+                <p id="splashFactPlaceholder" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-light italic">
+                    Initializing systemic diagnostic indices...
+                </p>
+            </div>
 
-<div class="container">
-<div class="grid">
-<div class="stat">
-<h2 id="todayCount">0</h2>
-<p>Today's Registrations (<span id="currentDateLabel">--/--/----</span>)</p>
-</div>
-</div>
-
-<div class="card" style="margin-top:15px;">
-<h4>Global Database Finder</h4>
-<p style="font-size:13px; color:#666; margin-bottom:12px;">Search dynamically across all days by typing a Name, Phone number, or selecting a specific Date.</p>
-<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
- <input type="text" id="searchQuery" class="search-input" placeholder="Type Name or Phone Number..." style="flex:1; min-width:200px; margin-bottom:0;">
- <input type="date" id="searchDate" class="search-input" style="flex:0; min-width:160px; margin-bottom:0;">
-</div>
-<div style="display:flex; gap:10px;">
-  <button class="menu-btn" style="margin-top:0; flex:1;" onclick="executeAdvancedSearch()">SEARCH ARCHIVES</button>
-  <button class="menu-btn" style="margin-top:0; background:#198754; flex:initial; width:auto; padding:0 20px;" onclick="renderExportPanel()">DOWNLOAD LEDGER</button>
-</div>
-<div id="searchResultsArea" style="margin-top:15px;"></div>
-</div>
-
-<div class="card">
-<h4>Patient Registration</h4>
-<input id="pName" placeholder="Patient Name" style="width:100%;padding:12px;margin-bottom:10px;">
-<input id="pAge" placeholder="Age" type="number" style="width:100%;padding:12px;margin-bottom:10px;">
-<select id="pSex" style="width:100%;padding:12px;margin-bottom:10px;">
-<option>Male</option>
-<option>Female</option>
-<option>Other</option>
-</select>
-<input id="pPhone" placeholder="Phone Number" style="width:100%;padding:12px;margin-bottom:10px;">
-
-<div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; margin-bottom:10px; background:#fff;">
-  <label style="font-size:13px; font-weight:bold; color:#555; display:block; margin-bottom:4px;">Assigned Practitioner:</label>
-  <select id="pDoctor" style="width:100%;padding:10px;margin-bottom:5px;"></select>
-  <div style="display:flex; gap:5px; margin-top:5px; flex-wrap: wrap;">
-    <input type="text" id="quickAddDocInput" style="flex:1; min-width:130px; padding:8px; border:1px solid #ccc; border-radius:6px; font-size:13px;" placeholder="Practitioner name...">
-    <button type="button" class="menu-btn" style="width:auto; margin-top:0; padding:0 12px; font-size:12px;" onclick="inlineAddDoctor()">ADD</button>
-    <button type="button" class="menu-btn" style="width:auto; margin-top:0; padding:0 12px; font-size:12px; background:#ffc107; color:#212529;" onclick="inlineEditDoctor()">EDIT SELECTED</button>
-    <button type="button" class="menu-btn" style="width:auto; margin-top:0; padding:0 12px; font-size:12px; background:#dc3545;" onclick="inlineDeleteDoctor()">REMOVE SELECTED</button>
-  </div>
-</div>
-
-<button class="menu-btn" onclick="savePatient()">SAVE PATIENT</button>
-</div>
-  
-<div class="card">
-<h4>Create Lab Report Panel</h4>
-<select id="reportPatient" style="width:100%;padding:12px;margin-bottom:10px;">
-<option value="">Select Patient (Today Only)</option>
-</select>
-
-<div style="border:1px solid #cbd5e1; padding:10px; border-radius:8px; margin-bottom:10px; background:#fff;">
-  <label style="font-size:13px; font-weight:bold; color:#555; display:block; margin-bottom:6px;">Select Active Testing Profiles (Multiple Checked Allowed):</label>
-  <div id="multiProfileCheckboxes" style="max-height:220px; overflow-y:auto; padding:5px; border:1px solid #eee; border-radius:4px;">
+            <div class="flex flex-col items-center justify-center space-y-3">
+                <button onclick="unlockClinicAccess()" class="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-lg text-xs font-semibold tracking-widest uppercase shadow-lg shadow-teal-900/40 transition duration-300 hover:scale-[1.02] cursor-pointer">
+                    EXPLORE
+                </button>
+                <p class="text-[10px] text-slate-500 uppercase tracking-widest font-medium">Secure End-to-End Clinical Framework</p>
+            </div>
+        </div>
     </div>
-</div>
 
-<button class="menu-btn" onclick="loadMultipleProfiles()">LOAD PROFILE VIEW</button>
-<div id="testArea"></div>
-</div>
-
-<div class="card">
-<h4>Report History Lookup</h4>
-<select id="historyPatient" style="width:100%;padding:12px;margin-bottom:10px;">
-<option value="">Select Patient (Today Only)</option>
-</select>
-<button class="menu-btn" onclick="loadPatientReports()">LOAD HISTORY</button>
-<div id="reportHistory" style="margin-top:15px;"></div>
-</div>
-
-<div class="card" style="border:1px dashed #198754; background:#f9fdfa; position:relative;">
-  <h4 style="color:#198754;">Financial Yield & Analytics Matrix</h4>
-  <p style="font-size:12px; color:#555; margin-bottom:10px;">Consolidated business tracking ledger (Daily, Monthly, and Annualized tracking logs).</p>
-  
-  <div id="financeLockOverlay" style="position:absolute; inset:0; background:rgba(240,248,244,0.96); border-radius:15px; display:flex; flex-direction:column; justify-content:center; align-items:center; z-index:10; padding:20px; text-align:center;">
-     <p style="font-weight:bold; color:#198754; margin-bottom:8px;">🔒 Secure Dashboard Protected</p>
-     <input type="password" id="financePinInput" placeholder="Enter Finance PIN" style="padding:10px; border:1px solid #198754; border-radius:8px; text-align:center; font-size:14px; margin-bottom:10px; width:160px;">
-     <button class="menu-btn" style="background:#198754; width:auto; padding:10px 25px; margin-top:0;" onclick="unlockFinanceArea()">ACCESS FINANCE</button>
-  </div>
-
-  <div id="financeUnlockedContent" style="display:none;">
-    <button class="menu-btn" style="background:#198754; margin-top:5px; margin-bottom:15px;" onclick="calculateFinancialMetricsDashboard()">REFRESH LEDGER TRACKING METRICS</button>
-    <div id="financialDashboardArea" style="margin-bottom:20px;"></div>
-    
-    <hr style="border:0; border-top:1px solid #cbd5e1; margin:20px 0;">
-    
-    <h5 style="color:#198754; margin-bottom:8px;">Profile Rate & Parameter Suite Management</h5>
-    <div style="border:1px solid #cbd5e1; padding:12px; border-radius:8px; background:#fff; margin-bottom:15px;">
-      <label style="font-size:12px; font-weight:bold; color:#555;">Select System Testing Profile:</label>
-      <select id="profileSelect" style="width:100%;padding:10px;margin-bottom:8px;" onchange="syncSelectedProfilePricingView()"></select>
-      
-      <div style="display:flex; gap:10px; background:#f8fafc; padding:10px; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:10px; flex-wrap:wrap;">
-        <div style="flex:1; min-width:100px;">
-          <label style="font-size:11px; font-weight:bold; color:#666;">Lab Cost (₹):</label>
-          <input type="number" id="inlineCostInput" style="width:100%; padding:6px; font-size:13px; border:1px solid #ccc; border-radius:4px;">
+    <nav class="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center shadow-md">
+                    <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.827m11.379-8.16l1.15-.827M8.14 21.27l.707-1.03m7.45-.808l.707-1.03M12 3v1.5m0 15V21m-4.743-10l-1.14-.83m11.378 8.16l-1.14-.83" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-lg font-bold text-slate-900 tracking-tight block">Dr. Aesthetic Hat</span>
+                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-400 block -mt-1">MIND SKIN PEACE</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="scrollToAssessment()" class="hidden md:inline-flex items-center gap-2 text-xs uppercase font-semibold tracking-wider text-slate-600 hover:text-slate-900 transition">
+                    New Consultation
+                </button>
+                <span class="h-5 w-px bg-slate-200 hidden md:block text-xs text-slate-400"> Skin Mind </span>
+                <button id="adminPortalBtn" onclick="toggleAdminView()" class="text-xs font-semibold uppercase tracking-wider border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white px-5 py-2.5 rounded-md transition duration-300">
+                    ADMIN
+                </button>
+            </div>
         </div>
-        <div style="flex:1; min-width:100px;">
-          <label style="font-size:11px; font-weight:bold; color:#666;">Retail MRP (₹):</label>
-          <input type="number" id="inlineMrpInput" style="width:100%; padding:6px; font-size:13px; border:1px solid #ccc; border-radius:4px;">
-        </div>
-        <div style="display:flex; align-items:flex-end;">
-          <button type="button" class="menu-btn" style="margin-top:0; padding:8px 15px; font-size:12px; background:#198754;" onclick="inlineSaveProfilePricing()">SAVE PRICE</button>
-        </div>
-      </div>
+    </nav>
 
-      <div style="background:#f1f5f9; padding:10px; border-radius:6px; border:1px solid #cbd5e1; margin-bottom:15px;">
-        <label style="font-size:12px; font-weight:bold; color:#334155; display:block; margin-bottom:5px;">Edit Profile Preset Internal Parameters:</label>
-        <div id="presetParameterManagerZone" style="max-height:220px; overflow-y:auto; margin-bottom:10px; font-size:13px; background:white; border:1px solid #e2e8f0; border-radius:4px; padding:5px;">
-          <p style="color:#64748b; padding:10px; text-align:center;">Select a testing profile entry above to load its sub-test parameters.</p>
-        </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        <div id="addParameterControls" style="display:none; border-top:1px dashed #cbd5e1; padding-top:8px; gap:5px; flex-wrap:wrap;">
-          <input type="text" id="newParamName" placeholder="Test Name" style="flex:2; min-width:110px; padding:5px; font-size:12px;">
-          <input type="text" id="newParamMaleMin" placeholder="M-Min" style="flex:1; min-width:55px; padding:5px; font-size:12px;">
-          <input type="text" id="newParamMaleMax" placeholder="M-Max" style="flex:1; min-width:55px; padding:5px; font-size:12px;">
-          <input type="text" id="newParamFemMin" placeholder="F-Min" style="flex:1; min-width:55px; padding:5px; font-size:12px;">
-          <input type="text" id="newParamFemMax" placeholder="F-Max" style="flex:1; min-width:55px; padding:5px; font-size:12px;">
-          <input type="text" id="newParamUnit" placeholder="Unit" style="flex:1; min-width:60px; padding:5px; font-size:12px;">
-          <button type="button" class="menu-btn" style="margin-top:0; padding:5px 10px; font-size:12px; background:#0d6efd; width:auto;" onclick="addParameterToActivePreset()">ADD TEST FIELD</button>
-        </div>
-      </div>
-
-      <div style="border-top:1px dashed #cbd5e1; padding-top:10px; margin-top:10px;">
-        <label style="font-size:12px; font-weight:bold; color:#555;">Profile Management Operations:</label>
-        <div style="display:flex; gap:5px; margin-top:5px; flex-wrap:wrap;">
-          <input type="text" id="newProfileCodeInput" style="flex:1; min-width:120px; padding:6px; font-size:12px; border:1px solid #ccc; border-radius:4px;" placeholder="New Profile Code (e.g. CRP)">
-          <button type="button" class="menu-btn" style="margin-top:0; padding:6px 12px; font-size:12px; background:#0d6efd; width:auto;" onclick="addNewProfileSuite()">CREATE NEW PROFILE</button>
-          <button type="button" class="menu-btn" style="margin-top:0; padding:6px 12px; font-size:12px; background:#dc3545; width:auto;" onclick="deleteActiveProfileSuite()">DELETE SELECTED PROFILE</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
-<div class="footer">ASTUTE DIAGNOSTICS • POONOOR</div>
-</div>
-
-<script>
-/* CORE LOG COMPONENTS */
-let db;
-let dbReady = false;
-let backupResultsMemory = null;
-let activeLoadedProfiles = []; 
-
-setTimeout(() => {
-document.getElementById("splash").style.display="none";
-document.getElementById("loginPage").style.display="flex";
-},3000);
-
-/* BACKWARD COMPATIBLE CORE DEFINITIONS STORED INSIDE LOCALSTORAGE SHEETS */
-if(!localStorage.getItem("ASTUTE_DOCS")) {
-  localStorage.setItem("ASTUTE_DOCS", JSON.stringify(["Dr P K MUHAMMED ALI MBBS MD FCMF", "Dr JAHAN MUHAMMED MBBS FAM", "SELF"]));
-}
-
-const ELABORATE_MASTER_TEMPLATES = {
-  CBC: [
-    {name:"Hemoglobin (Hb)", male:[13.5, 17.5], female:[12.0, 15.5], unit:"g/dL"},
-    {name:"RBC Count", male:[4.5, 5.9], female:[4.1, 5.1], unit:"10⁶/µL"},
-    {name:"Hematocrit (PCV)", male:[41, 53], female:[36, 46], unit:"%"},
-    {name:"WBC Count (TC)", male:[4000, 11000], female:[4000, 11000], unit:"/µL"},
-    {name:"Platelet Count", male:[150000, 450000], female:[150000, 450000], unit:"/µL"},
-    {name:"MCV", male:[80, 100], female:[80, 100], unit:"fL"},
-    {name:"MCH", male:[27, 33], female:[27, 33], unit:"pg"},
-    {name:"MCHC", male:[32, 36], female:[32, 36], unit:"g/dL"},
-    {name:"RDW", male:[11.5, 14.5], female:[11.5, 14.5], unit:"%"},
-    {name:"Neutrophils", male:[40, 70], female:[40, 70], unit:"%"},
-    {name:"Lymphocytes", male:[20, 40], female:[20, 40], unit:"%"},
-    {name:"Monocytes", male:[2, 8], female:[2, 8], unit:"%"},
-    {name:"Eosinophils", male:[1, 6], female:[1, 6], unit:"%"},
-    {name:"Basophils", male:[0, 1], female:[0, 1], unit:"%"}
-  ],
-  ESR: [
-    {name:"ESR", male:[0, 15], female:[0, 20], unit:"mm/hr"}
-  ],
-  CRP: [
-    {name:"CRP", male:[0, 5], female:[0, 5], unit:"mg/L"}
-  ],
-  LFT: [
-    {name:"Total Bilirubin", male:[0.3, 1.2], female:[0.3, 1.2], unit:"mg/dL"},
-    {name:"Direct Bilirubin", male:[0, 0.3], female:[0, 0.3], unit:"mg/dL"},
-    {name:"Indirect Bilirubin", male:[0.2, 0.9], female:[0.2, 0.9], unit:"mg/dL"},
-    {name:"AST (SGOT)", male:[5, 40], female:[5, 40], unit:"U/L"},
-    {name:"ALT (SGPT)", male:[5, 40], female:[5, 40], unit:"U/L"},
-    {name:"ALP", male:[44, 147], female:[44, 147], unit:"U/L"},
-    {name:"GGT", male:[8, 61], female:[5, 36], unit:"U/L"},
-    {name:"Total Protein", male:[6.0, 8.3], female:[6.0, 8.3], unit:"g/dL"},
-    {name:"Albumin", male:[3.5, 5.0], female:[3.5, 5.0], unit:"g/dL"},
-    {name:"Globulin", male:[2.0, 3.5], female:[2.0, 3.5], unit:"g/dL"},
-    {name:"A/G Ratio", male:[1.0, 2.5], female:[1.0, 2.5], unit:"Ratio"}
-  ],
-  RFT: [
-    {name:"Urea", male:[15, 40], female:[15, 40], unit:"mg/dL"},
-    {name:"Blood Urea Nitrogen (BUN)", male:[7, 20], female:[7, 20], unit:"mg/dL"},
-    {name:"Creatinine", male:[0.7, 1.3], female:[0.6, 1.1], unit:"mg/dL"},
-    {name:"Uric Acid", male:[3.4, 7.0], female:[2.4, 6.0], unit:"mg/dL"},
-    {name:"Sodium (Na⁺)", male:[135, 145], female:[135, 145], unit:"mmol/L"},
-    {name:"Potassium (K⁺)", male:[3.5, 5.0], female:[3.5, 5.0], unit:"mmol/L"},
-    {name:"Chloride (Cl⁻)", male:[98, 107], female:[98, 107], unit:"mmol/L"},
-    {name:"Bicarbonate (HCO₃⁻)", male:[22, 28], female:[22, 28], unit:"mmol/L"},
-    {name:"Calcium", male:[8.5, 10.5], female:[8.5, 10.5], unit:"mg/dL"},
-    {name:"Phosphorus", male:[2.5, 4.5], female:[2.5, 4.5], unit:"mg/dL"},
-    {name:"Magnesium", male:[1.7, 2.2], female:[1.7, 2.2], unit:"mg/dL"},
-    {name:"eGFR", male:[90, 999], female:[90, 999], unit:"mL/min/1.73m²"}
-  ],
-  LIPID: [
-    {name:"Total Cholesterol", male:[0, 200], female:[0, 200], unit:"mg/dL"},
-    {name:"Triglycerides", male:[0, 150], female:[0, 150], unit:"mg/dL"},
-    {name:"HDL Cholesterol", male:[40, 999], female:[50, 999], unit:"mg/dL"},
-    {name:"LDL Cholesterol", male:[0, 100], female:[0, 100], unit:"mg/dL"},
-    {name:"VLDL Cholesterol", male:[5, 40], female:[5, 40], unit:"mg/dL"},
-    {name:"Non-HDL Cholesterol", male:[0, 130], female:[0, 130], unit:"mg/dL"}
-  ],
-  THYROID: [
-    {name:"TSH", male:[0.4, 4.5], female:[0.4, 4.5], unit:"mIU/L"},
-    {name:"Free T3 (FT3)", male:[2.3, 4.2], female:[2.3, 4.2], unit:"pg/mL"},
-    {name:"Free T4 (FT4)", male:[0.8, 1.8], female:[0.8, 1.8], unit:"ng/dL"},
-    {name:"Total T3", male:[80, 200], female:[80, 200], unit:"ng/dL"},
-    {name:"Total T4", male:[4.5, 12.5], female:[4.5, 12.5], unit:"µg/dL"}
-  ],
-  DIABETES: [
-    {name:"Fasting Blood Sugar (FBS)", male:[70, 99], female:[70, 99], unit:"mg/dL"},
-    {name:"Post-Prandial Blood Sugar (PPBS)", male:[0, 140], female:[0, 140], unit:"mg/dL"},
-    {name:"Random Blood Sugar (RBS)", male:[70, 140], female:[70, 140], unit:"mg/dL"},
-    {name:"HbA1c", male:[0, 5.7], female:[0, 5.7], unit:"%"},
-    {name:"Fasting Insulin", male:[2, 25], female:[2, 25], unit:"µIU/mL"},
-    {name:"C-Peptide", male:[0.5, 2.0], female:[0.5, 2.0], unit:"ng/mL"}
-  ],
-  IRON: [
-    {name:"Serum Iron", male:[65, 175], female:[50, 170], unit:"µg/dL"},
-    {name:"Ferritin", male:[24, 336], female:[11, 307], unit:"ng/mL"},
-    {name:"TIBC", male:[240, 450], female:[240, 450], unit:"µg/dL"},
-    {name:"Transferrin Saturation", male:[20, 50], female:[20, 50], unit:"%"}
-  ],
-  RHEUMATOLOGY: [
-    {name:"Rheumatoid Factor (RF)", male:[0, 20], female:[0, 20], unit:"IU/mL"},
-    {name:"Anti-CCP Antibody", male:[0, 20], female:[0, 20], unit:"U/mL"},
-    {name:"CRP", male:[0, 5], female:[0, 5], unit:"mg/L"},
-    {name:"ESR", male:[0, 15], female:[0, 20], unit:"mm/hr"},
-    {name:"ANA", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"}
-  ],
-  COAGULATION: [
-    {name:"Prothrombin Time (PT)", male:[11, 13.5], female:[11, 13.5], unit:"sec"},
-    {name:"INR", male:[0.8, 1.2], female:[0.8, 1.2], unit:"Ratio"},
-    {name:"aPTT", male:[25, 35], female:[25, 35], unit:"sec"},
-    {name:"D-Dimer", male:[0, 500], female:[0, 500], unit:"ng/mL FEU"}
-  ],
-  CARDIAC: [
-    {name:"Troponin-I", male:[0, 0.04], female:[0, 0.04], unit:"ng/mL"},
-    {name:"Troponin-T", male:[0, 14], female:[0, 14], unit:"ng/L"},
-    {name:"CK-MB", male:[0, 5], female:[0, 5], unit:"ng/mL"},
-    {name:"BNP", male:[0, 100], female:[0, 100], unit:"pg/mL"}
-  ],
-  TUMOR_MARKERS: [
-    {name:"PSA (Male)", male:[0, 4], female:[0, 0], unit:"ng/mL"},
-    {name:"AFP", male:[0, 10], female:[0, 10], unit:"ng/mL"},
-    {name:"CEA", male:[0, 5], female:[0, 5], unit:"ng/mL"},
-    {name:"CA-125 (Female)", male:[0, 0], female:[0, 35], unit:"U/mL"},
-    {name:"CA 19-9", male:[0, 37], female:[0, 37], unit:"U/mL"},
-    {name:"CA 15-3", male:[0, 30], female:[0, 30], unit:"U/mL"}
-  ],
-  URINE_ROUTINE: [
-    {name:"Colour", male:["Pale Yellow", "Amber"], female:["Pale Yellow", "Amber"], unit:"Observation"},
-    {name:"Appearance", male:["Clear", "Clear"], female:["Clear", "Clear"], unit:"Observation"},
-    {name:"Specific Gravity", male:[1.005, 1.030], female:[1.005, 1.030], unit:"S.G."},
-    {name:"pH", male:[4.5, 8.0], female:[4.5, 8.0], unit:"pH"},
-    {name:"Protein (Albumin)", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Glucose (Sugar)", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Ketone Bodies", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Blood", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Bilirubin", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Urobilinogen", male:[0.2, 1.0], female:[0.2, 1.0], unit:"EU/dL"},
-    {name:"Nitrite", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Leukocyte Esterase", male:["Negative", "Negative"], female:["Negative", "Negative"], unit:"Observation"},
-    {name:"Pus Cells (WBC)", male:[0, 5], female:[0, 5], unit:"/HPF"},
-    {name:"RBC", male:[0, 2], female:[0, 2], unit:"/HPF"},
-    {name:"Epithelial Cells", male:[0, 5], female:[0, 5], unit:"/HPF"},
-    {name:"Casts", male:["Nil", "Nil"], female:["Nil", "Nil"], unit:"/LPF"},
-    {name:"Crystals", male:["Nil", "Nil"], female:["Nil", "Nil"], unit:"/HPF"},
-    {name:"Bacteria", male:["Nil", "Nil"], female:["Nil", "Nil"], unit:"Observation"}
-  ],
-  ELECTROLYTE: [
-    {name:"Sodium", male:[135, 145], female:[135, 145], unit:"mmol/L"},
-    {name:"Potassium", male:[3.5, 5.0], female:[3.5, 5.0], unit:"mmol/L"},
-    {name:"Chloride", male:[98, 107], female:[98, 107], unit:"mmol/L"},
-    {name:"Bicarbonate", male:[22, 28], female:[22, 28], unit:"mmol/L"},
-    {name:"Calcium", male:[8.5, 10.5], female:[8.5, 10.5], unit:"mg/dL"},
-    {name:"Magnesium", male:[1.7, 2.2], female:[1.7, 2.2], unit:"mg/dL"},
-    {name:"Phosphorus", male:[2.5, 4.5], female:[2.5, 4.5], unit:"mg/dL"}
-  ]
-};
-
-// Force system reset if storage contains older short definitions parameters
-if(!localStorage.getItem("ASTUTE_FINANCIAL_PROFILES") || Object.keys(JSON.parse(localStorage.getItem("ASTUTE_FINANCIAL_PROFILES"))).length < 10) {
-  const financialProfilesMap = {
-    CBC: { name: "CBC (Complete Blood Count)", cost: 50, mrp: 150, tests: ELABORATE_MASTER_TEMPLATES.CBC },
-    ESR: { name: "ESR", cost: 20, mrp: 50, tests: ELABORATE_MASTER_TEMPLATES.ESR },
-    CRP: { name: "CRP", cost: 50, mrp: 150, tests: ELABORATE_MASTER_TEMPLATES.CRP },
-    LFT: { name: "LFT (Liver Function Test)", cost: 150, mrp: 450, tests: ELABORATE_MASTER_TEMPLATES.LFT },
-    RFT: { name: "RFT / KFT (Renal Function Test)", cost: 100, mrp: 300, tests: ELABORATE_MASTER_TEMPLATES.RFT },
-    LIPID: { name: "Lipid Profile", cost: 200, mrp: 600, tests: ELABORATE_MASTER_TEMPLATES.LIPID },
-    THYROID: { name: "Thyroid Profile", cost: 250, mrp: 750, tests: ELABORATE_MASTER_TEMPLATES.THYROID },
-    DIABETES: { name: "Diabetes Profile", cost: 120, mrp: 350, tests: ELABORATE_MASTER_TEMPLATES.DIABETES },
-    IRON: { name: "Iron Profile", cost: 180, mrp: 500, tests: ELABORATE_MASTER_TEMPLATES.IRON },
-    RHEUMATOLOGY: { name: "RA Profile / Rheumatology", cost: 150, mrp: 450, tests: ELABORATE_MASTER_TEMPLATES.RHEUMATOLOGY },
-    COAGULATION: { name: "Coagulation Profile", cost: 200, mrp: 550, tests: ELABORATE_MASTER_TEMPLATES.COAGULATION },
-    CARDIAC: { name: "Cardiac Markers", cost: 300, mrp: 850, tests: ELABORATE_MASTER_TEMPLATES.CARDIAC },
-    TUMOR_MARKERS: { name: "Tumor Markers", cost: 400, mrp: 1100, tests: ELABORATE_MASTER_TEMPLATES.TUMOR_MARKERS },
-    URINE_ROUTINE: { name: "Urine Routine Examination (URE)", cost: 40, mrp: 120, tests: ELABORATE_MASTER_TEMPLATES.URINE_ROUTINE },
-    ELECTROLYTE: { name: "Electrolyte Panel", cost: 100, mrp: 300, tests: ELABORATE_MASTER_TEMPLATES.ELECTROLYTE }
-  };
-  localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(financialProfilesMap));
-}
-
-function getSystemDocs() { return JSON.parse(localStorage.getItem("ASTUTE_DOCS")); }
-function getSystemProfiles() { return JSON.parse(localStorage.getItem("ASTUTE_FINANCIAL_PROFILES")); }
-
-function login(){
-const pin = document.getElementById("pin").value;
-if(pin === "1234" || pin === "9999"){
-  startApp();
-} else {
-  alert("Invalid PIN");
-}
-}
-
-function unlockFinanceArea() {
-  const pin = document.getElementById("financePinInput").value;
-  if(pin === "9999") {
-    document.getElementById("financeLockOverlay").style.display = "none";
-    document.getElementById("financeUnlockedContent").style.display = "block";
-    calculateFinancialMetricsDashboard();
-  } else {
-    alert("Incorrect Security PIN code access denied.");
-  }
-}
-
-function startApp(){
-document.getElementById("loginPage").style.display="none";
-document.getElementById("app").style.display="block";
-}
-
-function getSystemISODate() {
-const now = new Date();
-const yyyy = now.getFullYear();
-const mm = String(now.getMonth() + 1).padStart(2, '0');
-const dd = String(now.getDate()).padStart(2, '0');
-return `${yyyy}-${mm}-${dd}`;
-}
-
-/* INDEXED DB SETUP */
-const request = indexedDB.open("ASTUTE_DB", 1);
-
-request.onupgradeneeded = function (event) {
-  let upgradeDb = event.target.result;
-  if (!upgradeDb.objectStoreNames.contains("patients")) {
-    upgradeDb.createObjectStore("patients", { keyPath: "id", autoIncrement: true });
-  }
-  if (!upgradeDb.objectStoreNames.contains("reports")) {
-    upgradeDb.createObjectStore("reports", { keyPath: "id", autoIncrement: true });
-  }
-};
-
-request.onsuccess = function (event) {
-  db = event.target.result;
-  dbReady = true;
-  initApp();
-};
-
-request.onerror = function(event){ console.log("DB CORE FAILURE", event); };
-
-function initApp() {
-const todayStr = getSystemISODate();
-document.getElementById("currentDateLabel").innerText = todayStr.split('-').reverse().join('/');
-loadPatients();
-populatePatientDropdown();
-renderDynamicSystemSelectors();
-}
-
-function renderDynamicSystemSelectors() {
-const docSelect = document.getElementById("pDoctor");
-const activeDocVal = docSelect.value;
-docSelect.innerHTML = "";
-getSystemDocs().forEach(d => {
-  docSelect.innerHTML += `<option value="${d}">${d}</option>`;
-});
-if(activeDocVal && getSystemDocs().includes(activeDocVal)){
-  docSelect.value = activeDocVal;
-}
-
-const profileSelect = document.getElementById("profileSelect");
-const activeProfileVal = profileSelect.value;
-profileSelect.innerHTML = '<option value="">Select Profile</option>';
-const multiCheckContainer = document.getElementById("multiProfileCheckboxes");
-multiCheckContainer.innerHTML = "";
-
-const profiles = getSystemProfiles();
-for (let key in profiles) {
-  profileSelect.innerHTML += `<option value="${key}">${key}</option>`;
-  multiCheckContainer.innerHTML += `
-    <label class="checkbox-container" style="margin-bottom:4px; font-size:14px;">
-      <input type="checkbox" name="labProfiles" value="${key}">
-      <span>${key} (MRP: ₹${profiles[key].mrp})</span>
-    </label>
-  `;
-}
-if(activeProfileVal && profiles[activeProfileVal]) {
-  profileSelect.value = activeProfileVal;
-}
-syncSelectedProfilePricingView();
-}
-
-/* PRACTITIONER UPDATE HANDLERS */
-function inlineAddDoctor() {
-const nameInput = document.getElementById("quickAddDocInput");
-const newName = nameInput.value.trim();
-if(!newName) return;
-let currentDocsList = getSystemDocs();
-if(currentDocsList.includes(newName)) { alert("Practitioner already registered."); return; }
-currentDocsList.push(newName);
-localStorage.setItem("ASTUTE_DOCS", JSON.stringify(currentDocsList));
-nameInput.value = "";
-renderDynamicSystemSelectors();
-document.getElementById("pDoctor").value = newName;
-alert("Practitioner added successfully.");
-}
-
-function inlineEditDoctor() {
-const selectBox = document.getElementById("pDoctor");
-const activeDocName = selectBox.value;
-if(!activeDocName) { alert("Please select a practitioner entry to edit."); return; }
-
-const updatedName = prompt(`Modify practitioner designation values safely:`, activeDocName);
-if(updatedName === null) return; 
-const cleanUpdate = updatedName.trim();
-if(!cleanUpdate) { alert("Invalid entry name cannot be whitespace empty."); return; }
-
-let currentDocsList = getSystemDocs();
-const matchIndex = currentDocsList.indexOf(activeDocName);
-if(matchIndex !== -1) {
-  currentDocsList[matchIndex] = cleanUpdate;
-  localStorage.setItem("ASTUTE_DOCS", JSON.stringify(currentDocsList));
-  renderDynamicSystemSelectors();
-  document.getElementById("pDoctor").value = cleanUpdate;
-  alert("Practitioner entry updated successfully.");
-}
-}
-
-function inlineDeleteDoctor() {
-const selectBox = document.getElementById("pDoctor");
-const activeDocName = selectBox.value;
-if(!activeDocName) return;
-if(!confirm(`Delete practitioner entry: ${activeDocName}?`)) return;
-let currentDocsList = getSystemDocs();
-currentDocsList = currentDocsList.filter(d => d !== activeDocName);
-localStorage.setItem("ASTUTE_DOCS", JSON.stringify(currentDocsList));
-renderDynamicSystemSelectors();
-}
-
-/* PRESET SUB-TEST PARAMETER EDITOR IMPLEMENTATION */
-function syncSelectedProfilePricingView() {
-const activeProfileKey = document.getElementById("profileSelect").value;
-const costInput = document.getElementById("inlineCostInput");
-const mrpInput = document.getElementById("inlineMrpInput");
-const managerZone = document.getElementById("presetParameterManagerZone");
-const addControls = document.getElementById("addParameterControls");
-
-if(!activeProfileKey) {
-  costInput.value = ""; mrpInput.value = ""; 
-  managerZone.innerHTML = `<p style="color:#64748b; padding:10px; text-align:center;">Select a testing profile entry above to load its sub-test parameters.</p>`;
-  addControls.style.display = "none";
-  return;
-}
-
-const profilesMap = getSystemProfiles();
-costInput.value = profilesMap[activeProfileKey].cost;
-mrpInput.value = profilesMap[activeProfileKey].mrp;
-
-let tests = profilesMap[activeProfileKey].tests || [];
-if(tests.length === 0) {
-  managerZone.innerHTML = `<p style="color:#dc3545; padding:10px; text-align:center;">No custom parameter templates inside this profile yet.</p>`;
-} else {
-  let html = `<table style="width:100%; border-collapse:collapse; font-size:12px; text-align:left;">
-    <thead>
-      <tr style="background:#e2e8f0; color:#334155;">
-        <th style="padding:4px;">Test Parameter</th>
-        <th style="padding:4px;">Male Range</th>
-        <th style="padding:4px;">Female Range</th>
-        <th style="padding:4px;">Unit</th>
-        <th style="padding:4px; text-align:center;">Action</th>
-      </tr>
-    </thead>
-    <tbody>`;
-  tests.forEach((t, i) => {
-    let mRange = (isNaN(parseFloat(t.male[0]))) ? `${t.male[0]}` : `${t.male[0]} - ${t.male[1]}`;
-    let fRange = (isNaN(parseFloat(t.female[0]))) ? `${t.female[0]}` : `${t.female[1] ? t.female[0] + ' - ' + t.female[1] : t.female[0]}`;
-    html += `<tr style="border-bottom:1px solid #e2e8f0;">
-      <td style="padding:5px;"><b>${t.name}</b></td>
-      <td style="padding:5px;">${mRange}</td>
-      <td style="padding:5px;">${fRange}</td>
-      <td style="padding:5px;">${t.unit}</td>
-      <td style="padding:5px; text-align:center;">
-        <button type="button" style="background:#dc3545; color:white; border:none; padding:2px 6px; border-radius:3px; cursor:pointer;" onclick="removeParameterFromPreset(${i})">✕</button>
-      </td>
-    </tr>`;
-  });
-  html += `</tbody></table>`;
-  managerZone.innerHTML = html;
-}
-addControls.style.display = "flex";
-}
-
-function addParameterToActivePreset() {
-  const activeProfileKey = document.getElementById("profileSelect").value;
-  if(!activeProfileKey) return;
-  
-  const name = document.getElementById("newParamName").value.trim();
-  const rawMaleMin = document.getElementById("newParamMaleMin").value.trim();
-  const rawMaleMax = document.getElementById("newParamMaleMax").value.trim();
-  const rawFemMin = document.getElementById("newParamFemMin").value.trim();
-  const rawFemMax = document.getElementById("newParamFemMax").value.trim();
-  const unit = document.getElementById("newParamUnit").value.trim();
-  
-  if(!name || !rawMaleMin || !unit) {
-    alert("Please fill out parameter name, target ranges, and metric unit mappings."); return;
-  }
-  
-  let maleVal = isNaN(parseFloat(rawMaleMin)) ? [rawMaleMin, rawMaleMin] : [parseFloat(rawMaleMin), parseFloat(rawMaleMax)];
-  let femaleVal = isNaN(parseFloat(rawFemMin)) ? [rawFemMin, rawFemMin] : [parseFloat(rawFemMin), parseFloat(rawFemMax)];
-
-  let profilesMap = getSystemProfiles();
-  if(!profilesMap[activeProfileKey].tests) profilesMap[activeProfileKey].tests = [];
-  
-  profilesMap[activeProfileKey].tests.push({
-    name: name,
-    male: maleVal,
-    female: femaleVal,
-    unit: unit
-  });
-  
-  localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(profilesMap));
-  
-  document.getElementById("newParamName").value = "";
-  document.getElementById("newParamMaleMin").value = "";
-  document.getElementById("newParamMaleMax").value = "";
-  document.getElementById("newParamFemMin").value = "";
-  document.getElementById("newParamFemMax").value = "";
-  document.getElementById("newParamUnit").value = "";
-  
-  syncSelectedProfilePricingView();
-}
-
-function removeParameterFromPreset(index) {
-  const activeProfileKey = document.getElementById("profileSelect").value;
-  if(!activeProfileKey) return;
-  if(!confirm("Are you sure you want to delete this test metric template?")) return;
-  
-  let profilesMap = getSystemProfiles();
-  profilesMap[activeProfileKey].tests.splice(index, 1);
-  localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(profilesMap));
-  syncSelectedProfilePricingView();
-}
-
-function addNewProfileSuite() {
-  const codeField = document.getElementById("newProfileCodeInput");
-  const rawCode = codeField.value.trim().toUpperCase();
-  if(!rawCode) { alert("Please supply a unique alpha profile reference key code."); return; }
-  
-  let map = getSystemProfiles();
-  if(map[rawCode]) { alert("This profile identifier tag suite already exists."); return; }
-  
-  map[rawCode] = {
-    name: rawCode,
-    cost: 100,
-    mrp: 300,
-    tests: [{ name: "Generic Parameter 1", male: [0, 100], female: [0, 100], unit: "mg/dL" }]
-  };
-  
-  localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(map));
-  codeField.value = "";
-  renderDynamicSystemSelectors();
-  document.getElementById("profileSelect").value = rawCode;
-  syncSelectedProfilePricingView();
-  alert(`Testing profile block [${rawCode}] created successfully.`);
-}
-
-function deleteActiveProfileSuite() {
-  const activeProfileKey = document.getElementById("profileSelect").value;
-  if(!activeProfileKey) { alert("Please highlight a valid option entry above."); return; }
-  if(!confirm(`Permanently remove test profile configuration group [${activeProfileKey}] from database?`)) return;
-  
-  let map = getSystemProfiles();
-  delete map[activeProfileKey];
-  localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(map));
-  renderDynamicSystemSelectors();
-  alert("Configuration wiped out successfully.");
-}
-
-function inlineSaveProfilePricing() {
-const activeProfileKey = document.getElementById("profileSelect").value;
-const costVal = parseFloat(document.getElementById("inlineCostInput").value);
-const mrpVal = parseFloat(document.getElementById("inlineMrpInput").value);
-if(!activeProfileKey || isNaN(costVal) || isNaN(mrpVal)) {
-  alert("Select an active profile and verify pricing input targets."); return;
-}
-let profilesMap = getSystemProfiles();
-profilesMap[activeProfileKey].cost = costVal;
-profilesMap[activeProfileKey].mrp = mrpVal;
-localStorage.setItem("ASTUTE_FINANCIAL_PROFILES", JSON.stringify(profilesMap));
-alert(`Pricing structures for profile [${activeProfileKey}] updated safely.`);
-renderDynamicSystemSelectors();
-calculateFinancialMetricsDashboard();
-}
-
-function generateLabID(){
-const now=new Date();
-const yy=String(now.getFullYear()).slice(-2);
-const mm=String(now.getMonth()+1).padStart(2,'0');
-const dd=String(now.getDate()).padStart(2,'0');
-const serial=Date.now().toString().slice(-4);
-return "AST"+yy+mm+dd+serial;
-}
-
-function savePatient(){
-if(!db){ alert("Database is NULL"); return; }
-const name=document.getElementById("pName").value.trim();
-const age=document.getElementById("pAge").value;
-const sex=document.getElementById("pSex").value;
-const phone=document.getElementById("pPhone").value;
-const doctor=document.getElementById("pDoctor").value;
-
-if(name===""){ alert("Enter Patient Name"); return; }
-
-try {
-const tx=db.transaction(["patients"],"readwrite");
-const store=tx.objectStore("patients");
-
-const patient={
-labid:generateLabID(), name:name, age:age, sex:sex, phone:phone, doctor:doctor,
-isoDate: getSystemISODate(), date: new Date().toLocaleString()
-};
-store.add(patient);
-
-tx.oncomplete=function(){
-alert("Patient Saved");
-loadPatients();
-populatePatientDropdown();
-document.getElementById("pName").value="";
-document.getElementById("pAge").value="";
-document.getElementById("pPhone").value="";
-};
-} catch(err){ console.log("SAVE ERROR:", err); }
-}
-
-function loadPatients(){
-if(!db) return;
-const tx=db.transaction(["patients"],"readonly");
-const store=tx.objectStore("patients");
-const req=store.getAll();
-
-req.onsuccess=function(){
-const data=req.result;
-const targetDate = getSystemISODate();
-const todayPatients = data.filter(p => p.isoDate === targetDate);
-document.getElementById("todayCount").innerText = todayPatients.length;
-};
-}
-
-function executeAdvancedSearch() {
-const query = document.getElementById("searchQuery").value.trim().toLowerCase();
-const filterDate = document.getElementById("searchDate").value;
-
-const tx = db.transaction(["patients"], "readonly");
-const store = tx.objectStore("patients");
-const req = store.getAll();
-
-req.onsuccess = function() {
-let patients = req.result;
-
-if(filterDate) { patients = patients.filter(p => p.isoDate === filterDate); }
-if(query) {
- patients = patients.filter(p => 
-   p.name.toLowerCase().includes(query) || 
-   (p.phone && p.phone.includes(query)) ||
-   p.labid.toLowerCase().includes(query)
- );
-}
-
-let html = `<h5>Search Results (${patients.length} found)</h5>`;
-if(patients.length === 0) {
- html += `<p style="color:#dc3545; font-size:14px; margin-top:5px;">No matching records found.</p>`;
-} else {
- patients.reverse().forEach(p => {
-   html += `
-     <div style="padding:12px; margin-top:8px; background:#eef4ff; border-left:4px solid #0d6efd; border-radius:4px;">
-       <b>${p.name}</b> (${p.sex}, ${p.age} Yrs)<br>
-       Lab ID: <code>${p.labid}</code> | Phone: ${p.phone || 'N/A'}<br>
-       Date: ${p.date}<br>
-       <button class="menu-btn" style="padding:5px 10px; font-size:12px; width:auto; margin-top:5px;" onclick="shortcutViewReports(${p.id})">Inspect Reports</button>
-     </div>`;
- });
-}
-document.getElementById("searchResultsArea").innerHTML = html;
-};
-}
-
-function shortcutViewReports(patientId) {
-const historySelect = document.getElementById("historyPatient");
-let optionExists = false;
-for(let i=0; i<historySelect.options.length; i++){
-  if(historySelect.options[i].value == patientId){ optionExists = true; break; }
-}
-if(!optionExists){
-  const tx = db.transaction(["patients"], "readonly");
-  tx.objectStore("patients").get(Number(patientId)).onsuccess = function(e){
-    const p = e.target.result;
-    if(p) {
-      historySelect.innerHTML += `<option value="${p.id}">${p.name} (${p.labid})</option>`;
-      historySelect.value = patientId;
-      loadPatientReports();
-    }
-  };
-} else {
-  historySelect.value = patientId;
-  loadPatientReports();
-}
-historySelect.scrollIntoView({ behavior: 'smooth' });
-}
-
-function populatePatientDropdown(){
-if(!db) return;
-const tx=db.transaction(["patients"],"readonly");
-const store=tx.objectStore("patients");
-const req=store.getAll();
-
-req.onsuccess=function(){
-const allPatients = req.result;
-const targetDate = getSystemISODate();
-const patients = allPatients.filter(p => p.isoDate === targetDate);
-
-const reportDropdown = document.getElementById("reportPatient");
-const historyDropdown = document.getElementById("historyPatient");
-
-if(reportDropdown) reportDropdown.innerHTML = '<option value="">Select Patient (Today Only)</option>';
-if(historyDropdown) historyDropdown.innerHTML = '<option value="">Select Patient (Today Only)</option>';
-
-patients.forEach(p => {
-  if(reportDropdown) { reportDropdown.innerHTML += `<option value="${p.id}">${p.name} (${p.labid})</option>`; }
-  if(historyDropdown){ historyDropdown.innerHTML += `<option value="${p.id}">${p.name} (${p.labid})</option>`; }
-});
-};
-}
-
-function loadMultipleProfiles() {
-  const checkboxes = document.querySelectorAll('input[name="labProfiles"]:checked');
-  if(checkboxes.length === 0) { alert("Please check at least one test profile code to proceed."); return; }
-  
-  const patientId = document.getElementById("reportPatient").value;
-  if (patientId === "") { alert("Select Patient First"); return; }
-  
-  activeLoadedProfiles = [];
-  let combinedTestsArray = [];
-  const profilesConfigMap = getSystemProfiles();
-  
-  checkboxes.forEach(cb => {
-     const pKey = cb.value;
-     activeLoadedProfiles.push(pKey);
-     if(profilesConfigMap[pKey] && profilesConfigMap[pKey].tests){
-       profilesConfigMap[pKey].tests.forEach(t => {
-          combinedTestsArray.push({
-             ...t,
-             parentProfile: pKey
-          });
-       });
-     }
-  });
-  
-  renderCombinedProfileInputs(activeLoadedProfiles.join(" + "), combinedTestsArray, null);
-}
-
-function renderCombinedProfileInputs(combinedTitle, testParameters, prefilledValuesArray) {
-let html = `<h4 style="margin-top:20px;">Combined Inputs: [ ${combinedTitle} ]</h4>`;
-html += `<p style="font-size:12px; color:#666; margin-bottom:10px;">Uncheck items to exclude explicit metrics from final printed parameters.</p>`;
-
-testParameters.forEach((t, index) => {
-  let defaultVal = "";
-  let isChecked = "checked";
-  if (prefilledValuesArray) {
-    const existingData = prefilledValuesArray.find(item => item.test === t.name && item.parentProfile === t.parentProfile);
-    if (existingData) { defaultVal = existingData.value; } else { isChecked = ""; }
-  }
-  
-  let displayRange = (isNaN(parseFloat(t.male[0]))) ? `${t.male[0]}` : `Male ${t.male[0]}-${t.male[1]} | Female ${t.female[0]}-${t.female[1]}`;
-  let inputType = (isNaN(parseFloat(t.male[0]))) ? "text" : "number";
-
-  html += `
-    <div style="padding:12px;margin-bottom:10px;background:#f4f8ff;border-radius:10px;">
-      <label class="checkbox-container">
-        <input type="checkbox" id="check_${index}" ${isChecked} onchange="toggleInputStatus(${index})">
-        <b>[${t.parentProfile}] - ${t.name}</b>
-      </label>
-      <div id="wrapper_${index}" style="${isChecked ? '' : 'opacity:0.5; pointer-events:none;'} font-size:14px; margin-top:6px;">
-        Range: ${displayRange} [${t.unit}]
-        <input type="${inputType}" step="any" id="result_${index}" value="${defaultVal}" placeholder="Enter Result Value" style="width:100%;padding:10px;margin-top:8px;" data-profile="${t.parentProfile}" data-name="${t.name}" data-unit="${t.unit}">
-      </div>
-    </div>`;
-});
-
-html += `<button class="menu-btn" onclick="previewCombinedResults()">PREVIEW COMBINED RESULTS</button>`;
-document.getElementById("testArea").innerHTML = html;
-}
-
-function toggleInputStatus(index) {
-const cb = document.getElementById(`check_${index}`);
-const wrapper = document.getElementById(`wrapper_${index}`);
-wrapper.style.opacity = cb.checked ? "1" : "0.5";
-wrapper.style.pointerEvents = cb.checked ? "auto" : "none";
-}
-
-function previewCombinedResults() {
-const patientId = document.getElementById("reportPatient").value;
-const tx = db.transaction(["patients"],"readonly");
-const patientObj = tx.objectStore("patients").get(Number(patientId));
-
-patientObj.onsuccess = function() {
-const currentPatientRecord = patientObj.result;
-let sex = currentPatientRecord ? currentPatientRecord.sex : "Male";
-
-let elements = document.querySelectorAll('[id^="result_"]');
-let report = [];
-let output = "<h4>Report Preview</h4>";
-
-elements.forEach((el, index) => {
-  const cb = document.getElementById("check_" + index);
-  if (!cb || !cb.checked) return;
-
-  const resValue = el.value.trim();
-  if(resValue === "") return;
-
-  const pKey = el.getAttribute('data-profile');
-  const tName = el.getAttribute('data-name');
-  const tUnit = el.getAttribute('data-unit');
-  
-  const originalProfileData = getSystemProfiles()[pKey].tests.find(item => item.name === tName);
-  
-  let min = (sex === "Female") ? originalProfileData.female[0] : originalProfileData.male[0];
-  let max = (sex === "Female") ? originalProfileData.female[1] : originalProfileData.male[1];
-  
-  let flag = "";
-  let numericVal = parseFloat(resValue);
-  
-  if(!isNaN(numericVal) && !isNaN(parseFloat(min))) {
-     if(numericVal < parseFloat(min)) flag = "L";
-     else if(numericVal > parseFloat(max)) flag = "H";
-  }
-
-  report.push({ 
-     test: tName, 
-     value: resValue, 
-     unit: tUnit, 
-     min: min, 
-     max: max, 
-     flag: flag,
-     parentProfile: pKey 
-  });
-  
-  let displayFlag = flag ? ` <span class="${flag==='H'?'flag-high':'flag-low'}">${flag}</span>` : '';
-  let finalRangeString = (isNaN(parseFloat(min))) ? `${min}` : `${min} - ${max}`;
-
-  output += `
-    <div style="padding:10px;margin-bottom:8px;border-radius:10px;background:#f4f8ff;">
-      <small style="color:#0d6efd; font-weight:bold;">[${pKey}]</small> <b>${tName}</b><br>Result: ${resValue} ${displayFlag}<br>Range: ${finalRangeString} ${tUnit}
-    </div>`;
-});
-
-if(report.length === 0) { alert("Complete checked fields parameters correctly."); return; }
-
-backupResultsMemory = report;
-window.currentReportData = report;
-
-output += `
-<div class="action-row">
-  <button class="menu-btn" style="background:#6c757d;" onclick="revertToCombinedInputForm()">EDIT INPUTS</button>
-  <button class="menu-btn" onclick="saveCombinedReport()">SAVE MULTI REPORT</button>
-</div>`;
-document.getElementById("testArea").innerHTML = output;
-};
-}
-
-function revertToCombinedInputForm() {
-  let combinedTestsArray = [];
-  const profilesConfigMap = getSystemProfiles();
-  activeLoadedProfiles.forEach(pKey => {
-     if(profilesConfigMap[pKey] && profilesConfigMap[pKey].tests){
-       profilesConfigMap[pKey].tests.forEach(t => {
-          combinedTestsArray.push({ ...t, parentProfile: pKey });
-       });
-     }
-  });
-  renderCombinedProfileInputs(activeLoadedProfiles.join(" + "), combinedTestsArray, backupResultsMemory);
-}
-
-function saveCombinedReport(){
-if(!window.currentReportData){ alert("No Report data captured"); return; }
-const patientId = document.getElementById("reportPatient").value;
-const profilesMap = getSystemProfiles();
-
-const tx = db.transaction(["reports"],"readwrite");
-const store = tx.objectStore("reports");
-
-let consolidatedCost = 0;
-let consolidatedMrp = 0;
-activeLoadedProfiles.forEach(pKey => {
-  consolidatedCost += (profilesMap[pKey].cost || 0);
-  consolidatedMrp += (profilesMap[pKey].mrp || 0);
-});
-
-store.add({
-patientId: patientId,
-profile: activeLoadedProfiles.join("+"),
-cost: consolidatedCost,
-mrp: consolidatedMrp,
-isoDate: getSystemISODate(),
-date: new Date().toLocaleString(),
-results: window.currentReportData
-});
-
-tx.oncomplete=function(){
-alert("All profile metrics compiled and saved successfully under ledger logs!");
-document.getElementById("testArea").innerHTML = "";
-document.querySelectorAll('input[name="labProfiles"]').forEach(cb => cb.checked = false);
-window.currentReportData = null;
-backupResultsMemory = null;
-if(document.getElementById("financeUnlockedContent").style.display === "block") {
-   calculateFinancialMetricsDashboard();
-}
-};
-}
-
-function loadPatientReports(){
-const patientId= document.getElementById("historyPatient").value;
-if(patientId==="") { alert("Select Patient"); return; }
-
-const tx=db.transaction(["reports"],"readonly");
-const store=tx.objectStore("reports");
-const req= store.getAll();
-
-req.onsuccess=function(){
-const reports=req.result.filter(r=>r.patientId==patientId);
-let html= reports.length === 0 ? "<p>No Reports Found</p>" : "";
-
-reports.reverse().forEach((r,index)=>{
-html+=`
-  <div style="padding:10px;margin-bottom:10px;background:#f4f8ff;border-radius:10px;">
-    <b>${r.profile}</b><br>${r.date}<br><br>
-    <button class="menu-btn" onclick="viewReport(${reports.length-1-index})">VIEW REPORT</button>
-  </div>`;
-});
-
-window.currentHistoryReports=reports;
-document.getElementById("reportHistory").innerHTML=html;
-};
-}
-
-function viewReport(index){
-const report= window.currentHistoryReports[index];
-const patientId = report.patientId;
-
-const tx = db.transaction(["patients"], "readonly");
-const req = tx.objectStore("patients").get(Number(patientId));
-
-req.onsuccess = function() {
-const patient = req.result;
-const pName = patient ? patient.name : "N/A", pAge = patient ? patient.age : "N/A", pSex = patient ? patient.sex : "N/A", pPhone = patient ? patient.phone : "N/A", pDoctor = patient ? patient.doctor : "N/A", pIdStr = patient ? patient.labid : "N/A";
-
-let shareString = `*ASTUTE DIAGNOSTICS - POONOOR*\n----------------------------------------\nPatient Name: ${pName}\nAge/Sex: ${pAge} Yrs / ${pSex}\nPhone: ${pPhone}\nRef By: ${pDoctor}\nLab ID: ${pIdStr}\nDate: ${report.date}\n----------------------------------------\n*TEST REPORT: ${report.profile}*\n\n`;
-let reportHtml = `
-<div class="printable-report-wrapper">
-  <div class="report-header-block">
-    <h2>ASTUTE DIAGNOSTICS</h2>
-    <p style="font-size:12px; color:#555;">POONOOR • LABORATORY REPORT</p>
-  </div>
-  <table class="report-meta-table">
-    <tr><td>Patient Name: <b>${pName}</b></td><td>Lab ID: <b>${pIdStr}</b></td></tr>
-    <tr><td>Age / Sex: <b>${pAge} Yrs / ${pSex}</b></td><td>Date: <b>${report.date}</b></td></tr>
-    <tr><td>Phone Number: <b>${pPhone}</b></td><td>Ref By: <b>${pDoctor}</b></td></tr>
-  </table>
-  <table class="report-data-table">
-    <thead>
-      <tr><th>Test Description</th><th>Observed Value</th><th>Reference Range</th><th>Unit</th></tr>
-    </thead>
-    <tbody>`;
-
-report.results.forEach(r => {
-  let flagDecoration = r.flag ? ` <span class="${r.flag==='H'?'flag-high':'flag-low'}">${r.flag}</span>` : '';
-  let referenceDisplay = (isNaN(parseFloat(r.min))) ? `${r.min}` : `${r.min} - ${r.max}`;
-  
-  reportHtml += `<tr><td><b>${r.test}</b></td><td><b>${r.value}</b>${flagDecoration}</td><td>${referenceDisplay}</td><td>${r.unit}</td></tr>`;
-  shareString += `• ${r.test}: *${r.value}* ${r.flag ? '['+r.flag+']':''} (${referenceDisplay} ${r.unit})\n`;
-});
-
-reportHtml += `</tbody></table></div>`;
-document.getElementById("printTargetZone").innerHTML = reportHtml;
-document.getElementById("reportHistory").innerHTML = reportHtml + `<div class="action-row"><button class="menu-btn" style="background:#198754;" onclick="window.print()">PRINT REPORT</button><button class="menu-btn" style="background:#0f5132;" onclick="shareNativeReport(\`${encodeURIComponent(shareString)}\`)" >SHARE REPORT</button></div>`;
-};
-}
-
-function shareNativeReport(encodedText) {
-const cleanText = decodeURIComponent(encodedText);
-if (navigator.share) {
-  navigator.share({ title: 'Lab Diagnostic Report', text: cleanText });
-} else {
-  window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(cleanText), '_blank');
-}
-}
-
-/* FINANCIAL BALANCES LEDGER MATRIX TRACKING */
-function calculateFinancialMetricsDashboard() {
-if(!db) return;
-db.transaction(["reports"],"readonly").objectStore("reports").getAll().onsuccess = function(e) {
-  const reports = e.target.result || [];
-  const profilesMap = getSystemProfiles();
-  
-  const now = new Date();
-  const currentDay = getSystemISODate();
-  const currentMonth = String(now.getMonth() + 1).padStart(2, '0');
-  const currentYear = String(now.getFullYear());
-
-  let summaryHtml = `<table class="analytics-table">
-    <thead><tr><th>Profile Type</th><th>Total Runs</th><th>Today Yield</th><th>Monthly Balance</th><th>Annual Total</th></tr></thead>
-    <tbody>`;
-
-  for(let key in profilesMap) {
-    let matchAll = reports.filter(r => r.profile && r.profile.includes(key));
-    let matchDay = matchAll.filter(r => r.isoDate === currentDay);
-    let matchMonth = matchAll.filter(r => r.isoDate && r.isoDate.split('-')[0] === currentYear && r.isoDate.split('-')[1] === currentMonth);
-    let matchYear = matchAll.filter(r => r.isoDate && r.isoDate.split('-')[0] === currentYear);
-
-    let dCost = 0, dMrp = 0, mCost = 0, mMrp = 0, yCost = 0, yMrp = 0;
-    
-    matchDay.forEach(r => { dCost += (r.cost || 0); dMrp += (r.mrp || 0); });
-    matchMonth.forEach(r => { mCost += (r.cost || 0); mMrp += (r.mrp || 0); });
-    matchYear.forEach(r => { yCost += (r.cost || 0); yMrp += (r.mrp || 0); });
-
-    summaryHtml += `
-      <tr>
-        <td><b>${key}</b></td>
-        <td>Runs: <b>${matchAll.length}</b></td>
-        <td>Rev: ₹${dMrp}<br><span style="color:green;font-weight:bold;">Profit: ₹${dMrp - dCost}</span></td>
-        <td>Rev: ₹${mMrp}<br><span style="color:green;font-weight:bold;">Profit: ₹${mMrp - mCost}</span></td>
-        <td>Rev: ₹${yMrp}<br><span style="color:green;font-weight:bold;">Profit: ₹${yMrp - yCost}</span></td>
-      </tr>`;
-  }
-  summaryHtml += `</tbody></table>`;
-  document.getElementById("financialDashboardArea").innerHTML = summaryHtml;
-};
-}
-
-/* EXPORT SHEET LEDGER CONSOLE */
-function renderExportPanel() {
-const tx = db.transaction(["reports", "patients"], "readonly");
-tx.objectStore("reports").getAll().onsuccess = function(eRep) {
-  tx.objectStore("patients").getAll().onsuccess = function(ePat) {
-    const reports = eRep.target.result || [];
-    const patients = ePat.target.result || [];
-    if(reports.length === 0) { alert("No log records located to generate exports."); return; }
-
-    let csv = "Serial,Date Saved,Lab ID,Patient Name,Practitioner,Profile,Cost,MRP,Margin\r\n";
-    let runningCost = 0, runningMrp = 0;
-
-    reports.forEach((r, idx) => {
-      let p = patients.find(item => item.id == r.patientId) || { name:"N/A", doctor:"N/A", labid:"N/A" };
-      let margin = (r.mrp || 0) - (r.cost || 0);
-      runningCost += (r.cost || 0); runningMrp += (r.mrp || 0);
-      csv += `${idx+1},${r.date.replace(/,/g,' ')},${p.labid},${p.name.replace(/,/g,' ')},${p.doctor.replace(/,/g,' ')},${r.profile},₹${r.cost || 0},₹${r.mrp || 0},₹${margin}\r\n`;
-    });
-    csv += `,,,,,,,\r\n,,,,,,,TOTAL LEDGER CONSOLIDATION\r\n,,,,,,,Total Cost: ₹${runningCost}\r\n,,,,,,,Total MRP Yield: ₹${runningMrp}\r\n,,,,,,,Net Yield Balance: ₹${runningMrp - runningCost}\r\n`;
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", `ASTUTE_COMPLETE_LEDGER_${getSystemISODate()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-};
-}
-</script>
+        <section id="patientView" class="space-y-16 animate__animated animate__fadeIn">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-200 pb-12">
+                <div class="lg:col-span-7 space-y-5">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
+                        Clinical Consultation Platform
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-tight">
+                        Precision Medicine for <span class="font-semibold text-slate-800">Your Epidermal Barrier</span>
+                    </h2>
+                    <p class="text-base text-slate-600 leading-relaxed max-w-2xl">
+                        Welcome to our digital skin monitoring architecture. Our practitioners map your precise barrier density metrics and lipid-to-water ratios to prevent transepidermal water loss (TEWL) and eliminate secondary hyperpigmentation before formulation placement.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="launchAssessmentForm()" class="bg-slate-900 hover:bg-teal-700 text-white font-medium text-xs uppercase tracking-widest px-8 py-4 rounded-md shadow-xl hover:shadow-teal-600/10 transition-all duration-300 cursor-pointer">
+                            Start Skin Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 w-full" id="flashCardContainer">
+                    <div onclick="rotateFlashCard()" class="premium-card p-8 rounded-xl border border-slate-200 min-h-[220px] flex flex-col justify-between cursor-pointer relative overflow-hidden bg-white group">
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Dermatological Advisory</span>
+                                <span class="text-[10px] font-medium text-teal-600 flex items-center gap-1">Next Directive <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                            </div>
+                            <p id="dynamicFlashFact" class="text-sm text-slate-600 leading-relaxed font-normal">
+                                Aggressive physical mechanics or highly basic surfactant structures destroy the physiological acid mantle, enabling bacterial colonization and secondary barrier failure.
+                            </p>
+                        </div>
+                        <div class="absolute bottom-0 left-0 h-1 bg-slate-900 transition-all duration-5000" id="flashCardProgress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="assessmentWrapper" class="hidden animate__animated animate__fadeInUp">
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                    <h3 class="text-2xl font-semibold tracking-tight text-slate-900">Patient Case Enrollment</h3>
+                    <p class="text-sm text-slate-500">Provide accurate biometric data. These parameters configure the foundational analysis thresholds inside our practitioner engine.</p>
+                </div>
+
+                <form id="assessmentForm" onsubmit="handleFormSubmit(event)" class="space-y-8 max-w-4xl mx-auto">
+                    
+                    <div id="questionnaireFirstStep" class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">01</span>
+                            <h4 class="text-xs uppercase tracking-widest font-bold text-slate-900">Demographic Registry & Contact</h4>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
+                            <div class="md:col-span-2">
+                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Full Name</label>
+                                <input type="text" id="patName" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:outline-hidden focus:bg-white focus:border-slate-900 transition text-sm text-slate-900">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">WhatsApp Number</label>
+                                <input type="tel" id="patContact" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:outline-hidden focus:bg-white focus:border-slate-900 transition text-sm text-slate-900" placeholder="+1 (555) 000-0000">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Biological Sex</label>
+                                <select id="patSex" onchange="adaptQuestionnaireLabels()" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other / Intersex</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Age Cohort</label>
+                                <select id="patAge" onchange="adaptQuestionnaireLabels()" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
+                                    <option value="teen">&lt; 20 (Adolescent Framework)</option>
+                                    <option value="youngAdult">20 - 35 (Peak Metabolic Horizon)</option>
+                                    <option value="matureAdult">36 - 50 (Decelerating Turnover)</option>
+                                    <option value="senior">&gt; 50 (Post-Menopausal / Mature Horizon)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
+                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">02</span>
+                            <h4 class="text-xs uppercase tracking-widest font-bold text-slate-900">Physiological Diagnostics Matrix</h4>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label id="lblFeel" class="block text-sm font-medium text-slate-800">How does your skin behave 2 hours post-cleansing without cosmetic application?</label>
+                            <select id="qFeel" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
+                                <option value="oily">Severe universal lipid presentation, highly visible surface sebum reflection</option>
+                                <option value="combination">Localized sebum across midface (T-Zone), marginal scaling on peripheral borders</option>
+                                <option value="dry">Structural pulling sensation, intense textural tautness, acute flaking potential</option>
+                                <option value="normal">Homogeneous distribution of lipid film, uniform suppleness, no dynamic discomfort</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="block text-sm font-medium text-slate-800">Co-Existing Clinical Concerns (Select all active disruptions):</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
+                                    <input type="checkbox" name="skinConcerns" value="acne" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                                    <div class="text-xs">
+                                        <span class="font-semibold block text-slate-900">Active Acne Vulgaris</span>
+                                        <span class="text-slate-500 text-[11px]">Papules, pustules, deep cystic lesions, or continuous congestion.</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
+                                    <input type="checkbox" name="skinConcerns" value="pih" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                                    <div class="text-xs">
+                                        <span class="font-semibold block text-slate-900">Pigmentation / Melasma</span>
+                                        <span class="text-slate-500 text-[11px]">Post-inflammatory brown/red spots, sun-induced lentigines, or hormone-induced patches.</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
+                                    <input type="checkbox" name="skinConcerns" value="dryness" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                                    <div class="text-xs">
+                                        <span class="font-semibold block text-slate-900">Erythema & Desquamation</span>
+                                        <span class="text-slate-500 text-[11px]">Chronic visible flaking, compromised surface layers, deep parched states.</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
+                                    <input type="checkbox" name="skinConcerns" value="aging" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                                    <div class="text-xs">
+                                        <span class="font-semibold block text-slate-900">Structural Dermal Deficit</span>
+                                        <span class="text-slate-500 text-[11px]">Loss of collagen density, deep static lines, or gravitational laxity.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-medium text-slate-800">Topical Reaction Envelope</label>
+                                <select id="qSensitivity" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
+                                    <option value="high">Hyper-Reactive Threshold (Stinging, dynamic flush responses)</option>
+                                    <option value="low">Resilient Keratinized Mantle (Accepts high potency direct actives)</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label id="lblSun" class="block text-sm font-medium text-slate-800">Sun Exposure & Professional Environmental Factors:</label>
+                                <select id="qSun" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
+                                    <option value="high">Elevated Exposure: Over 120 weekly minutes of direct high UV index exposure</option>
+                                    <option value="low">Attenuated Exposure: Predominantly climate-controlled indoor workspace</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-slate-800">Atypical Anomalies & Unique Clinical History</label>
+                            <textarea id="qCustomOutlier" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-xs h-24 placeholder-slate-400 focus:outline-hidden focus:bg-white focus:border-slate-900 text-slate-900" placeholder="Please document any history of dermatological conditions, eczema flares, prescription isotretinoin use, or surgical interventions here..."></textarea>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-slate-800">Historical Cosmetic Habituation Index</label>
+                            <textarea id="qCurrentRoutine" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-xs h-20 placeholder-slate-400 focus:outline-hidden focus:bg-white focus:border-slate-900 text-slate-900" placeholder="List active skin interventions, strong toners, essential oils, soap bars, or heavy treatments used previously..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-lg transition duration-300 shadow-xl cursor-pointer tracking-widest text-xs uppercase">
+                        SUBMIT
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="adminView" class="hidden space-y-6 animate__animated animate__fadeIn">
+            
+            <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-xl">
+                <div>
+                    <h2 class="text-xl font-semibold tracking-tight">Clinical Case Evaluation Dashboard</h2>
+                    <p class="text-xs text-teal-400 mt-1">Dr. Aesthetic Hat — Algorithmic Routine Synthesizer Interface</p>
+                </div>
+                <button onclick="exitAdminView()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 py-2.5 px-5 rounded-md border border-slate-700 transition">
+                    Disconnect Station
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-4 premium-card p-5 rounded-xl h-[700px] flex flex-col bg-white">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Live Intake Queue</h3>
+                        <span class="px-2 py-0.5 rounded-full text-[9px] bg-slate-100 text-slate-600 font-bold uppercase">Database Pipeline</span>
+                    </div>
+                    
+                    <div id="queueContainer" class="space-y-3 overflow-y-auto flex-1 pr-1">
+                        <div class="text-center py-12 text-slate-400 space-y-2">
+                            <svg class="w-8 h-8 mx-auto stroke-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
+                            <p class="text-xs italic">Awaiting synchronized payload telemetry...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 space-y-6">
+                    
+                    <div class="premium-card p-6 rounded-xl bg-white space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Target Profile Biomarkers</h3>
+                        <div id="activePatientMeta" class="text-xs text-slate-500">
+                            <p class="italic bg-slate-50 p-4 rounded-lg border border-dashed border-slate-200">Select an inbound file from the live queue to launch the formulation engine workspace.</p>
+                        </div>
+                        <button id="generateRoutineBtn" disabled onclick="generateSuggestedRoutine()" class="hidden w-full mt-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-3 rounded-lg transition-all duration-300 uppercase tracking-widest shadow-md">
+                            Execute Automated Layering Engine
+                        </button>
+                    </div>
+
+                    <div class="premium-card p-6 rounded-xl bg-white space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Custom Layering Architecture</h3>
+                            <span class="text-[10px] font-mono text-slate-400">Dynamic Text Synthesis</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-1.5">
+                                <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-sm">
+                                    ☀️ AM Layering Sequence
+                                </label>
+                                <textarea id="routineAM" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-emerald-400 h-40 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-sm">
+                                    🌙 PM Layering Sequence
+                                </label>
+                                <textarea id="routinePM" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-emerald-400 h-40 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-1 rounded-sm">
+                                🔬 Clinical Contraindications & Operational Directives
+                            </label>
+                            <textarea id="routineNotes" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 h-24 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="shareViaWhatsApp()" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-3.5 px-4 rounded-lg transition shadow-md uppercase tracking-wider cursor-pointer">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.447 5.338 1.448 5.494 0 9.961-4.471 9.964-9.97 0-2.665-1.036-5.171-2.918-7.054C17.15 1.697 14.646.662 12.01.662c-5.498 0-9.965 4.47-9.968 9.97-.001 2.07.541 4.095 1.57 5.86l-.99 3.614 3.71-.973zm11.309-3.254c-.213-.107-1.262-.622-1.457-.692-.195-.071-.337-.107-.479.107-.142.214-.55.692-.673.833-.124.141-.248.158-.461.052-.213-.107-.9-.331-1.714-1.057-.633-.565-1.061-1.263-1.185-1.476-.124-.213-.013-.328.093-.434.096-.095.213-.248.32-.372.106-.124.142-.213.213-.354.071-.142.035-.266-.018-.372-.053-.107-.479-1.152-.656-1.578-.173-.414-.346-.358-.479-.365-.124-.006-.266-.007-.408-.007-.141 0-.372.053-.567.266-.195.213-.745.727-.745 1.772 0 1.045.761 2.054.867 2.196.106.142 1.498 2.288 3.629 3.208.507.219.903.351 1.21.449.51.162.973.139 1.339.085.409-.06 1.262-.515 1.439-1.011.177-.496.177-.922.124-.107z"/></svg>
+                                Dispatch to Patient Line
+                            </button>
+                            <button onclick="shareViaEmail()" class="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-3.5 px-4 rounded-lg transition shadow-md uppercase tracking-wider cursor-pointer">
+                                <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                                Secure Email Transmittal
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-6 rounded-xl bg-white space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Clinical Reference Case Gallery</h3>
+                            <span class="text-[10px] text-teal-600 bg-teal-50 px-2 py-0.5 rounded-sm font-semibold">Diagnostic Baseline Photos</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[9px] font-mono text-white tracking-tight">Index A: Sebum Congestion</span>
+                                </div>
+                            </div>
+                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[9px] font-mono text-white tracking-tight">Index B: Dehydrated Keratin</span>
+                                </div>
+                            </div>
+                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[9px] font-mono text-white tracking-tight">Index C: Vascular Flush</span>
+                                </div>
+                            </div>
+                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
+                                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="text-[9px] font-mono text-white tracking-tight">Index D: Structural Deficit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // LIVE PRODUCTION FIRESTORE CONTEXT INITIALIZATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyAV_wcByfW1MyULiOWBficdhGgqX5fmpS8",
+            authDomain: "dr-aesthetic-hat.firebaseapp.com",
+            projectId: "dr-aesthetic-hat",
+            storageBucket: "dr-aesthetic-hat.firebasestorage.app",
+            messagingSenderId: "1040353314132",
+            appId: "1:1040353314132:web:f6ef181676651b0a12f4c1"
+        };
+
+        // Initialize Firebase deployment connections safely
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        let currentSelectedRecord = null;
+
+        // HIGH-END ADVISORY KNOWLEDGE BASE MATRIX
+        const factsArray = [
+            "Stripping lipids via aggressive surfactant washes forces the stratum corneum into reactive hyper-seborrhea, mimicking oily skin while the barrier dehydrates underneath.",
+            "Optimal molecular absorption relies on viscosity hierarchies. Flooding the cells with lightweight humectants before applying lipid-locking emollients keeps the barrier dense.",
+            "Healthy epidermal structures sit between a 4.5 – 5.5 pH micro-climate. Alkaline formulations disrupt the acid mantle, allowing Propionibacterium acnes colonization.",
+            "As estrogen and testosterone profiles transition across age brackets, sebum viscosity fluctuates, altering the tolerance envelope for direct alpha/beta hydroxy-acids.",
+            "Transepidermal Water Loss (TEWL) spikes significantly during nocturnal sleep cycles due to increased skin temperature and microcirculation shifts.",
+            "Layered routines utilize hydration stacking with low-molecular-weight agents to naturally accelerate cellular turnover without invoking acid irritation."
+        ];
+
+        let currentFactIndex = 0;
+        let flashInterval = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            let splashFactIndex = 0;
+            const placeholderEl = document.getElementById('splashFactPlaceholder');
+            if (placeholderEl) placeholderEl.innerText = factsArray[splashFactIndex];
+            
+            setInterval(() => {
+                splashFactIndex = (splashFactIndex + 1) % factsArray.length;
+                const p = document.getElementById('splashFactPlaceholder');
+                if (!p) return;
+                p.classList.remove('animate__fadeIn');
+                p.classList.add('animate__fadeOut');
+                
+                setTimeout(() => {
+                    p.innerText = factsArray[splashFactIndex];
+                    p.classList.remove('animate__fadeOut');
+                    p.classList.add('animate__fadeIn');
+                }, 400);
+            }, 4000);
+
+            initFlashCardEngine();
+        });
+
+        function unlockClinicAccess() {
+            const splash = document.getElementById('splashScreen');
+            if (splash) {
+                splash.classList.add('animate__animated', 'animate__fadeOut');
+                setTimeout(() => { splash.remove(); }, 600);
+            }
+        }
+
+        function initFlashCardEngine() {
+            resetFlashProgressBar();
+            flashInterval = setInterval(() => { rotateFlashCard(); }, 6000);
+        }
+
+        function rotateFlashCard() {
+            const el = document.getElementById('dynamicFlashFact');
+            if(!el) return;
+            
+            setTimeout(() => {
+                currentFactIndex = (currentFactIndex + 1) % factsArray.length;
+                el.innerText = factsArray[currentFactIndex];
+                resetFlashProgressBar();
+            }, 200);
+
+            if (event && event.type === 'click') {
+                clearInterval(flashInterval);
+                flashInterval = setInterval(() => { rotateFlashCard(); }, 6000);
+            }
+        }
+
+        function resetFlashProgressBar() {
+            const bar = document.getElementById('flashCardProgress');
+            if(!bar) return;
+            bar.style.transition = 'none';
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.transition = 'width 5800ms linear';
+                bar.style.width = '100%';
+            }, 50);
+        }
+
+        function launchAssessmentForm() {
+            const wrapper = document.getElementById('assessmentWrapper');
+            wrapper.classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('questionnaireFirstStep').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
+
+        function scrollToAssessment() {
+            launchAssessmentForm();
+        }
+
+        function adaptQuestionnaireLabels() {
+            const sex = document.getElementById('patSex').value;
+            const age = document.getElementById('patAge').value;
+            const lblFeel = document.getElementById('lblFeel');
+            const lblSun = document.getElementById('lblSun');
+            
+            if (sex === 'male') {
+                lblFeel.innerText = "How does your skin feel mid-day, especially considering micro-tears from shaving friction or facial hair oil distribution?";
+            } else {
+                lblFeel.innerText = "How does your skin behave 2 hours post-cleansing without cosmetic application?";
+            }
+            
+            if (age === 'teen') {
+                lblSun.innerText = "Sun Exposure & Sports / Intensive Outdoor Athletic Training Horizons:";
+            } else if (age === 'senior') {
+                lblSun.innerText = "Sun Exposure, Extended Screen Time, or Advanced Environmental Humidity Factors:";
+            } else {
+                lblSun.innerText = "Sun Exposure & Professional Environmental Factors:";
+            }
+        }
+
+        function toggleAdminView() {
+            const accessPin = prompt("Enter Practitioner Security Verification PIN:");
+            if (accessPin === "1234") {
+                document.getElementById('patientView').classList.add('hidden');
+                document.getElementById('adminView').classList.remove('hidden');
+                fetchSubmissionsQueue();
+            } else {
+                alert("Security Credentials Rejected.");
+            }
+        }
+
+        function exitAdminView() {
+            document.getElementById('adminView').classList.add('hidden');
+            document.getElementById('patientView').classList.remove('hidden');
+        }
+
+        // WRITE PATIENT CASE TO LIVE FIRESTORE
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const selectedConcerns = [];
+            document.querySelectorAll('input[name="skinConcerns"]:checked').forEach(cb => {
+                selectedConcerns.push(cb.value);
+            });
+
+            const payload = {
+                name: document.getElementById('patName').value.trim(),
+                contact: document.getElementById('patContact').value.trim(),
+                sex: document.getElementById('patSex').value,
+                age: document.getElementById('patAge').value,
+                feel: document.getElementById('qFeel').value,
+                concerns: selectedConcerns,
+                sensitivity: document.getElementById('qSensitivity').value,
+                sun: document.getElementById('qSun').value,
+                customOutlier: document.getElementById('qCustomOutlier').value.trim(),
+                currentRoutine: document.getElementById('qCurrentRoutine').value.trim(),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() // Real cloud time sync
+            };
+
+            try {
+                await db.collection('skinAssessments').add(payload);
+                alert("Case file successfully generated and synchronized with the cloud clinical registry.");
+                document.getElementById('assessmentForm').reset();
+            } catch (err) {
+                console.error("Critical database pipeline rupture: ", err);
+                alert("Failed transmission to network registry.");
+            }
+        }
+
+        // STREAM REAL-TIME CASE FILES FROM THE FIRESTORE WEBSOCKET CHANNEL
+        function fetchSubmissionsQueue() {
+            db.collection('skinAssessments')
+              .orderBy('timestamp', 'desc')
+              .onSnapshot({ includeMetadataChanges: true }, snapshot => {
+                  const records = [];
+                  snapshot.forEach(doc => {
+                      const data = doc.data();
+                      
+                      // Handle server timestamp sync state safely
+                      let normalizedTime;
+                      if (data.timestamp && typeof data.timestamp.toDate === 'function') {
+                          normalizedTime = data.timestamp.toDate().toISOString();
+                      } else {
+                          normalizedTime = new Date().toISOString(); // Fallback for immediate local rendering or legacy text timestamps
+                      }
+                      
+                      records.push({ 
+                          id: doc.id, 
+                          ...data,
+                          timestamp: normalizedTime
+                      });
+                  });
+                  renderQueueUI(records);
+              }, err => {
+                  console.error("Live streaming pipeline broken: ", err);
+                  alert("Live monitoring link failed. Open browser console (F12) to click the index link!");
+              });
+        }
+
+        function renderQueueUI(records) {
+            const container = document.getElementById('queueContainer');
+            if (records.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic p-4 text-center">Case queue clear.</p>`;
+                return;
+            }
+
+            container.innerHTML = records.map(rec => {
+                // Safeguard against malformed JSON data when turning record into string format
+                const sanitizedRecord = JSON.stringify(rec).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+                return `
+                    <div onclick="selectPatientRecord('${sanitizedRecord}')" 
+                         class="p-4 rounded-lg border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition text-left block bg-white cursor-pointer shadow-xs">
+                        <div class="flex justify-between items-start">
+                            <p class="text-xs font-bold text-slate-900 truncate">${rec.name}</p>
+                            <span class="text-[9px] font-mono text-slate-400">${new Date(rec.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-tight mt-0.5">${rec.sex} · ${rec.age}</p>
+                        <div class="flex gap-1.5 flex-wrap mt-2">
+                            <span class="px-1.5 py-0.5 text-[9px] bg-slate-100 text-slate-800 rounded-sm uppercase font-semibold">${rec.feel}</span>
+                            ${(rec.concerns || []).map(c => `<span class="px-1.5 py-0.5 text-[9px] bg-teal-50 text-teal-800 rounded-sm uppercase font-semibold">${c}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectPatientRecord(recordString) {
+            // Unescape quotes and convert back into clear object structure safely
+            const unescapedString = recordString.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+            const record = JSON.parse(unescapedString);
+            currentSelectedRecord = record;
+            
+            const metaContainer = document.getElementById('activePatientMeta');
+            metaContainer.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-lg border border-slate-200">
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Patient Identification</span> <span class="text-slate-900 font-semibold text-sm">${record.name}</span></div>
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Secure Comms Routing</span> <span class="text-slate-900 font-mono text-xs">${record.contact}</span></div>
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Biometric Cohort</span> <span class="uppercase text-slate-900 font-medium">${record.sex} (${record.age})</span></div>
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Mantle Baseline Classification</span> <span class="text-teal-700 uppercase font-bold">${record.feel}</span></div>
+                    <div class="md:col-span-2"><span class="text-slate-400 font-bold text-[10px] uppercase block">Target Anomalies Flagged</span> <span class="text-slate-900 font-medium uppercase text-xs">${(record.concerns || []).join(', ') || 'NONE DETECTED'}</span></div>
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Irritation Sensitivity Index</span> <span class="uppercase font-semibold text-amber-700">${record.sensitivity}</span></div>
+                    <div><span class="text-slate-400 font-bold text-[10px] uppercase block">UV Environmental Index</span> <span class="uppercase text-slate-900">${record.sun}</span></div>
+                    <div class="md:col-span-2 border-t border-slate-200 pt-3"><span class="text-slate-400 font-bold text-[10px] uppercase block mb-1">Atypical Pathologies & Historical Data</span> <p class="bg-white p-3 rounded-md text-slate-700 border border-slate-200">${record.customOutlier || 'No abnormalities documented.'}</p></div>
+                    <div class="md:col-span-2"><span class="text-slate-400 font-bold text-[10px] uppercase block mb-1">Historical Habituation Matrix</span> <p class="bg-white p-3 rounded-md text-slate-700 border border-slate-200">${record.currentRoutine || 'Zero prior cosmetic active products recorded.'}</p></div>
+                </div>
+            `;
+            
+            const btn = document.getElementById('generateRoutineBtn');
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('hidden');
+            }
+        }
+
+        function generateSuggestedRoutine() {
+            if (!currentSelectedRecord) return;
+            const rec = currentSelectedRecord;
+            const concerns = rec.concerns || [];
+
+            let am = ""; let pm = ""; let notes = "";
+
+            if (rec.feel === 'dry') {
+                am += "1. Cleanse: Rinse with lukewarm water exclusively to shield existing lipid layers.\n";
+                pm += "1. Cleanse: Non-foaming Ceramide Gel wash matrix.\n";
+            } else if (rec.feel === 'oily') {
+                if (rec.sensitivity === 'high') {
+                    am += "1. Cleanse: Sulfate-Free Amino Acid gel wash base.\n";
+                    pm += "1. Cleanse: Soothing foam system with safe botanicals.\n";
+                } else {
+                    am += concerns.includes('acne') ? "1. Cleanse: 1.5% Salicylic Acid (BHA) Exfoliating Cleanser.\n" : "1. Cleanse: Balanced foaming wash.\n";
+                    pm += "1. Cleanse: Deep clarifying sebum regulation system.\n";
+                }
+            } else {
+                am += "1. Cleanse: pH-neutral Centella Asiatica calming fluid.\n";
+                pm += "1. Cleanse: Double-cleansing process if modern UV blocks are present.\n";
+            }
+
+            if (rec.feel === 'dry' || concerns.includes('dryness')) {
+                am += "2. Hydration Base: Multi-tier low molecular weight Panthenol lotion onto wet skin.\n";
+                pm += "2. Hydration Base: Milky lipid-replacement Rice Bran suspension fluid.\n";
+            } else {
+                am += "2. Hydration Base: Weightless Green Tea hydrosol water layer.\n";
+            }
+
+            let addedActiveAM = false; let addedActivePM = false;
+
+            if (concerns.includes('acne')) {
+                if (rec.feel === 'dry' || rec.sensitivity === 'high') {
+                    am += "3. Primary Actives: Niacinamide 4% + Zinc PCA 0.5% Serum (Combats surface sebum safely).\n";
+                    pm += "3. Primary Actives: Time-released Encapsulated Retinol 0.15% or Azelaic Acid lotion.\n";
+                    notes += "* Overlapping active acne + barrier dryness observed. Aggressive leave-on liquid BHAs bypassed to protect cell integrity.\n";
+                } else {
+                    am += "3. Primary Actives: Salicylic Acid 2% targeted lipophilic application fluid.\n";
+                    pm += "3. Primary Actives: Adapalene 0.1% Layer across comedone coordinates.\n";
+                }
+                addedActiveAM = true; addedActivePM = true;
+            }
+
+            if (concerns.includes('pih')) {
+                if (!addedActiveAM) { am += "3. Primary Actives: Alpha Arbutin 2% paired with modern Vitamin C forms.\n"; addedActiveAM = true; }
+                else { am += "3b. Secondary Actives: Tranexamic Acid 3% blended into hydration base.\n"; }
+                if (!addedActivePM) { pm += "3. Primary Actives: Kojic Acid or dynamic Cysteamine application layer.\n"; addedActivePM = true; }
+            }
+
+            if (concerns.includes('aging') || rec.age === 'matureAdult' || rec.age === 'senior') {
+                if (!addedActiveAM) am += "3. Primary Actives: Copper Tripeptide-1 tissue firming factors.\n";
+                if (!addedActivePM) pm += "3. Primary Actives: Retinaldehyde 0.05% in a stabilized squalane solution.\n";
+            }
+
+            if (rec.feel === 'dry' || rec.feel === 'combination') {
+                am += "4. Protective Seal: Emollient barrier restructuring paste.\n5. Solar Architecture: Fluid Hybrid SPF 50+ mineral layer.\n";
+                pm += "4. Protective Seal: Bio-identical 3:1:1 Ceramide/Cholesterol fatty acid compounding paste.\n";
+            } else {
+                am += "4. Protective Seal: Sebum-controlling oil-free gel fluid.\n5. Solar Architecture: Fluid ultra-matte Chemical SPF 50+ layer.\n";
+                pm += "4. Protective Seal: Light non-comedogenic Hyaluronic acid gel fluid.\n";
+            }
+
+            if (rec.customOutlier) {
+                notes += `\n* Patient-specific observation addressing: "${rec.customOutlier}"`;
+            } else {
+                notes += "\n* Allow actives to dry completely for 120 seconds before sealing with moisturizer to protect pH stability gradients.";
+            }
+
+            document.getElementById('routineAM').value = am.trim();
+            document.getElementById('routinePM').value = pm.trim();
+            document.getElementById('routineNotes').value = notes.trim();
+        }
+
+        function compileRoutineText() {
+            const name = currentSelectedRecord ? currentSelectedRecord.name : "Patient";
+            return `*DR. AESTHETIC HAT — CUSTOM CLINICAL REGIMEN ARCHITECTURE*\n` +
+                   `Prepared for: ${name}\n` +
+                   `----------------------------------------\n\n` +
+                   `☀️ *MORNING (AM) MOLECULAR SEQUENCE:*\n${document.getElementById('routineAM').value}\n\n` +
+                   `🌙 *EVENING (PM) REPAIR PROTOCOL:*\n${document.getElementById('routinePM').value}\n\n` +
+                   `🔬 *CLINICAL ADVISORY NOTES:*\n${document.getElementById('routineNotes').value}`;
+        }
+
+        function shareViaWhatsApp() {
+            if (!currentSelectedRecord) return alert("Launch and evaluate a patient record first.");
+            const text = encodeURIComponent(compileRoutineText());
+            const targetPhone = currentSelectedRecord.contact.replace(/[^0-9]/g, '');
+            window.open(`https://api.whatsapp.com/send?phone=${targetPhone}&text=${text}`, '_blank');
+        }
+
+        function shareViaEmail() {
+            if (!currentSelectedRecord) return alert("Launch and evaluate a patient record first.");
+            const subject = encodeURIComponent("Clinical Skincare Regimen — Dr. Aesthetic Hat");
+            const body = encodeURIComponent(compileRoutineText());
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+    </script>
 </body>
 </html>
