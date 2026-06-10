@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mind • Peace • Balance | Dr Aesthetic Hat</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+
+:root{
+--dark:#020617;
+--card:rgba(255,255,255,0.08);
+--glass:rgba(255,255,255,0.06);
+--teal:#14b8a6;
+}
+
+body{
+background:linear-gradient(
+180deg,
+#020617 0%,
+#0f172a 35%,
+#111827 100%
+);
+
+overflow-x:hidden;
+color:white;
+font-family:Inter,sans-serif;
+}
+
+.glass{
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.floating{
+animation:float 8s ease-in-out infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+.hero-glow{
+
+position:absolute;
+
+width:500px;
+height:500px;
+
+background:#14b8a6;
+
+filter:blur(180px);
+
+opacity:.12;
+
+border-radius:50%;
+}
+.breath-circle{
+
+width:220px;
+height:220px;
+
+border-radius:50%;
+
+background:rgba(20,184,166,0.15);
+
+border:2px solid rgba(20,184,166,0.4);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:1.2rem;
+font-weight:600;
+
+animation:breathe 8s infinite ease-in-out;
+
+margin:auto;
+
+}
+
+@keyframes breathe{
+
+0%{
+transform:scale(1);
+}
+
+25%{
+transform:scale(1.25);
+}
+
+50%{
+transform:scale(1.25);
+}
+
+75%{
+transform:scale(1);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+  
+html{
+scroll-behavior:smooth;
+}
+
+#stars{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:.4;
+animation:twinkle 4s infinite;
+}
+
+@keyframes twinkle{
+
+0%{
+opacity:.2;
+}
+
+50%{
+opacity:.8;
+}
+
+100%{
+opacity:.2;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+  <div id="stars"></div>
+  
+  <div style="
+position:fixed;
+top:50%;
+right:-2px;
+transform:translateY(-50%);
+z-index:99999;
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+">
+    <a href="index.html"
+style="
+background:#1e293b;
+color:white;
+border-radius:14px 0 0 14px;
+padding:12px 8px;
+box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+text-align:center;
+font-size:12px;
+font-weight:bold;
+margin-bottom:6px;
+display:block;
+">
+S<br>K<br>I<br>N
+</a>
+
+<a href="mind.html"
+style="
+background:#14b8a6;
+color:white;
+border-radius:14px 0 0 14px;
+padding:12px 8px;
+box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+text-align:center;
+font-size:12px;
+font-weight:bold;
+margin-bottom:6px;
+display:block;
+">
+M<br>I<br>N<br>D
+</a>
+
+<a href="peace.html"
+style="
+background:#1e293b;
+color:white;
+border-radius:14px 0 0 14px;
+padding:12px 8px;
+box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+text-align:center;
+font-size:12px;
+font-weight:bold;
+display:block;
+">
+P<br>E<br>A<br>C<br>E
+</a>
+</div>
+</div>
+  <section class="relative min-h-screen flex items-center justify-center px-6">
+
+<div class="hero-glow top-0 left-0"></div>
+
+<div class="hero-glow bottom-0 right-0"></div>
+
+<div class="text-center max-w-5xl z-10">
+
+<p class="uppercase tracking-[8px] text-teal-400 text-xs mb-5">
+
+DR AESTHETIC HAT
+
+</p>
+
+<h1 class="text-6xl md:text-8xl font-light leading-tight">
+
+The Quiet
+
+<span class="text-teal-400">
+Within
+</span>
+
+</h1>
+
+<p class="mt-8 text-slate-300 max-w-2xl mx-auto text-lg leading-relaxed">
+
+A space to slow down,
+
+reflect,
+
+and reconnect with yourself.
+
+Because true wellness begins within.
+
+</p>
+
+<a href="#journey"
+
+class="inline-block mt-12 bg-teal-600 hover:bg-teal-500 transition px-8 py-4 rounded-xl text-sm font-bold tracking-widest">
+
+ENTER THE QUIET
+
+</a>
+
+</div>
+
+</section>
+  <section id="journey" class="py-24 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="text-center mb-16">
+
+<p class="text-teal-400 uppercase tracking-[6px] text-xs mb-3">
+INNER REFLECTIONS
+</p>
+
+<h2 class="text-4xl md:text-5xl font-light">
+Moments of Calm
+</h2>
+
+<p class="text-slate-400 mt-4 max-w-2xl mx-auto">
+Sometimes peace begins with a single thought.
+</p>
+
+</div>
+
+<div class="grid md:grid-cols-3 gap-8">
+
+<div class="glass rounded-3xl p-8 floating">
+
+<p class="text-4xl mb-5">☁️</p>
+
+<p class="text-xl leading-relaxed">
+You don't need to solve
+everything today.
+</p>
+
+</div>
+
+<div class="glass rounded-3xl p-8 floating"
+style="animation-delay:2s;">
+
+<p class="text-4xl mb-5">🌿</p>
+
+<p class="text-xl leading-relaxed">
+Growth happens quietly,
+one day at a time.
+</p>
+
+</div>
+
+<div class="glass rounded-3xl p-8 floating"
+style="animation-delay:4s;">
+
+<p class="text-4xl mb-5">🌙</p>
+
+<p class="text-xl leading-relaxed">
+Rest is productive.
+Your mind deserves recovery.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<section class="py-20 px-6">
+
+<div class="max-w-4xl mx-auto">
+
+<div class="glass rounded-3xl p-12 text-center">
+
+<p class="uppercase text-teal-400 tracking-[5px] text-xs mb-6">
+
+DAILY WISDOM
+
+</p>
+
+<p id="quoteBox"
+class="text-2xl md:text-3xl font-light leading-relaxed">
+
+Peace is not found.
+It is created.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+  <script>
+
+const quotes = [
+
+"Peace is not found. It is created.",
+
+"The quieter the mind, the clearer the vision.",
+
+"Your worth is not measured by productivity.",
+
+"A calm mind is a powerful mind.",
+
+"Healing often happens invisibly.",
+
+"Slow down. Nothing important is running away."
+
+];
+
+let q = 0;
+
+setInterval(()=>{
+
+q++;
+
+if(q >= quotes.length) q = 0;
+
+document.getElementById("quoteBox").innerText = quotes[q];
+
+},4000);
+
+const breathStates = [
+"Inhale",
+"Hold",
+"Exhale",
+"Hold"
+];
+
+let breathIndex = 0;
+
+setInterval(()=>{
+
+breathIndex++;
+
+if(breathIndex >= breathStates.length){
+breathIndex = 0;
+}
+
+document.getElementById("breathText").innerText =
+breathStates[breathIndex];
+
+},2000);
+  for(let i=0;i<80;i++){
+
+const star=document.createElement("div");
+
+star.classList.add("star");
+
+star.style.left=Math.random()*100+"%";
+
+star.style.top=Math.random()*100+"%";
+
+star.style.animationDelay=Math.random()*4+"s";
+
+document.getElementById("stars").appendChild(star);
+
+}
+</script>
+  <section class="py-28 px-6">
+
+<div class="max-w-5xl mx-auto text-center">
+
+<p class="text-teal-400 uppercase tracking-[6px] text-xs mb-4">
+
+BREATHING SPACE
+
+</p>
+
+<h2 class="text-4xl md:text-5xl font-light mb-6">
+
+Pause For A Moment
+
+</h2>
+
+<p class="text-slate-400 max-w-2xl mx-auto mb-16">
+
+Follow the circle.
+
+Breathe slowly.
+
+Nothing else needs your attention right now.
+
+</p>
+
+<div class="breath-circle">
+
+<span id="breathText">
+
+Inhale
+
+</span>
+
+</div>
+
+<div class="mt-10 text-slate-400 text-sm">
+
+4 Seconds Inhale • 4 Seconds Hold • 4 Seconds Exhale
+
+</div>
+
+</div>
+
+</section>
+  <section class="py-24 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="text-center mb-14">
+
+<p class="text-teal-400 uppercase tracking-[6px] text-xs mb-3">
+SERENITY GALLERY
+</p>
+
+<h2 class="text-4xl md:text-5xl font-light">
+Moments Worth Feeling
+</h2>
+
+<p class="text-slate-400 mt-4">
+Peace often lives in simple places.
+</p>
+
+</div>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<div class="overflow-hidden rounded-3xl glass">
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80"
+class="w-full h-80 object-cover hover:scale-110 transition duration-700">
+</div>
+
+<div class="overflow-hidden rounded-3xl glass">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+class="w-full h-80 object-cover hover:scale-110 transition duration-700">
+</div>
+
+<div class="overflow-hidden rounded-3xl glass">
+<img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80"
+class="w-full h-80 object-cover hover:scale-110 transition duration-700">
+</div>
+
+</div>
+
+</div>
+
+</section>
+  <section class="py-24 px-6">
+
+<div class="max-w-4xl mx-auto">
+
+<div class="glass rounded-3xl p-10">
+
+<div class="text-center mb-10">
+
+<p class="text-teal-400 uppercase tracking-[6px] text-xs mb-3">
+GRATITUDE SPACE
+</p>
+
+<h2 class="text-4xl font-light">
+Three Good Things Today
+</h2>
+
+<p class="text-slate-400 mt-4">
+Small moments deserve recognition.
+</p>
+
+</div>
+
+<textarea
+placeholder="Write three things you're grateful for today..."
+class="w-full h-48 bg-slate-900/40 border border-slate-700 rounded-2xl p-6 text-white resize-none focus:outline-none focus:border-teal-500">
+</textarea>
+
+</div>
+
+</div>
+
+</section>
+  <section class="py-24 px-6 text-center">
+
+<div class="max-w-3xl mx-auto">
+
+<h2 class="text-5xl font-light leading-tight">
+
+Your Mind Deserves
+
+<span class="text-teal-400">
+Peace
+</span>
+
+</h2>
+
+<p class="mt-8 text-slate-400 text-lg leading-relaxed">
+
+Not every day must be productive.
+
+Not every thought must be solved.
+
+Not every burden must be carried alone.
+
+</p>
+
+</div>
+
+</section>
+  <section class="py-32 px-6">
+
+<div class="max-w-4xl mx-auto text-center">
+
+<p class="uppercase tracking-[8px] text-teal-400 text-xs mb-5">
+
+DR AESTHETIC HAT
+
+</p>
+
+<h2 class="text-5xl md:text-7xl font-light leading-tight">
+
+Nurture Your 
+
+<span class="text-teal-400">
+Inner World
+</span>
+
+</h2>
+
+<p class="mt-8 text-slate-400 text-lg max-w-2xl mx-auto">
+
+A peaceful mind supports a healthier body.
+
+A healthier body supports healthier skin.
+
+Everything is connected.
+
+</p>
+
+</div>
+
+</section>
+  
+  <footer class="border-t border-slate-800 py-10">
+
+<div class="max-w-6xl mx-auto px-6 text-center">
+
+<h3 class="text-xl font-semibold">
+
+Dr Aesthetic Hat
+
+</h3>
+
+<p class="text-slate-500 mt-2 text-sm">
+
+Skin • Wellness • Peace
+
+</p>
+
+<p class="text-slate-600 mt-6 text-xs">
+
+© 2026 Dr Aesthetic Hat
+
+</p>
+
+</div>
+
+</footer>
+  </body>
+</html>
