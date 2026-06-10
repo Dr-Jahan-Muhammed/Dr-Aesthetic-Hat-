@@ -180,53 +180,64 @@ display:flex;
 flex-direction:column;
 align-items:flex-end;
 ">
-    <a href="index.html"
+
+<a href="index.html"
 style="
 background:#1e293b;
 color:white;
-border-radius:14px 0 0 14px;
 padding:12px 8px;
-box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+border-radius:14px 0 0 14px;
+box-shadow:-4px 0 20px rgba(0,0,0,.3);
 text-align:center;
 font-size:12px;
 font-weight:bold;
-margin-bottom:6px;
+margin-bottom:8px;
 display:block;
+writing-mode:vertical-rl;
+text-orientation:upright;
+letter-spacing:2px;
 ">
-S<br>K<br>I<br>N
+SKIN
 </a>
 
 <a href="mind.html"
 style="
 background:#14b8a6;
 color:white;
-border-radius:14px 0 0 14px;
 padding:12px 8px;
-box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+border-radius:14px 0 0 14px;
+box-shadow:-4px 0 20px rgba(0,0,0,.3);
 text-align:center;
 font-size:12px;
 font-weight:bold;
-margin-bottom:6px;
+margin-bottom:8px;
 display:block;
+writing-mode:vertical-rl;
+text-orientation:upright;
+letter-spacing:2px;
 ">
-M<br>I<br>N<br>D
+MIND
 </a>
 
 <a href="peace.html"
 style="
-background:#1e293b;
+background:#6366f1;
 color:white;
-border-radius:14px 0 0 14px;
 padding:12px 8px;
-box-shadow:-4px 0 20px rgba(0,0,0,0.3);
+border-radius:14px 0 0 14px;
+box-shadow:-4px 0 20px rgba(0,0,0,.3);
 text-align:center;
 font-size:12px;
 font-weight:bold;
 display:block;
+writing-mode:vertical-rl;
+text-orientation:upright;
+letter-spacing:2px;
 ">
-P<br>E<br>A<br>C<br>E
+PEACE
 </a>
-</div>
+
+
 </div>
   <section class="relative min-h-screen flex items-center justify-center px-6">
 
@@ -516,6 +527,33 @@ class="w-full h-80 object-cover hover:scale-110 transition duration-700">
 </div>
 
 </section>
+<section class="py-16 px-6">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="text-teal-400 uppercase tracking-[6px] text-xs mb-6">AMBIENT ATMOSPHERE</p>
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <button onclick="toggleSound('rain', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
+        <p class="text-3xl mb-2">🌧️</p>
+        <p class="text-sm tracking-widest">RAIN</p>
+        <audio id="audio-rain" loop src="https://cdn.freesound.org/previews/531/531947_11166466-lq.mp3"></audio>
+      </button>
+
+      <button onclick="toggleSound('bowl', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
+        <p class="text-3xl mb-2">🥣</p>
+        <p class="text-sm tracking-widest">SINGING BOWL</p>
+        <audio id="audio-bowl" loop src="https://cdn.freesound.org/previews/442/442770_9015615-lq.mp3"></audio>
+      </button>
+
+      <button onclick="toggleSound('forest', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
+        <p class="text-3xl mb-2">🍃</p>
+        <p class="text-sm tracking-widest">FOREST</p>
+        <audio id="audio-forest" loop src="https://cdn.freesound.org/previews/538/538965_10762696-lq.mp3"></audio>
+      </button>
+
+    </div>
+  </div>
+</section>
+
   <section class="py-24 px-6">
 
 <div class="max-w-4xl mx-auto">
@@ -538,10 +576,19 @@ Small moments deserve recognition.
 
 </div>
 
-<textarea
+<textarea id="gratitudeInput"
 placeholder="Write three things you're grateful for today..."
 class="w-full h-48 bg-slate-900/40 border border-slate-700 rounded-2xl p-6 text-white resize-none focus:outline-none focus:border-teal-500">
 </textarea>
+
+<button onclick="releaseGratitude()" class="mt-6 bg-teal-600 hover:bg-teal-500 transition px-8 py-3 rounded-xl text-sm font-bold tracking-widest w-full">
+  RELEASE INTO THE QUIET
+</button>
+
+<p id="gratitudeMessage" class="text-teal-400 mt-6 text-sm tracking-widest hidden transition-all duration-500">
+  ✨ Your gratitude has been acknowledged. ✨
+</p>
+
 
 </div>
 
