@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Aesthetic Hat — Premier Dermatology & Skincare Architecture</title>
     
-    <!-- Modern Tailwind CSS v4 & Animation Libs -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
-    <!-- Legacy Firebase Compatibility -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
@@ -53,9 +51,6 @@
 </head>
 <body class="text-slate-800 antialiased selection:bg-teal-500/20 selection:text-teal-900">
 
-    <!-- ========================================== -->
-    <!--  1. MEDICAL AUTHENTICATION/WELCOME SCREEN  -->
-    <!-- ========================================== -->
     <div id="splashScreen" class="fixed inset-0 z-100 bg-slate-900 flex flex-col items-center justify-center p-6 transition-all duration-700 ease-in-out">
         <div class="max-w-xl w-full text-center space-y-8 animate__animated animate__fadeIn">
             
@@ -66,12 +61,11 @@
                     </svg>
                 </div>
                <h1 class="text-3xl sm:text-4xl font-light tracking-tight text-white whitespace-nowrap">
-    Dr. AESTHETIC <span class="font-semibold text-teal-400">HAT</span>
-</h1>
+                    Dr. AESTHETIC <span class="font-semibold text-teal-400">HAT</span>
+                </h1>
                 <p class="text-xs uppercase tracking-widest text-slate-400 font-medium"> Integrated Dermatology • Diagnostics • Aesthetic Intelligence </p>
             </div>
 
-            <!-- Insight Carousel Space -->
             <div class="p-6 rounded-xl bg-slate-950/60 border border-slate-800 h-28 flex items-center justify-center shadow-inner">
                 <p id="splashFactPlaceholder" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-light italic">
                     Initializing systemic diagnostic indices...
@@ -87,9 +81,6 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!--  2. CLINIC NAVIGATION ARCHITECTURE        -->
-    <!-- ========================================== -->
     <nav class="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
@@ -100,7 +91,7 @@
                 </div>
                 <div>
                     <span class="text-lg font-bold text-slate-900 tracking-tight block">Dr. Aesthetic Hat</span>
-                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-400 block -mt-1"></span>
+                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-400 block -mt-1">Clinical Unit</span>
                 </div>
             </div>
             
@@ -108,7 +99,7 @@
                 <button onclick="scrollToAssessment()" class="hidden md:inline-flex items-center gap-2 text-xs uppercase font-semibold tracking-wider text-slate-600 hover:text-slate-900 transition">
                     New Consultation
                 </button>
-                <span class="h-5 w-px bg-slate-200 hidden md:block"> Skin Mind </span>
+                <span class="h-5 w-px bg-slate-200 hidden md:block text-xs text-slate-400"> Skin Mind </span>
                 <button id="adminPortalBtn" onclick="toggleAdminView()" class="text-xs font-semibold uppercase tracking-wider border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white px-5 py-2.5 rounded-md transition duration-300">
                     ADMIN
                 </button>
@@ -116,15 +107,10 @@
         </div>
     </nav>
 
-    <!-- ========================================== -->
-    <!--  3. MAIN APPLICATION WORKSPACE             -->
-    <!-- ========================================== -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        <!-- PATIENT FACING VIEWPORT -->
         <section id="patientView" class="space-y-16 animate__animated animate__fadeIn">
             
-            <!-- HERO HEADER SECTOR -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-200 pb-12">
                 <div class="lg:col-span-7 space-y-5">
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200">
@@ -144,7 +130,6 @@
                     </div>
                 </div>
 
-                <!-- CLINICAL INSIGHTS FLASHCARD DECK GALLERY -->
                 <div class="lg:col-span-5 w-full" id="flashCardContainer">
                     <div onclick="rotateFlashCard()" class="premium-card p-8 rounded-xl border border-slate-200 min-h-[220px] flex flex-col justify-between cursor-pointer relative overflow-hidden bg-white group">
                         <div class="space-y-4">
@@ -161,7 +146,6 @@
                 </div>
             </div>
 
-            <!-- DYNAMIC CLINICAL QUESTIONNAIRE ASSEMBLY -->
             <div id="assessmentWrapper" class="hidden animate__animated animate__fadeInUp">
                 <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
                     <h3 class="text-2xl font-semibold tracking-tight text-slate-900">Patient Case Enrollment</h3>
@@ -170,7 +154,6 @@
 
                 <form id="assessmentForm" onsubmit="handleFormSubmit(event)" class="space-y-8 max-w-4xl mx-auto">
                     
-                    <!-- STEP I: SYSTEM PROFILE -->
                     <div id="questionnaireFirstStep" class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
                         <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
                             <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">01</span>
@@ -206,7 +189,6 @@
                         </div>
                     </div>
 
-                    <!-- STEP II: PATIENT BARRIER SYMPTOMATOLOGY -->
                     <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
                         <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
                             <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">02</span>
@@ -293,12 +275,8 @@
             </div>
         </section>
 
-        <!-- ========================================== -->
-        <!--  4. PRACTITIONER ADVANCED WORKSTATION      -->
-        <!-- ========================================== -->
         <section id="adminView" class="hidden space-y-6 animate__animated animate__fadeIn">
             
-            <!-- MASTER CONTROL HEADER -->
             <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-xl">
                 <div>
                     <h2 class="text-xl font-semibold tracking-tight">Clinical Case Evaluation Dashboard</h2>
@@ -311,7 +289,6 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
-                <!-- DIGITAL CASE QUEUE (LEFT SECTOR) -->
                 <div class="lg:col-span-4 premium-card p-5 rounded-xl h-[700px] flex flex-col bg-white">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Live Intake Queue</h3>
@@ -326,10 +303,8 @@
                     </div>
                 </div>
 
-                <!-- CLINICAL ANALYSIS & MULTI-LAYER GALLERY OUTPUT (RIGHT SECTOR) -->
                 <div class="lg:col-span-8 space-y-6">
                     
-                    <!-- SELECTED PATIENT BIOMETRICS DISPLAY -->
                     <div class="premium-card p-6 rounded-xl bg-white space-y-4">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Target Profile Biomarkers</h3>
                         <div id="activePatientMeta" class="text-xs text-slate-500">
@@ -340,7 +315,6 @@
                         </button>
                     </div>
 
-                    <!-- FORMULATION MATRIX WORKSPACE -->
                     <div class="premium-card p-6 rounded-xl bg-white space-y-5">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Custom Layering Architecture</h3>
@@ -370,7 +344,6 @@
                             <textarea id="routineNotes" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 h-24 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
                         </div>
 
-                        <!-- EXPORT PLATFORMS SCRIPT LINKAGE -->
                         <div class="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <button onclick="shareViaWhatsApp()" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-3.5 px-4 rounded-lg transition shadow-md uppercase tracking-wider cursor-pointer">
                                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.447 5.338 1.448 5.494 0 9.961-4.471 9.964-9.97 0-2.665-1.036-5.171-2.918-7.054C17.15 1.697 14.646.662 12.01.662c-5.498 0-9.965 4.47-9.968 9.97-.001 2.07.541 4.095 1.57 5.86l-.99 3.614 3.71-.973zm11.309-3.254c-.213-.107-1.262-.622-1.457-.692-.195-.071-.337-.107-.479.107-.142.214-.55.692-.673.833-.124.141-.248.158-.461.052-.213-.107-.9-.331-1.714-1.057-.633-.565-1.061-1.263-1.185-1.476-.124-.213-.013-.328.093-.434.096-.095.213-.248.32-.372.106-.124.142-.213.213-.354.071-.142.035-.266-.018-.372-.053-.107-.479-1.152-.656-1.578-.173-.414-.346-.358-.479-.365-.124-.006-.266-.007-.408-.007-.141 0-.372.053-.567.266-.195.213-.745.727-.745 1.772 0 1.045.761 2.054.867 2.196.106.142 1.498 2.288 3.629 3.208.507.219.903.351 1.21.449.51.162.973.139 1.339.085.409-.06 1.262-.515 1.439-1.011.177-.496.177-.922.124-.107z"/></svg>
@@ -383,7 +356,6 @@
                         </div>
                     </div>
 
-                    <!-- REWORKED HIGH-END VISUAL CLINIC GALLERY MATRIX -->
                     <div class="premium-card p-6 rounded-xl bg-white space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Clinical Reference Case Gallery</h3>
@@ -422,28 +394,20 @@
         </section>
     </main>
 
-    <!-- ========================================== -->
-    <!--  5. CLINICAL LOGIC PIPELINE SYSTEM         -->
-    <!-- ========================================== -->
     <script>
-        // FIREBASE INFRASTRUCTURE SANDBOX HOOK
-       const firebaseConfig = {
-  apiKey: "AIzaSyAV_wcByfW1MyULiOWBficdhGgqX5fmpS8",
-  authDomain: "dr-aesthetic-hat.firebaseapp.com",
-  projectId: "dr-aesthetic-hat",
-  storageBucket: "dr-aesthetic-hat.firebasestorage.app",
-  messagingSenderId: "1040353314132",
-  appId: "1:1040353314132:web:f6ef181676651b0a12f4c1"
-};
+        // LIVE PRODUCTION FIRESTORE CONTEXT INITIALIZATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyAV_wcByfW1MyULiOWBficdhGgqX5fmpS8",
+            authDomain: "dr-aesthetic-hat.firebaseapp.com",
+            projectId: "dr-aesthetic-hat",
+            storageBucket: "dr-aesthetic-hat.firebasestorage.app",
+            messagingSenderId: "1040353314132",
+            appId: "1:1040353314132:web:f6ef181676651b0a12f4c1"
+        };
 
-        if (firebaseConfig.apiKey !== "YOUR_API_KEY_HERE") {
-            firebase.initializeApp(firebaseConfig);
-        } else {
-            console.warn("Dermatology database running inside simulated sandbox memory array.");
-        }
-        
-        const db = typeof firebase !== 'undefined' && firebase.apps.length ? firebase.firestore() : null;
-        let mockStorage = []; 
+        // Initialize Firebase deployment connections safely
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
         let currentSelectedRecord = null;
 
         // HIGH-END ADVISORY KNOWLEDGE BASE MATRIX
@@ -461,11 +425,13 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             let splashFactIndex = 0;
-            document.getElementById('splashFactPlaceholder').innerText = factsArray[splashFactIndex];
+            const placeholderEl = document.getElementById('splashFactPlaceholder');
+            if (placeholderEl) placeholderEl.innerText = factsArray[splashFactIndex];
             
             setInterval(() => {
                 splashFactIndex = (splashFactIndex + 1) % factsArray.length;
                 const p = document.getElementById('splashFactPlaceholder');
+                if (!p) return;
                 p.classList.remove('animate__fadeIn');
                 p.classList.add('animate__fadeOut');
                 
@@ -481,8 +447,10 @@
 
         function unlockClinicAccess() {
             const splash = document.getElementById('splashScreen');
-            splash.classList.add('animate__animated', 'animate__fadeOut');
-            setTimeout(() => { splash.remove(); }, 600);
+            if (splash) {
+                splash.classList.add('animate__animated', 'animate__fadeOut');
+                setTimeout(() => { splash.remove(); }, 600);
+            }
         }
 
         function initFlashCardEngine() {
@@ -493,8 +461,6 @@
         function rotateFlashCard() {
             const el = document.getElementById('dynamicFlashFact');
             if(!el) return;
-            const container = el.closest('.premium-card');
-            container.classList.remove('animate__fadeIn');
             
             setTimeout(() => {
                 currentFactIndex = (currentFactIndex + 1) % factsArray.length;
@@ -568,6 +534,7 @@
             document.getElementById('patientView').classList.remove('hidden');
         }
 
+        // WRITE PATIENT CASE TO LIVE FIRESTORE
         async function handleFormSubmit(e) {
             e.preventDefault();
             const selectedConcerns = [];
@@ -586,16 +553,12 @@
                 sun: document.getElementById('qSun').value,
                 customOutlier: document.getElementById('qCustomOutlier').value.trim(),
                 currentRoutine: document.getElementById('qCurrentRoutine').value.trim(),
-                timestamp: new Date().toISOString()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() // Real cloud time sync
             };
 
             try {
-                if (db) {
-                    await db.collection('skinAssessments').add(payload);
-                } else {
-                    mockStorage.push({ id: 'MOCK_' + Date.now(), ...payload });
-                }
-                alert("Case file successfully generated and synchronized with the clinical registry.");
+                await db.collection('skinAssessments').add(payload);
+                alert("Case file successfully generated and synchronized with the cloud clinical registry.");
                 document.getElementById('assessmentForm').reset();
             } catch (err) {
                 console.error("Critical database pipeline rupture: ", err);
@@ -604,37 +567,34 @@
         }
 
         // STREAM REAL-TIME CASE FILES FROM THE FIRESTORE WEBSOCKET CHANNEL
-function fetchSubmissionsQueue() {
-    db.collection('skinAssessments')
-      .orderBy('timestamp', 'desc')
-      // Added estimate options so new cloud writes display instantly without crashing on local null values
-      .onSnapshot({ includeMetadataChanges: true }, snapshot => {
-          const records = [];
-          snapshot.forEach(doc => {
-              const data = doc.data();
-              
-              // Handle server timestamp sync state safely
-              let normalizedTime;
-              if (data.timestamp) {
-                  normalizedTime = data.timestamp.toDate().toISOString();
-              } else {
-                  normalizedTime = new Date().toISOString(); // Fallback for immediate local rendering
-              }
-              
-              records.push({ 
-                  id: doc.id, 
-                  ...data,
-                  timestamp: normalizedTime
+        function fetchSubmissionsQueue() {
+            db.collection('skinAssessments')
+              .orderBy('timestamp', 'desc')
+              .onSnapshot({ includeMetadataChanges: true }, snapshot => {
+                  const records = [];
+                  snapshot.forEach(doc => {
+                      const data = doc.data();
+                      
+                      // Handle server timestamp sync state safely
+                      let normalizedTime;
+                      if (data.timestamp && typeof data.timestamp.toDate === 'function') {
+                          normalizedTime = data.timestamp.toDate().toISOString();
+                      } else {
+                          normalizedTime = new Date().toISOString(); // Fallback for immediate local rendering or legacy text timestamps
+                      }
+                      
+                      records.push({ 
+                          id: doc.id, 
+                          ...data,
+                          timestamp: normalizedTime
+                      });
+                  });
+                  renderQueueUI(records);
+              }, err => {
+                  console.error("Live streaming pipeline broken: ", err);
+                  alert("Live monitoring link failed. Open browser console (F12) to click the index link!");
               });
-          });
-          renderQueueUI(records);
-      }, err => {
-          console.error("Live streaming pipeline broken: ", err);
-          // Helpful structural warning to guide you if the index isn't constructed yet
-          alert("Live monitoring link failed. Check your browser developer console (F12) for the direct index creation link!");
-      });
-}
-
+        }
 
         function renderQueueUI(records) {
             const container = document.getElementById('queueContainer');
@@ -643,24 +603,32 @@ function fetchSubmissionsQueue() {
                 return;
             }
 
-            container.innerHTML = records.map(rec => `
-                <div onclick='selectPatientRecord(${JSON.stringify(rec).replace(/'/g, "&apos;")})' 
-                     class="p-4 rounded-lg border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition text-left block bg-white cursor-pointer shadow-xs">
-                    <div class="flex justify-between items-start">
-                        <p class="text-xs font-bold text-slate-900 truncate">${rec.name}</p>
-                        <span class="text-[9px] font-mono text-slate-400">${new Date(rec.timestamp).toLocaleDateString()}</span>
+            container.innerHTML = records.map(rec => {
+                // Safeguard against malformed JSON data when turning record into string format
+                const sanitizedRecord = JSON.stringify(rec).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
+                return `
+                    <div onclick="selectPatientRecord('${sanitizedRecord}')" 
+                         class="p-4 rounded-lg border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition text-left block bg-white cursor-pointer shadow-xs">
+                        <div class="flex justify-between items-start">
+                            <p class="text-xs font-bold text-slate-900 truncate">${rec.name}</p>
+                            <span class="text-[9px] font-mono text-slate-400">${new Date(rec.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-tight mt-0.5">${rec.sex} · ${rec.age}</p>
+                        <div class="flex gap-1.5 flex-wrap mt-2">
+                            <span class="px-1.5 py-0.5 text-[9px] bg-slate-100 text-slate-800 rounded-sm uppercase font-semibold">${rec.feel}</span>
+                            ${(rec.concerns || []).map(c => `<span class="px-1.5 py-0.5 text-[9px] bg-teal-50 text-teal-800 rounded-sm uppercase font-semibold">${c}</span>`).join('')}
+                        </div>
                     </div>
-                    <p class="text-[10px] text-slate-500 uppercase tracking-tight mt-0.5">${rec.sex} · ${rec.age}</p>
-                    <div class="flex gap-1.5 flex-wrap mt-2">
-                        <span class="px-1.5 py-0.5 text-[9px] bg-slate-100 text-slate-800 rounded-sm uppercase font-semibold">${rec.feel}</span>
-                        ${(rec.concerns || []).map(c => `<span class="px-1.5 py-0.5 text-[9px] bg-teal-50 text-teal-800 rounded-sm uppercase font-semibold">${c}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        function selectPatientRecord(record) {
+        function selectPatientRecord(recordString) {
+            // Unescape quotes and convert back into clear object structure safely
+            const unescapedString = recordString.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+            const record = JSON.parse(unescapedString);
             currentSelectedRecord = record;
+            
             const metaContainer = document.getElementById('activePatientMeta');
             metaContainer.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-5 rounded-lg border border-slate-200">
@@ -677,8 +645,10 @@ function fetchSubmissionsQueue() {
             `;
             
             const btn = document.getElementById('generateRoutineBtn');
-            btn.disabled = false;
-            btn.classList.remove('hidden');
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('hidden');
+            }
         }
 
         function generateSuggestedRoutine() {
