@@ -8,9 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
+ <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <style>
         /* Corporate Clinical Luxury Theme Configuration */
         :root {
@@ -424,7 +424,9 @@
 
         // Initialize Firebase deployment connections safely
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+
+const db = firebase.firestore();
+const auth = firebase.auth();
         let currentSelectedRecord = null;
 
         // HIGH-END ADVISORY KNOWLEDGE BASE MATRIX
@@ -535,22 +537,48 @@
             }
         }
 
-        function toggleAdminView() {
-            const accessPin = prompt("Enter Practitioner Security Verification PIN:");
-            if (accessPin === "1234") {
-                document.getElementById('patientView').classList.add('hidden');
-                document.getElementById('adminView').classList.remove('hidden');
-                fetchSubmissionsQueue();
-            } else {
-                alert("Security Credentials Rejected.");
-            }
-        }
+        async function toggleAdminView() {
 
-        function exitAdminView() {
-            document.getElementById('adminView').classList.add('hidden');
-            document.getElementById('patientView').classList.remove('hidden');
-        }
+    const email = prompt("Admin Email");
+    if (!email) return;
 
+    const password = prompt("Admin Password");
+    if (!password) return;
+
+    try {
+
+        await auth.signInWithEmailAndPassword(
+            email,
+            password
+        );
+
+        document.getElementById('patientView')
+            .classList.add('hidden');
+
+        document.getElementById('adminView')
+            .classList.remove('hidden');
+
+        fetchSubmissionsQueue();
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert("Invalid Email or Password");
+
+    }
+}
+
+      async function exitAdminView() {
+
+    await auth.signOut();
+
+    document.getElementById('adminView')
+        .classList.add('hidden');
+
+    document.getElementById('patientView')
+        .classList.remove('hidden');
+}
         // WRITE PATIENT CASE TO LIVE FIRESTORE
         async function handleFormSubmit(e) {
             e.preventDefault();
