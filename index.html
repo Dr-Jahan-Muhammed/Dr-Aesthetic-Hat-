@@ -47,6 +47,18 @@
         .interactive-element {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
+ 
+.glass-nav {
+    background: rgba(15, 23, 42, 0.35); /* more translucent dark navy */
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.glass-nav.scrolled {
+    background: rgba(15, 23, 42, 0.55);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
     </style>
 </head>
 <body  class="text-slate-800 antialiased selection:bg-teal-500/20 selection:text-teal-900">
@@ -98,7 +110,7 @@
         </div>
     </div>
 
-    <nav class="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-xs">
+    <nav id="topNav" class="border-b border-slate-200 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center shadow-md">
@@ -108,7 +120,7 @@
                 </div>
                 <div>
                     <span class="text-lg font-bold text-slate-900 tracking-tight block">Dr. Aesthetic Hat</span>
-                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-400 block -mt-1">MIND SKIN PEACE</span>
+                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-300 block -mt-1">MIND SKIN PEACE</span>
                 </div>
             </div>
             
@@ -134,6 +146,17 @@
                         <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
                         Clinical Consultation Platform
                     </span>
+                  
+<div class="w-full max-w-4xl mx-auto mb-6">
+    <div class="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 mb-2">
+        <span>Step Progress</span>
+        <span id="stepLabel">Step 1 of 3</span>
+    </div>
+
+    <div class="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+        <div id="progressBar" class="h-1 bg-teal-600 w-1/3 transition-all duration-300"></div>
+    </div>
+</div>
                     <h2 class="text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-tight">
                         Precision Medicine for <span class="font-semibold text-slate-800">Your Epidermal Barrier</span>
                     </h2>
@@ -171,124 +194,103 @@
 
                 <form id="assessmentForm" onsubmit="handleFormSubmit(event)" class="space-y-8 max-w-4xl mx-auto">
                     
-                    <div id="questionnaireFirstStep" class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
-                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
-                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">01</span>
-                            <h4 class="text-xs uppercase tracking-widest font-bold text-slate-900">Demographic Registry & Contact</h4>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-5">
-                            <div class="md:col-span-2">
-                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Full Name</label>
-                                <input type="text" id="patName" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:outline-hidden focus:bg-white focus:border-slate-900 transition text-sm text-slate-900">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">WhatsApp Number</label>
-                                <input type="tel" id="patContact" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md focus:outline-hidden focus:bg-white focus:border-slate-900 transition text-sm text-slate-900" placeholder="+1 (555) 000-0000">
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Biological Sex</label>
-                                <select id="patSex" onchange="adaptQuestionnaireLabels()" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other / Intersex</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Age Cohort</label>
-                                <select id="patAge" onchange="adaptQuestionnaireLabels()" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
-                                    <option value="teen">&lt; 20 (Adolescent Framework)</option>
-                                    <option value="youngAdult">20 - 35 (Peak Metabolic Horizon)</option>
-                                    <option value="matureAdult">36 - 50 (Decelerating Turnover)</option>
-                                    <option value="senior">&gt; 50 (Post-Menopausal / Mature Horizon)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                  <!-- STEP 1 -->
+<div class="form-step" id="step1">
 
-                    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
-                        <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
-                            <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">02</span>
-                            <h4 class="text-xs uppercase tracking-widest font-bold text-slate-900">Physiological Diagnostics Matrix</h4>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label id="lblFeel" class="block text-sm font-medium text-slate-800">How does your skin behave 2 hours post-cleansing without cosmetic application?</label>
-                            <select id="qFeel" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
-                                <option value="oily">Severe universal lipid presentation, highly visible surface sebum reflection</option>
-                                <option value="combination">Localized sebum across midface (T-Zone), marginal scaling on peripheral borders</option>
-                                <option value="dry">Structural pulling sensation, intense textural tautness, acute flaking potential</option>
-                                <option value="normal">Homogeneous distribution of lipid film, uniform suppleness, no dynamic discomfort</option>
-                            </select>
-                        </div>
+    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
 
-                        <div class="space-y-3">
-                            <label class="block text-sm font-medium text-slate-800">Co-Existing Clinical Concerns (Select all active disruptions):</label>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
-                                    <input type="checkbox" name="skinConcerns" value="acne" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
-                                    <div class="text-xs">
-                                        <span class="font-semibold block text-slate-900">Active Acne Vulgaris</span>
-                                        <span class="text-slate-500 text-[11px]">Papules, pustules, deep cystic lesions, or continuous congestion.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
-                                    <input type="checkbox" name="skinConcerns" value="pih" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
-                                    <div class="text-xs">
-                                        <span class="font-semibold block text-slate-900">Pigmentation / Melasma</span>
-                                        <span class="text-slate-500 text-[11px]">Post-inflammatory brown/red spots, sun-induced lentigines, or hormone-induced patches.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
-                                    <input type="checkbox" name="skinConcerns" value="dryness" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
-                                    <div class="text-xs">
-                                        <span class="font-semibold block text-slate-900">Erythema & Desquamation</span>
-                                        <span class="text-slate-500 text-[11px]">Chronic visible flaking, compromised surface layers, deep parched states.</span>
-                                    </div>
-                                </label>
-                                <label class="flex items-start gap-3 p-3 bg-slate-50 border border-slate-100 rounded-lg cursor-pointer hover:bg-slate-100 transition select-none">
-                                    <input type="checkbox" name="skinConcerns" value="aging" class="mt-0.5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
-                                    <div class="text-xs">
-                                        <span class="font-semibold block text-slate-900">Structural Dermal Deficit</span>
-                                        <span class="text-slate-500 text-[11px]">Loss of collagen density, deep static lines, or gravitational laxity.</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
+        <h4 class="text-xs uppercase tracking-widest font-bold">01 · Basic Info</h4>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <label class="block text-sm font-medium text-slate-800">Topical Reaction Envelope</label>
-                                <select id="qSensitivity" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
-                                    <option value="high">Hyper-Reactive Threshold (Stinging, dynamic flush responses)</option>
-                                    <option value="low">Resilient Keratinized Mantle (Accepts high potency direct actives)</option>
-                                </select>
-                            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                            <div class="space-y-2">
-                                <label id="lblSun" class="block text-sm font-medium text-slate-800">Sun Exposure & Professional Environmental Factors:</label>
-                                <select id="qSun" required class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-sm text-slate-900 focus:outline-hidden focus:bg-white focus:border-slate-900">
-                                    <option value="high">Elevated Exposure: Over 120 weekly minutes of direct high UV index exposure</option>
-                                    <option value="low">Attenuated Exposure: Predominantly climate-controlled indoor workspace</option>
-                                </select>
-                            </div>
-                        </div>
+            <input type="text" id="patName" placeholder="Full Name" required class="p-3 bg-slate-50 rounded-md">
 
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-slate-800">Atypical Anomalies & Unique Clinical History</label>
-                            <textarea id="qCustomOutlier" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-xs h-24 placeholder-slate-400 focus:outline-hidden focus:bg-white focus:border-slate-900 text-slate-900" placeholder="Please document any history of dermatological conditions, eczema flares, prescription isotretinoin use, or surgical interventions here..."></textarea>
-                        </div>
+            <input type="tel" id="patContact" placeholder="WhatsApp Number" required class="p-3 bg-slate-50 rounded-md">
 
-                        <div class="space-y-2">
-                            <label class="block text-sm font-medium text-slate-800">Historical Cosmetic Habituation Index</label>
-                            <textarea id="qCurrentRoutine" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-md text-xs h-20 placeholder-slate-400 focus:outline-hidden focus:bg-white focus:border-slate-900 text-slate-900" placeholder="List active skin interventions, strong toners, essential oils, soap bars, or heavy treatments used previously..."></textarea>
-                        </div>
-                    </div>
+            <select id="patSex" class="p-3 bg-slate-50 rounded-md" onchange="adaptQuestionnaireLabels()">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
 
-                    <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-lg transition duration-300 shadow-xl cursor-pointer tracking-widest text-xs uppercase">
-                        SUBMIT
-                    </button>
-                </form>
+            <select id="patAge" class="p-3 bg-slate-50 rounded-md" onchange="adaptQuestionnaireLabels()">
+                <option value="teen">Under 20</option>
+                <option value="youngAdult">20–35</option>
+                <option value="matureAdult">36–50</option>
+                <option value="senior">50+</option>
+            </select>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- STEP 2 -->
+<div class="form-step hidden" id="step2">
+
+    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-5">
+
+        <h4 class="text-xs uppercase font-bold">02 · Skin Feel</h4>
+
+        <label class="text-sm">How does your skin feel?</label>
+        <select id="qFeel" class="w-full p-3 bg-slate-50 rounded-md">
+            <option value="oily">Oily</option>
+            <option value="dry">Dry</option>
+            <option value="combination">Combination</option>
+            <option value="normal">Normal</option>
+        </select>
+
+        <label class="text-sm">Main concerns</label>
+
+        <div class="grid grid-cols-2 gap-2 text-sm">
+            <label><input type="checkbox" name="skinConcerns" value="acne"> Acne</label>
+            <label><input type="checkbox" name="skinConcerns" value="pih"> Pigmentation</label>
+            <label><input type="checkbox" name="skinConcerns" value="dryness"> Dryness</label>
+            <label><input type="checkbox" name="skinConcerns" value="aging"> Aging</label>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- STEP 3 -->
+<div class="form-step hidden" id="step3">
+
+    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-4">
+
+        <h4 class="text-xs uppercase font-bold">03 · Quick Check</h4>
+
+        <label class="text-sm">Sensitivity</label>
+        <select id="qSensitivity" class="w-full p-3 bg-slate-50 rounded-md">
+            <option value="low">Normal</option>
+            <option value="high">Sensitive</option>
+        </select>
+
+        <label class="text-sm">Sun exposure</label>
+        <select id="qSun" class="w-full p-3 bg-slate-50 rounded-md">
+            <option value="low">Low</option>
+            <option value="high">High</option>
+        </select>
+
+    </div>
+
+</div>
+
+<!-- NAV BUTTONS -->
+<div class="flex justify-between gap-3">
+    <button type="button" onclick="prevStep()" class="px-6 py-3 bg-slate-200 rounded-lg text-xs uppercase">
+        Back
+    </button>
+
+    <button type="button" id="nextBtn" onclick="nextStep()" class="px-6 py-3 bg-teal-600 text-white rounded-lg text-xs uppercase">
+        Next
+    </button>
+
+    <button type="submit" id="submitBtn" class="hidden px-6 py-3 bg-slate-900 text-white rounded-lg text-xs uppercase">
+        Submit
+    </button>
+</div>
+</form>
             </div>
         </section>
 
@@ -504,13 +506,19 @@ const auth = firebase.auth();
             }, 50);
         }
 
-        function launchAssessmentForm() {
-            const wrapper = document.getElementById('assessmentWrapper');
-            wrapper.classList.remove('hidden');
-            setTimeout(() => {
-                document.getElementById('questionnaireFirstStep').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
-        }
+function launchAssessmentForm() {
+    const wrapper = document.getElementById('assessmentWrapper');
+    wrapper.classList.remove('hidden');
+
+    setTimeout(() => {
+        const el = document.getElementById('assessmentWrapper');
+
+        window.scrollTo({
+            top: el.offsetTop - 80, // fixes sticky nav overlap
+            behavior: 'smooth'
+        });
+    }, 150);
+}
 
         function scrollToAssessment() {
             launchAssessmentForm();
@@ -525,7 +533,7 @@ const auth = firebase.auth();
             if (sex === 'male') {
                 lblFeel.innerText = "How does your skin feel mid-day, especially considering micro-tears from shaving friction or facial hair oil distribution?";
             } else {
-                lblFeel.innerText = "How does your skin behave 2 hours post-cleansing without cosmetic application?";
+                lblFeel.innerText = "How does your skin feel a few hours after washing your face (without applying any products)?";
             }
             
             if (age === 'teen') {
@@ -533,7 +541,7 @@ const auth = firebase.auth();
             } else if (age === 'senior') {
                 lblSun.innerText = "Sun Exposure, Extended Screen Time, or Advanced Environmental Humidity Factors:";
             } else {
-                lblSun.innerText = "Sun Exposure & Professional Environmental Factors:";
+                lblSun.innerText = "How much sun exposure do you usually get?:";
             }
         }
 
@@ -579,37 +587,53 @@ const auth = firebase.auth();
     document.getElementById('patientView')
         .classList.remove('hidden');
 }
+  
+
         // WRITE PATIENT CASE TO LIVE FIRESTORE
-        async function handleFormSubmit(e) {
-            e.preventDefault();
-            const selectedConcerns = [];
-            document.querySelectorAll('input[name="skinConcerns"]:checked').forEach(cb => {
-                selectedConcerns.push(cb.value);
-            });
+    async function handleFormSubmit(e) {
+    e.preventDefault();
 
-            const payload = {
-                name: document.getElementById('patName').value.trim(),
-                contact: document.getElementById('patContact').value.trim(),
-                sex: document.getElementById('patSex').value,
-                age: document.getElementById('patAge').value,
-                feel: document.getElementById('qFeel').value,
-                concerns: selectedConcerns,
-                sensitivity: document.getElementById('qSensitivity').value,
-                sun: document.getElementById('qSun').value,
-                customOutlier: document.getElementById('qCustomOutlier').value.trim(),
-                currentRoutine: document.getElementById('qCurrentRoutine').value.trim(),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp() // Real cloud time sync
-            };
+    const selectedConcerns = [];
+    document.querySelectorAll('input[name="skinConcerns"]:checked')
+        .forEach(cb => selectedConcerns.push(cb.value));
 
-            try {
-                await db.collection('skinAssessments').add(payload);
-                alert("Case file successfully generated and synchronized with the cloud clinical registry.");
-                document.getElementById('assessmentForm').reset();
-            } catch (err) {
-                console.error("Critical database pipeline rupture: ", err);
-                alert("Failed transmission to network registry.");
-            }
-        }
+    const skinScore = calculateSkinScore({
+        feel: document.getElementById('qFeel').value,
+        concerns: selectedConcerns,
+        sensitivity: document.getElementById('qSensitivity').value,
+        sun: document.getElementById('qSun').value
+    });
+
+    const payload = {
+        name: document.getElementById('patName').value.trim(),
+        contact: document.getElementById('patContact').value.trim(),
+        sex: document.getElementById('patSex').value,
+        age: document.getElementById('patAge').value,
+        feel: document.getElementById('qFeel').value,
+        concerns: selectedConcerns,
+        sensitivity: document.getElementById('qSensitivity').value,
+        sun: document.getElementById('qSun').value,
+        skinScore: skinScore,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+        await db.collection('skinAssessments').add(payload);
+        alert("Submitted successfully!");
+
+        document.getElementById('assessmentForm').reset();
+
+        currentStep = 1;
+        updateStepUI();
+
+    } catch (err) {
+        console.error(err);
+        alert("Submission failed");
+    }
+}
+
+            
+
 
         // STREAM REAL-TIME CASE FILES FROM THE FIRESTORE WEBSOCKET CHANNEL
         function fetchSubmissionsQueue() {
@@ -793,6 +817,78 @@ const auth = firebase.auth();
             const body = encodeURIComponent(compileRoutineText());
             window.location.href = `mailto:?subject=${subject}&body=${body}`;
         }
+  window.addEventListener("scroll", () => {
+    const nav = document.getElementById("topNav");
+    if (window.scrollY > 10) {
+        nav.classList.add("glass-nav", "scrolled");
+    } else {
+        nav.classList.add("glass-nav");
+        nav.classList.remove("scrolled");
+    }
+});
+  
+  
+  let currentStep = 1;
+const totalSteps = 3;
+
+function updateStepUI() {
+    document.querySelectorAll(".form-step").forEach((el, index) => {
+        el.classList.add("hidden");
+    });
+
+    document.getElementById(`step${currentStep}`).classList.remove("hidden");
+
+    // progress bar
+    const progress = (currentStep / totalSteps) * 100;
+    document.getElementById("progressBar").style.width = progress + "%";
+
+    document.getElementById("stepLabel").innerText =
+        `Step ${currentStep} of ${totalSteps}`;
+
+    // button logic
+    document.getElementById("nextBtn").classList.toggle("hidden", currentStep === totalSteps);
+    document.getElementById("submitBtn").classList.toggle("hidden", currentStep !== totalSteps);
+}
+
+function nextStep() {
+    if (currentStep < totalSteps) {
+        currentStep++;
+        updateStepUI();
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        updateStepUI();
+    }
+}
+  
+  function calculateSkinScore(data) {
+    let score = 50; // base neutral
+
+    // dryness penalty
+    if (data.feel === "dry") score -= 15;
+    if (data.feel === "oily") score -= 5;
+
+    // concerns
+    if (data.concerns.includes("acne")) score -= 15;
+    if (data.concerns.includes("pih")) score -= 10;
+    if (data.concerns.includes("aging")) score -= 10;
+    if (data.concerns.includes("dryness")) score -= 10;
+
+    // sensitivity
+    if (data.sensitivity === "high") score -= 10;
+
+    // sun exposure
+    if (data.sun === "high") score -= 10;
+
+    // clamp
+    if (score < 0) score = 0;
+    if (score > 100) score = 100;
+
+    return score;
+}
     </script>
 </body>
 </html>
