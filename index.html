@@ -8,10 +8,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <style>
+    
+    .dark-mode #brandTitle{
+    background-image: linear-gradient(
+        to right,
+        #ffffff,
+        #67e8f9
+    );
+}
+    
+      html {
+            scroll-behavior: smooth;
+        }
+
         /* Corporate Clinical Luxury Theme Configuration */
         :root {
             --brand-primary: #0f172a;    /* Deep Oxford Blue */
@@ -20,21 +33,28 @@
             --bg-light: #f8fafc;         /* Pure Sterile Ivory */
         }
 
+        /* Unified High-Contrast Clinical Background */
         body {
-            background-color: var(--bg-light);
+            background-color: var(--bg-light); 
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(13, 148, 136, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         /* Glassmorphism & High-End Card Layouts */
         .premium-card {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06), inset 0 1px rgba(255, 255, 255, 0.7);
+            transition: 0.35s;
         }
 
         .premium-card:hover {
-            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
         }
 
         /* Custom Clinical Scrollbar Elements */
@@ -48,59 +68,165 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
  
-.glass-nav {
-    background: rgba(15, 23, 42, 0.35); /* more translucent dark navy */
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+        /* Unified Light Glass Navigation */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(15,23,42,.06);
+        }
+
+        .glass-nav.scrolled {
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+        }
+
+        .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+  
+  .vertical-tab{
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    padding: 12px 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+/* Sidebar Auto Minimize */
+
+#sideNav{
+    transition: all .4s ease;
 }
 
-.glass-nav.scrolled {
-    background: rgba(15, 23, 42, 0.55);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+#sideNav.minimized{
+    transform: translateY(-50%) translateX(72%);
 }
+
+#sideNav .glass-nav{
+    border-radius: 18px 0 0 18px;
+}
+
+#sideNav{
+    cursor:pointer;
+}
+  
+  .dark-mode{
+    background:#0f172a !important;
+    color:#f8fafc !important;
+}
+
+.dark-mode .premium-card{
+    background:rgba(15,23,42,.9);
+    color:#f8fafc;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea{
+    background:#1e293b !important;
+    color:white !important;
+    border-color:#334155 !important;
+}
+
+.dark-mode nav{
+    background:rgba(15,23,42,.8) !important;
+}
+
+.dark-mode .glass-nav{
+    background:rgba(15,23,42,.7) !important;
+}
+
+.dark-mode .text-slate-900{
+    color:#f8fafc !important;
+}
+
+.dark-mode .text-slate-800{
+    color:#e2e8f0 !important;
+}
+
+.dark-mode .text-slate-700,
+.dark-mode .text-slate-600,
+.dark-mode .text-slate-500{
+    color:#cbd5e1 !important;
+}
+  
     </style>
 </head>
-<body  class="text-slate-800 antialiased selection:bg-teal-500/20 selection:text-teal-900">
-<div class="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col">
+<body class="text-slate-800 antialiased selection:bg-teal-500/20 selection:text-teal-900">
 
-    <a href="index.html"
-       class="bg-teal-600 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg text-center">
-       S<br>K<br>I<br>N
-    </a>
+   <div id="sideNav"
+class="fixed right-0 top-1/2 -translate-y-1/2 z-50 transition-all duration-500">
 
-    <a href="mind.html"
-       class="bg-slate-800 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg mt-2 text-center">
-       M<br>I<br>N<br>D
-    </a>
+    <div class="flex flex-col gap-2 p-2 rounded-l-2xl glass-nav">
 
-    <a href="peace.html"
-       class="bg-slate-800 text-white px-3 py-4 text-xs font-bold rounded-l-lg shadow-lg mt-2 text-center">
-       P<br>E<br>A<br>C<br>E
-    </a>
+        <!-- SKIN -->
+        <a href="index.html"
+        class="w-10 py-2 rounded-xl bg-cyan-500 text-white text-xs font-bold shadow-lg flex flex-col items-center leading-none">
+            <span>S</span>
+            <span>K</span>
+            <span>I</span>
+            <span>N</span>
+        </a>
 
+        <!-- MIND -->
+        <a href="mind.html"
+        class="w-10 py-2 rounded-xl bg-teal-600 text-white text-xs font-bold shadow-lg flex flex-col items-center leading-none">
+            <span>M</span>
+            <span>I</span>
+            <span>N</span>
+            <span>D</span>
+        </a>
+
+        <!-- PEACE -->
+        <a href="peace.html"
+        class="w-10 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold shadow-lg flex flex-col items-center leading-none">
+            <span>P</span>
+            <span>E</span>
+            <span>A</span>
+            <span>C</span>
+            <span>E</span>
+        </a>
+ <button
+            id="themeBtn"
+            onclick="toggleDarkMode();event.stopPropagation();"
+            class="w-10 h-10 rounded-xl glass-nav text-lg shadow-lg">
+
+            🌙
+
+        </button>
+    </div>
 </div>
-    <div id="splashScreen" class="fixed inset-0 z-100 bg-slate-900 flex flex-col items-center justify-center p-6 transition-all duration-700 ease-in-out">
+
+    <div id="splashScreen" class="fixed inset-0 z-100 bg-[#0f172a] flex flex-col items-center justify-center p-6 transition-opacity duration-1000 ease-in-out">
         <div class="max-w-xl w-full text-center space-y-8 animate__animated animate__fadeIn">
-            
             <div class="space-y-3">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-500/10 border border-teal-500/30 mb-2">
                     <svg class="w-8 h-8 text-blue-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                     </svg>
                 </div>
-               <h1 class="text-3xl sm:text-4xl font-light tracking-tight text-white whitespace-nowrap">
+                <h1 class="text-3xl sm:text-4xl font-light tracking-tight text-white whitespace-nowrap">
                     Dr. AESTHETIC <span class="font-semibold text-teal-400">HAT</span>
                 </h1>
                 <p class="text-xs uppercase tracking-widest text-slate-400 font-medium"> Integrated Dermatology • Diagnostics • Aesthetic Intelligence </p>
             </div>
-
             <div class="p-6 rounded-xl bg-slate-950/60 border border-slate-800 h-28 flex items-center justify-center shadow-inner">
                 <p id="splashFactPlaceholder" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-light italic">
                     Initializing systemic diagnostic indices...
                 </p>
             </div>
-
             <div class="flex flex-col items-center justify-center space-y-3">
                 <button onclick="unlockClinicAccess()" class="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-lg text-xs font-semibold tracking-widest uppercase shadow-lg shadow-teal-900/40 transition duration-300 hover:scale-[1.02] cursor-pointer">
                     EXPLORE
@@ -110,17 +236,22 @@
         </div>
     </div>
 
-    <nav id="topNav" class="border-b border-slate-200 sticky top-0 z-50 transition-all duration-300">
+    <nav id="topNav" class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl rounded-3xl z-50 bg-white/70 backdrop-blur-xl border border-white/50 shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-slate-900 flex items-center justify-center shadow-md">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
                     <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.827m11.379-8.16l1.15-.827M8.14 21.27l.707-1.03m7.45-.808l.707-1.03M12 3v1.5m0 15V21m-4.743-10l-1.14-.83m11.378 8.16l-1.14-.83" />
                     </svg>
                 </div>
                 <div>
-                    <span class="text-lg font-bold text-slate-900 tracking-tight block">Dr. Aesthetic Hat</span>
-                    <span class="text-[9px] uppercase tracking-widest font-semibold text-slate-300 block -mt-1">MIND SKIN PEACE</span>
+                    <span id="brandTitle"
+class="text-xl font-bold tracking-tight block bg-gradient-to-r from-slate-900 to-teal-600 bg-clip-text text-transparent">
+    Dr. Aesthetic Hat
+</span>
+                    <div class="text-[8px] uppercase tracking-[0.3em] text-slate-400 leading-tight mt-1">
+                        <div>SKIN</div><div>MIND</div><div>PEACE</div>
+                    </div>
                 </div>
             </div>
             
@@ -128,7 +259,9 @@
                 <button onclick="scrollToAssessment()" class="hidden md:inline-flex items-center gap-2 text-xs uppercase font-semibold tracking-wider text-slate-600 hover:text-slate-900 transition">
                     New Consultation
                 </button>
-                <span class="h-5 w-px bg-slate-200 hidden md:block text-xs text-slate-400"> Skin Mind </span>
+                <span class="h-5 w-px bg-slate-200 hidden md:block text-xs text-slate-400"></span>
+              
+              
                 <button id="adminPortalBtn" onclick="toggleAdminView()" class="text-xs font-semibold uppercase tracking-wider border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white px-5 py-2.5 rounded-md transition duration-300">
                     ADMIN
                 </button>
@@ -137,31 +270,27 @@
     </nav>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        
         <section id="patientView" class="space-y-16 animate__animated animate__fadeIn">
-            
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-200 pb-12">
                 <div class="lg:col-span-7 space-y-5">
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 border border-teal-200">
                         <span class="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse"></span>
                         Clinical Consultation Platform
                     </span>
-                  
-<div class="w-full max-w-4xl mx-auto mb-6">
-    <div class="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 mb-2">
-        <span>Step Progress</span>
-        <span id="stepLabel">Step 1 of 3</span>
-    </div>
-
-    <div class="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
-        <div id="progressBar" class="h-1 bg-teal-600 w-1/3 transition-all duration-300"></div>
-    </div>
-</div>
-                    <h2 class="text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-tight">
-                        Precision Medicine for <span class="font-semibold text-slate-800">Your Epidermal Barrier</span>
+                    <div class="w-full max-w-4xl mx-auto mb-6">
+                        <div class="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 mb-2">
+                            <span>Step Progress</span>
+                            <span id="stepLabel">Step 1 of 3</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                            <div id="progressBar" class="h-1 bg-teal-600 w-1/3 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                    <h2 class="text-5xl md:text-7xl font-extralight tracking-tight leading-none">
+                        Beautiful Skin.<br>Intelligent Care.
                     </h2>
-                    <p class="text-base text-slate-600 leading-relaxed max-w-2xl">
-                        Welcome to our digital skin monitoring architecture. Our practitioners map your precise barrier density metrics and lipid-to-water ratios to prevent transepidermal water loss (TEWL) and eliminate secondary hyperpigmentation before formulation placement.
+                    <p class="text-lg text-slate-500 max-w-2xl leading-relaxed">
+                        Precision dermatology powered by clinical assessment, aesthetic medicine and personalized treatment planning.
                     </p>
                     <div class="pt-2">
                         <button onclick="launchAssessmentForm()" class="bg-slate-900 hover:bg-teal-700 text-white font-medium text-xs uppercase tracking-widest px-8 py-4 rounded-md shadow-xl hover:shadow-teal-600/10 transition-all duration-300 cursor-pointer">
@@ -193,109 +322,73 @@
                 </div>
 
                 <form id="assessmentForm" onsubmit="handleFormSubmit(event)" class="space-y-8 max-w-4xl mx-auto">
-                    
-                  <!-- STEP 1 -->
-<div class="form-step" id="step1">
+                    <div class="form-step" id="step1">
+                        <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
+                            <h4 class="text-xs uppercase tracking-widest font-bold">01 · Basic Info</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input type="text" id="patName" placeholder="Full Name" required class="p-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition">
+                                <input type="tel" id="patContact" placeholder="WhatsApp Number" required class="p-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition">
+                                <select id="patSex" class="p-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition" onchange="adaptQuestionnaireLabels()">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <select id="patAge" class="p-4 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition" onchange="adaptQuestionnaireLabels()">
+                                    <option value="teen">Under 20</option>
+                                    <option value="youngAdult">20–35</option>
+                                    <option value="matureAdult">36–50</option>
+                                    <option value="senior">50+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-6">
+                    <div class="form-step hidden" id="step2">
+                        <div class="premium-card p-6 sm:p-8 rounded-xl space-y-5">
+                            <h4 class="text-xs uppercase font-bold">02 · Skin Feel</h4>
+                            <label class="text-sm" id="lblFeel">How does your skin feel mid-day?</label>
+                            <select id="qFeel" class="w-full p-3 bg-slate-50 rounded-md">
+                                <option value="oily">Oily</option>
+                                <option value="dry">Dry</option>
+                                <option value="combination">Combination</option>
+                                <option value="normal">Normal</option>
+                            </select>
+                            <label class="text-sm">Main concerns</label>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <label><input type="checkbox" name="skinConcerns" value="acne"> Acne</label>
+                                <label><input type="checkbox" name="skinConcerns" value="pih"> Pigmentation</label>
+                                <label><input type="checkbox" name="skinConcerns" value="dryness"> Dryness</label>
+                                <label><input type="checkbox" name="skinConcerns" value="aging"> Aging</label>
+                            </div>
+                        </div>
+                    </div>
 
-        <h4 class="text-xs uppercase tracking-widest font-bold">01 · Basic Info</h4>
+                    <div class="form-step hidden" id="step3">
+                        <div class="premium-card p-6 sm:p-8 rounded-xl space-y-4">
+                            <h4 class="text-xs uppercase font-bold">03 · Quick Check</h4>
+                            <label class="text-sm">Sensitivity</label>
+                            <select id="qSensitivity" class="w-full p-3 bg-slate-50 rounded-md">
+                                <option value="low">Normal</option>
+                                <option value="high">Sensitive</option>
+                            </select>
+                            <label class="text-sm" id="lblSun">How much sun exposure do you usually get?:</label>
+                            <select id="qSun" class="w-full p-3 bg-slate-50 rounded-md">
+                                <option value="low">Low</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <input type="text" id="patName" placeholder="Full Name" required class="p-3 bg-slate-50 rounded-md">
-
-            <input type="tel" id="patContact" placeholder="WhatsApp Number" required class="p-3 bg-slate-50 rounded-md">
-
-            <select id="patSex" class="p-3 bg-slate-50 rounded-md" onchange="adaptQuestionnaireLabels()">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-            </select>
-
-            <select id="patAge" class="p-3 bg-slate-50 rounded-md" onchange="adaptQuestionnaireLabels()">
-                <option value="teen">Under 20</option>
-                <option value="youngAdult">20–35</option>
-                <option value="matureAdult">36–50</option>
-                <option value="senior">50+</option>
-            </select>
-
-        </div>
-    </div>
-
-</div>
-
-<!-- STEP 2 -->
-<div class="form-step hidden" id="step2">
-
-    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-5">
-
-        <h4 class="text-xs uppercase font-bold">02 · Skin Feel</h4>
-
-        <label class="text-sm">How does your skin feel?</label>
-        <select id="qFeel" class="w-full p-3 bg-slate-50 rounded-md">
-            <option value="oily">Oily</option>
-            <option value="dry">Dry</option>
-            <option value="combination">Combination</option>
-            <option value="normal">Normal</option>
-        </select>
-
-        <label class="text-sm">Main concerns</label>
-
-        <div class="grid grid-cols-2 gap-2 text-sm">
-            <label><input type="checkbox" name="skinConcerns" value="acne"> Acne</label>
-            <label><input type="checkbox" name="skinConcerns" value="pih"> Pigmentation</label>
-            <label><input type="checkbox" name="skinConcerns" value="dryness"> Dryness</label>
-            <label><input type="checkbox" name="skinConcerns" value="aging"> Aging</label>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- STEP 3 -->
-<div class="form-step hidden" id="step3">
-
-    <div class="premium-card p-6 sm:p-8 rounded-xl space-y-4">
-
-        <h4 class="text-xs uppercase font-bold">03 · Quick Check</h4>
-
-        <label class="text-sm">Sensitivity</label>
-        <select id="qSensitivity" class="w-full p-3 bg-slate-50 rounded-md">
-            <option value="low">Normal</option>
-            <option value="high">Sensitive</option>
-        </select>
-
-        <label class="text-sm">Sun exposure</label>
-        <select id="qSun" class="w-full p-3 bg-slate-50 rounded-md">
-            <option value="low">Low</option>
-            <option value="high">High</option>
-        </select>
-
-    </div>
-
-</div>
-
-<!-- NAV BUTTONS -->
-<div class="flex justify-between gap-3">
-    <button type="button" onclick="prevStep()" class="px-6 py-3 bg-slate-200 rounded-lg text-xs uppercase">
-        Back
-    </button>
-
-    <button type="button" id="nextBtn" onclick="nextStep()" class="px-6 py-3 bg-teal-600 text-white rounded-lg text-xs uppercase">
-        Next
-    </button>
-
-    <button type="submit" id="submitBtn" class="hidden px-6 py-3 bg-slate-900 text-white rounded-lg text-xs uppercase">
-        Submit
-    </button>
-</div>
-</form>
+                    <div class="flex justify-between gap-3">
+                        <button type="button" onclick="prevStep()" class="px-6 py-3 bg-slate-200 rounded-lg text-xs uppercase">Back</button>
+                        <button type="button" id="nextBtn" onclick="nextStep()" class="px-6 py-3 bg-teal-600 text-white rounded-lg text-xs uppercase">Next</button>
+                        <button type="submit" id="submitBtn" class="hidden px-6 py-3 bg-slate-900 text-white rounded-lg text-xs uppercase">Submit</button>
+                    </div>
+                </form>
             </div>
         </section>
 
         <section id="adminView" class="hidden space-y-6 animate__animated animate__fadeIn">
-            
             <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-xl">
                 <div>
                     <h2 class="text-xl font-semibold tracking-tight">Clinical Case Evaluation Dashboard</h2>
@@ -307,13 +400,20 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                
                 <div class="lg:col-span-4 premium-card p-5 rounded-xl h-[700px] flex flex-col bg-white">
                     <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Live Intake Queue</h3>
+<div class="mt-3">
+
+    <input
+        type="date"
+        id="filterDate"
+        onchange="applyDateFilter()"
+        class="w-full p-2 border rounded text-xs">
+
+</div>
                         <span class="px-2 py-0.5 rounded-full text-[9px] bg-slate-100 text-slate-600 font-bold uppercase">Database Pipeline</span>
                     </div>
-                    
                     <div id="queueContainer" class="space-y-3 overflow-y-auto flex-1 pr-1">
                         <div class="text-center py-12 text-slate-400 space-y-2">
                             <svg class="w-8 h-8 mx-auto stroke-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
@@ -323,7 +423,6 @@
                 </div>
 
                 <div class="lg:col-span-8 space-y-6">
-                    
                     <div class="premium-card p-6 rounded-xl bg-white space-y-4">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Target Profile Biomarkers</h3>
                         <div id="activePatientMeta" class="text-xs text-slate-500">
@@ -339,7 +438,6 @@
                             <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Custom Layering Architecture</h3>
                             <span class="text-[10px] font-mono text-slate-400">Dynamic Text Synthesis</span>
                         </div>
-                        
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="space-y-1.5">
                                 <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-sm">
@@ -347,7 +445,6 @@
                                 </label>
                                 <textarea id="routineAM" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-emerald-400 h-40 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
                             </div>
-
                             <div class="space-y-1.5">
                                 <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-sm">
                                     🌙 PM Layering Sequence
@@ -355,66 +452,27 @@
                                 <textarea id="routinePM" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-emerald-400 h-40 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
                             </div>
                         </div>
-
                         <div class="space-y-1.5">
                             <label class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-1 rounded-sm">
                                 🔬 Clinical Contraindications & Operational Directives
                             </label>
                             <textarea id="routineNotes" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 h-24 focus:outline-hidden focus:ring-1 focus:ring-teal-500"></textarea>
                         </div>
-
                         <div class="pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <button onclick="shareViaWhatsApp()" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold py-3.5 px-4 rounded-lg transition shadow-md uppercase tracking-wider cursor-pointer">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.447 5.338 1.448 5.494 0 9.961-4.471 9.964-9.97 0-2.665-1.036-5.171-2.918-7.054C17.15 1.697 14.646.662 12.01.662c-5.498 0-9.965 4.47-9.968 9.97-.001 2.07.541 4.095 1.57 5.86l-.99 3.614 3.71-.973zm11.309-3.254c-.213-.107-1.262-.622-1.457-.692-.195-.071-.337-.107-.479.107-.142.214-.55.692-.673.833-.124.141-.248.158-.461.052-.213-.107-.9-.331-1.714-1.057-.633-.565-1.061-1.263-1.185-1.476-.124-.213-.013-.328.093-.434.096-.095.213-.248.32-.372.106-.124.142-.213.213-.354.071-.142.035-.266-.018-.372-.053-.107-.479-1.152-.656-1.578-.173-.414-.346-.358-.479-.365-.124-.006-.266-.007-.408-.007-.141 0-.372.053-.567.266-.195.213-.745.727-.745 1.772 0 1.045.761 2.054.867 2.196.106.142 1.498 2.288 3.629 3.208.507.219.903.351 1.21.449.51.162.973.139 1.339.085.409-.06 1.262-.515 1.439-1.011.177-.496.177-.922.124-.107z"/></svg>
                                 Dispatch to Patient Line
                             </button>
                             <button onclick="shareViaEmail()" class="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold py-3.5 px-4 rounded-lg transition shadow-md uppercase tracking-wider cursor-pointer">
-                                <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
                                 Secure Email Transmittal
                             </button>
                         </div>
                     </div>
-
-                    <div class="premium-card p-6 rounded-xl bg-white space-y-4">
-                        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Clinical Reference Case Gallery</h3>
-                            <span class="text-[10px] text-teal-600 bg-teal-50 px-2 py-0.5 rounded-sm font-semibold">Diagnostic Baseline Photos</span>
-                        </div>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
-                                <img src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span class="text-[9px] font-mono text-white tracking-tight">Index A: Sebum Congestion</span>
-                                </div>
-                            </div>
-                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
-                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span class="text-[9px] font-mono text-white tracking-tight">Index B: Dehydrated Keratin</span>
-                                </div>
-                            </div>
-                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
-                                <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span class="text-[9px] font-mono text-white tracking-tight">Index C: Vascular Flush</span>
-                                </div>
-                            </div>
-                            <div class="group relative rounded-lg overflow-hidden bg-slate-100 aspect-square border border-slate-200">
-                                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=300&q=80" alt="Mantle Evaluation 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span class="text-[9px] font-mono text-white tracking-tight">Index D: Structural Deficit</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
     </main>
 
     <script>
-        // LIVE PRODUCTION FIRESTORE CONTEXT INITIALIZATION
         const firebaseConfig = {
             apiKey: "AIzaSyAV_wcByfW1MyULiOWBficdhGgqX5fmpS8",
             authDomain: "dr-aesthetic-hat.firebaseapp.com",
@@ -424,14 +482,12 @@
             appId: "1:1040353314132:web:f6ef181676651b0a12f4c1"
         };
 
-        // Initialize Firebase deployment connections safely
         firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
+        const db = firebase.firestore();
 const auth = firebase.auth();
-        let currentSelectedRecord = null;
 
-        // HIGH-END ADVISORY KNOWLEDGE BASE MATRIX
+let currentSelectedRecord = null;
+let allRecords = [];
         const factsArray = [
             "Stripping lipids via aggressive surfactant washes forces the stratum corneum into reactive hyper-seborrhea, mimicking oily skin while the barrier dehydrates underneath.",
             "Optimal molecular absorption relies on viscosity hierarchies. Flooding the cells with lightweight humectants before applying lipid-locking emollients keeps the barrier dense.",
@@ -455,7 +511,6 @@ const auth = firebase.auth();
                 if (!p) return;
                 p.classList.remove('animate__fadeIn');
                 p.classList.add('animate__fadeOut');
-                
                 setTimeout(() => {
                     p.innerText = factsArray[splashFactIndex];
                     p.classList.remove('animate__fadeOut');
@@ -482,7 +537,6 @@ const auth = firebase.auth();
         function rotateFlashCard() {
             const el = document.getElementById('dynamicFlashFact');
             if(!el) return;
-            
             setTimeout(() => {
                 currentFactIndex = (currentFactIndex + 1) % factsArray.length;
                 el.innerText = factsArray[currentFactIndex];
@@ -506,19 +560,13 @@ const auth = firebase.auth();
             }, 50);
         }
 
-function launchAssessmentForm() {
-    const wrapper = document.getElementById('assessmentWrapper');
-    wrapper.classList.remove('hidden');
-
-    setTimeout(() => {
-        const el = document.getElementById('assessmentWrapper');
-
-        window.scrollTo({
-            top: el.offsetTop - 80, // fixes sticky nav overlap
-            behavior: 'smooth'
-        });
-    }, 150);
-}
+        function launchAssessmentForm() {
+            const wrapper = document.getElementById('assessmentWrapper');
+            wrapper.classList.remove('hidden');
+            setTimeout(() => {
+                window.scrollTo({ top: wrapper.offsetTop - 80, behavior: 'smooth' });
+            }, 150);
+        }
 
         function scrollToAssessment() {
             launchAssessmentForm();
@@ -546,154 +594,236 @@ function launchAssessmentForm() {
         }
 
         async function toggleAdminView() {
-
-    const email = prompt("Admin Email");
-    if (!email) return;
-
-    const password = prompt("Admin Password");
-    if (!password) return;
-
-    try {
-
-        await auth.signInWithEmailAndPassword(
-            email,
-            password
-        );
-
-        document.getElementById('patientView')
-            .classList.add('hidden');
-
-        document.getElementById('adminView')
-            .classList.remove('hidden');
-
-        fetchSubmissionsQueue();
-
-    } catch(error) {
-
-        console.error(error);
-
-        alert("Invalid Email or Password");
-
-    }
-}
-
-      async function exitAdminView() {
-
-    await auth.signOut();
-
-    document.getElementById('adminView')
-        .classList.add('hidden');
-
-    document.getElementById('patientView')
-        .classList.remove('hidden');
-}
-  
-
-        // WRITE PATIENT CASE TO LIVE FIRESTORE
-    async function handleFormSubmit(e) {
-    e.preventDefault();
-
-    const selectedConcerns = [];
-    document.querySelectorAll('input[name="skinConcerns"]:checked')
-        .forEach(cb => selectedConcerns.push(cb.value));
-
-    const skinScore = calculateSkinScore({
-        feel: document.getElementById('qFeel').value,
-        concerns: selectedConcerns,
-        sensitivity: document.getElementById('qSensitivity').value,
-        sun: document.getElementById('qSun').value
-    });
-
-    const payload = {
-        name: document.getElementById('patName').value.trim(),
-        contact: document.getElementById('patContact').value.trim(),
-        sex: document.getElementById('patSex').value,
-        age: document.getElementById('patAge').value,
-        feel: document.getElementById('qFeel').value,
-        concerns: selectedConcerns,
-        sensitivity: document.getElementById('qSensitivity').value,
-        sun: document.getElementById('qSun').value,
-        skinScore: skinScore,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    try {
-        await db.collection('skinAssessments').add(payload);
-        alert("Submitted successfully!");
-
-        document.getElementById('assessmentForm').reset();
-
-        currentStep = 1;
-        updateStepUI();
-
-    } catch (err) {
-        console.error(err);
-        alert("Submission failed");
-    }
-}
-
-            
-
-
-        // STREAM REAL-TIME CASE FILES FROM THE FIRESTORE WEBSOCKET CHANNEL
-        function fetchSubmissionsQueue() {
-            db.collection('skinAssessments')
-              .orderBy('timestamp', 'desc')
-              .onSnapshot({ includeMetadataChanges: true }, snapshot => {
-                  const records = [];
-                  snapshot.forEach(doc => {
-                      const data = doc.data();
-                      
-                      // Handle server timestamp sync state safely
-                      let normalizedTime;
-                      if (data.timestamp && typeof data.timestamp.toDate === 'function') {
-                          normalizedTime = data.timestamp.toDate().toISOString();
-                      } else {
-                          normalizedTime = new Date().toISOString(); // Fallback for immediate local rendering or legacy text timestamps
-                      }
-                      
-                      records.push({ 
-                          id: doc.id, 
-                          ...data,
-                          timestamp: normalizedTime
-                      });
-                  });
-                  renderQueueUI(records);
-              }, err => {
-                  console.error("Live streaming pipeline broken: ", err);
-                  alert("Live monitoring link failed. Open browser console (F12) to click the index link!");
-              });
+            const email = prompt("Admin Email");
+            if (!email) return;
+            const password = prompt("Admin Password");
+            if (!password) return;
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                document.getElementById('patientView').classList.add('hidden');
+                document.getElementById('adminView').classList.remove('hidden');
+                fetchSubmissionsQueue();
+            } catch(error) {
+                console.error(error);
+                alert("Invalid Email or Password");
+            }
         }
 
+        async function exitAdminView() {
+            await auth.signOut();
+            document.getElementById('adminView').classList.add('hidden');
+            document.getElementById('patientView').classList.remove('hidden');
+        }
+
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const selectedConcerns = [];
+            document.querySelectorAll('input[name="skinConcerns"]:checked')
+                .forEach(cb => selectedConcerns.push(cb.value));
+
+            const skinScore = calculateSkinScore({
+                feel: document.getElementById('qFeel').value,
+                concerns: selectedConcerns,
+                sensitivity: document.getElementById('qSensitivity').value,
+                sun: document.getElementById('qSun').value
+            });
+
+            const payload = {
+                name: document.getElementById('patName').value.trim(),
+                contact: document.getElementById('patContact').value.trim(),
+                sex: document.getElementById('patSex').value,
+                age: document.getElementById('patAge').value,
+                feel: document.getElementById('qFeel').value,
+                concerns: selectedConcerns,
+                sensitivity: document.getElementById('qSensitivity').value,
+                sun: document.getElementById('qSun').value,
+                skinScore: skinScore,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            const btn = document.getElementById("submitBtn");
+            
+            try {
+                btn.disabled = true;
+                btn.innerHTML = `<span class="animate-pulse">Uploading...</span>`;
+                
+                await db.collection('skinAssessments').add(payload);
+                
+                btn.innerHTML = "✓ Submitted";
+                setTimeout(() => {
+                    btn.innerHTML = 'SUBMIT'; 
+                    btn.disabled = false;
+                }, 2000);
+
+                document.getElementById('assessmentForm').reset();
+                currentStep = 1;
+                updateStepUI();
+
+            } catch (err) {
+                console.error(err);
+                alert("Submission failed. Please verify your Firebase Firestore Security Rules.");
+                
+                // Ensure the button safely resets even if Firestore blocks the upload
+                btn.innerHTML = 'SUBMIT';
+                btn.disabled = false;
+            }
+        }
+
+function fetchSubmissionsQueue() {
+
+    db.collection('skinAssessments')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot(
+        { includeMetadataChanges: true },
+
+        snapshot => {
+
+            const records = [];
+
+            snapshot.forEach(doc => {
+
+                const data = doc.data();
+
+                let normalizedTime;
+
+                if (
+                    data.timestamp &&
+                    typeof data.timestamp.toDate === 'function'
+                ) {
+
+                    normalizedTime =
+                    data.timestamp.toDate().toISOString();
+
+                } else {
+
+                    normalizedTime =
+                    new Date().toISOString();
+
+                }
+
+                records.push({
+                    id: doc.id,
+                    ...data,
+                    timestamp: normalizedTime
+                });
+
+            });
+
+            allRecords = records;
+            renderQueueUI(records);
+
+        },
+
+        err => {
+
+            console.error(
+                "Live streaming pipeline broken:",
+                err
+            );
+
+            alert(
+                "Live monitoring link failed."
+            );
+
+        }
+      );
+}
+
         function renderQueueUI(records) {
+          records.sort((a,b)=>
+new Date(b.timestamp)-new Date(a.timestamp)
+);
             const container = document.getElementById('queueContainer');
             if (records.length === 0) {
                 container.innerHTML = `<p class="text-xs text-slate-400 italic p-4 text-center">Case queue clear.</p>`;
                 return;
             }
-
             container.innerHTML = records.map(rec => {
-                // Safeguard against malformed JSON data when turning record into string format
                 const sanitizedRecord = JSON.stringify(rec).replace(/'/g, "&apos;").replace(/"/g, '&quot;');
                 return `
-                    <div onclick="selectPatientRecord('${sanitizedRecord}')" 
-                         class="p-4 rounded-lg border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition text-left block bg-white cursor-pointer shadow-xs">
-                        <div class="flex justify-between items-start">
-                            <p class="text-xs font-bold text-slate-900 truncate">${rec.name}</p>
-                            <span class="text-[9px] font-mono text-slate-400">${new Date(rec.timestamp).toLocaleDateString()}</span>
-                        </div>
-                        <p class="text-[10px] text-slate-500 uppercase tracking-tight mt-0.5">${rec.sex} · ${rec.age}</p>
-                        <div class="flex gap-1.5 flex-wrap mt-2">
-                            <span class="px-1.5 py-0.5 text-[9px] bg-slate-100 text-slate-800 rounded-sm uppercase font-semibold">${rec.feel}</span>
-                            ${(rec.concerns || []).map(c => `<span class="px-1.5 py-0.5 text-[9px] bg-teal-50 text-teal-800 rounded-sm uppercase font-semibold">${c}</span>`).join('')}
-                        </div>
-                    </div>
+                    <div class="p-4 rounded-lg border border-slate-200 hover:border-slate-900 hover:bg-slate-50 transition bg-white shadow-xs">
+
+    <div class="flex justify-between items-start">
+
+        <div onclick="selectPatientRecord('${sanitizedRecord}')"
+             class="flex-1 cursor-pointer">
+
+            <p class="text-xs font-bold text-slate-900 truncate">
+                ${rec.name}
+            </p>
+
+            <span class="text-[9px] font-mono text-slate-400">
+                ${new Date(rec.timestamp).toLocaleDateString()}
+            </span>
+
+            <p class="text-[10px] text-slate-500 uppercase tracking-tight mt-0.5">
+                ${rec.sex} · ${rec.age}
+            </p>
+
+        </div>
+
+        <button
+            onclick="deleteRecord('${rec.id}')"
+            class="ml-2 bg-red-600 text-white px-2 py-1 rounded text-[10px]">
+            Delete
+        </button>
+
+    </div>
+
+</div>
                 `;
             }).join('');
         }
 
+  async function deleteRecord(id){
+
+    const confirmDelete =
+    confirm("Delete this patient record?");
+
+    if(!confirmDelete) return;
+
+    try{
+
+        await db.collection("skinAssessments")
+                .doc(id)
+                .delete();
+
+        alert("Deleted");
+
+    }catch(err){
+
+        console.error(err);
+        alert("Delete failed");
+
+    }
+}
+  
+  function applyDateFilter(){
+
+    const selectedDate =
+    document.getElementById("filterDate").value;
+
+    if(!selectedDate){
+
+        renderQueueUI(allRecords);
+        return;
+    }
+
+    const filtered = allRecords.filter(rec => {
+
+        const recDate =
+        new Date(rec.timestamp)
+        .toISOString()
+        .split("T")[0];
+
+        return recDate === selectedDate;
+
+    });
+
+    renderQueueUI(filtered);
+}
         function selectPatientRecord(recordString) {
-            // Unescape quotes and convert back into clear object structure safely
             const unescapedString = recordString.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
             const record = JSON.parse(unescapedString);
             currentSelectedRecord = record;
@@ -708,8 +838,6 @@ function launchAssessmentForm() {
                     <div class="md:col-span-2"><span class="text-slate-400 font-bold text-[10px] uppercase block">Target Anomalies Flagged</span> <span class="text-slate-900 font-medium uppercase text-xs">${(record.concerns || []).join(', ') || 'NONE DETECTED'}</span></div>
                     <div><span class="text-slate-400 font-bold text-[10px] uppercase block">Irritation Sensitivity Index</span> <span class="uppercase font-semibold text-amber-700">${record.sensitivity}</span></div>
                     <div><span class="text-slate-400 font-bold text-[10px] uppercase block">UV Environmental Index</span> <span class="uppercase text-slate-900">${record.sun}</span></div>
-                    <div class="md:col-span-2 border-t border-slate-200 pt-3"><span class="text-slate-400 font-bold text-[10px] uppercase block mb-1">Atypical Pathologies & Historical Data</span> <p class="bg-white p-3 rounded-md text-slate-700 border border-slate-200">${record.customOutlier || 'No abnormalities documented.'}</p></div>
-                    <div class="md:col-span-2"><span class="text-slate-400 font-bold text-[10px] uppercase block mb-1">Historical Habituation Matrix</span> <p class="bg-white p-3 rounded-md text-slate-700 border border-slate-200">${record.currentRoutine || 'Zero prior cosmetic active products recorded.'}</p></div>
                 </div>
             `;
             
@@ -754,9 +882,9 @@ function launchAssessmentForm() {
 
             if (concerns.includes('acne')) {
                 if (rec.feel === 'dry' || rec.sensitivity === 'high') {
-                    am += "3. Primary Actives: Niacinamide 4% + Zinc PCA 0.5% Serum (Combats surface sebum safely).\n";
-                    pm += "3. Primary Actives: Time-released Encapsulated Retinol 0.15% or Azelaic Acid lotion.\n";
-                    notes += "* Overlapping active acne + barrier dryness observed. Aggressive leave-on liquid BHAs bypassed to protect cell integrity.\n";
+                    am += "3. Primary Actives: Niacinamide 4% + Zinc PCA 0.5% Serum.\n";
+                    pm += "3. Primary Actives: Time-released Encapsulated Retinol 0.15%.\n";
+                    notes += "* Overlapping active acne + barrier dryness observed. Aggressive liquid BHAs bypassed.\n";
                 } else {
                     am += "3. Primary Actives: Salicylic Acid 2% targeted lipophilic application fluid.\n";
                     pm += "3. Primary Actives: Adapalene 0.1% Layer across comedone coordinates.\n";
@@ -765,29 +893,25 @@ function launchAssessmentForm() {
             }
 
             if (concerns.includes('pih')) {
-                if (!addedActiveAM) { am += "3. Primary Actives: Alpha Arbutin 2% paired with modern Vitamin C forms.\n"; addedActiveAM = true; }
-                else { am += "3b. Secondary Actives: Tranexamic Acid 3% blended into hydration base.\n"; }
-                if (!addedActivePM) { pm += "3. Primary Actives: Kojic Acid or dynamic Cysteamine application layer.\n"; addedActivePM = true; }
+                if (!addedActiveAM) { am += "3. Primary Actives: Alpha Arbutin 2%.\n"; addedActiveAM = true; }
+                else { am += "3b. Secondary Actives: Tranexamic Acid 3%.\n"; }
+                if (!addedActivePM) { pm += "3. Primary Actives: Kojic Acid layer.\n"; addedActivePM = true; }
             }
 
             if (concerns.includes('aging') || rec.age === 'matureAdult' || rec.age === 'senior') {
                 if (!addedActiveAM) am += "3. Primary Actives: Copper Tripeptide-1 tissue firming factors.\n";
-                if (!addedActivePM) pm += "3. Primary Actives: Retinaldehyde 0.05% in a stabilized squalane solution.\n";
+                if (!addedActivePM) pm += "3. Primary Actives: Retinaldehyde 0.05%.\n";
             }
 
             if (rec.feel === 'dry' || rec.feel === 'combination') {
-                am += "4. Protective Seal: Emollient barrier restructuring paste.\n5. Solar Architecture: Fluid Hybrid SPF 50+ mineral layer.\n";
-                pm += "4. Protective Seal: Bio-identical 3:1:1 Ceramide/Cholesterol fatty acid compounding paste.\n";
+                am += "4. Protective Seal: Emollient barrier restructuring paste.\n5. Solar Architecture: Fluid Hybrid SPF 50+.\n";
+                pm += "4. Protective Seal: Bio-identical 3:1:1 Ceramide/Cholesterol fatty acid paste.\n";
             } else {
-                am += "4. Protective Seal: Sebum-controlling oil-free gel fluid.\n5. Solar Architecture: Fluid ultra-matte Chemical SPF 50+ layer.\n";
-                pm += "4. Protective Seal: Light non-comedogenic Hyaluronic acid gel fluid.\n";
+                am += "4. Protective Seal: Sebum-controlling oil-free gel fluid.\n5. Solar Architecture: Fluid ultra-matte Chemical SPF 50+.\n";
+                pm += "4. Protective Seal: Light non-comedogenic Hyaluronic acid gel.\n";
             }
 
-            if (rec.customOutlier) {
-                notes += `\n* Patient-specific observation addressing: "${rec.customOutlier}"`;
-            } else {
-                notes += "\n* Allow actives to dry completely for 120 seconds before sealing with moisturizer to protect pH stability gradients.";
-            }
+            notes += "\n* Allow actives to dry completely for 120 seconds before sealing with moisturizer to protect pH stability gradients.";
 
             document.getElementById('routineAM').value = am.trim();
             document.getElementById('routinePM').value = pm.trim();
@@ -817,78 +941,159 @@ function launchAssessmentForm() {
             const body = encodeURIComponent(compileRoutineText());
             window.location.href = `mailto:?subject=${subject}&body=${body}`;
         }
-  window.addEventListener("scroll", () => {
-    const nav = document.getElementById("topNav");
-    if (window.scrollY > 10) {
-        nav.classList.add("glass-nav", "scrolled");
-    } else {
-        nav.classList.add("glass-nav");
-        nav.classList.remove("scrolled");
+
+        window.addEventListener("scroll", () => {
+            const nav = document.getElementById("topNav");
+            if (window.scrollY > 10) {
+                nav.classList.add("glass-nav", "scrolled");
+            } else {
+                nav.classList.add("glass-nav");
+                nav.classList.remove("scrolled");
+            }
+        });
+  
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function updateStepUI() {
+            document.querySelectorAll(".form-step").forEach(el => el.classList.add("hidden"));
+            document.getElementById(`step${currentStep}`).classList.remove("hidden");
+
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById("progressBar").style.width = progress + "%";
+            document.getElementById("stepLabel").innerText = `Step ${currentStep} of ${totalSteps}`;
+
+            document.getElementById("nextBtn").classList.toggle("hidden", currentStep === totalSteps);
+            document.getElementById("submitBtn").classList.toggle("hidden", currentStep !== totalSteps);
+        }
+
+        function nextStep() {
+            if(currentStep === 1){
+                if(!document.getElementById("patName").value.trim() || !document.getElementById("patContact").value.trim()){
+                    alert("Please complete all required fields.");
+                    return;
+                }
+            }
+            if(currentStep < totalSteps){
+                currentStep++;
+                updateStepUI();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepUI();
+            }
+        }
+  
+        function calculateSkinScore(data) {
+            let score = 50; 
+            if (data.feel === "dry") score -= 15;
+            if (data.feel === "oily") score -= 5;
+            if (data.concerns.includes("acne")) score -= 15;
+            if (data.concerns.includes("pih")) score -= 10;
+            if (data.concerns.includes("aging")) score -= 10;
+            if (data.concerns.includes("dryness")) score -= 10;
+            if (data.sensitivity === "high") score -= 10;
+            if (data.sun === "high") score -= 10;
+            if (score < 0) score = 0;
+            if (score > 100) score = 100;
+            return score;
+        }
+  
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.animate([
+                        { opacity:0, transform:'translateY(30px)' },
+                        { opacity:1, transform:'translateY(0)' }
+                    ], { duration:800, fill:'forwards' });
+                }
+            });
+        });
+
+        document.querySelectorAll('.premium-card').forEach(card => {
+            observer.observe(card);
+        });
+  /* Sidebar behaviour */
+
+const sideNav = document.getElementById("sideNav");
+
+let isOpen = true;
+
+function toggleSidebar() {
+
+    if(isOpen){
+        sideNav.classList.add("minimized");
+    }else{
+        sideNav.classList.remove("minimized");
     }
+
+    isOpen = !isOpen;
+}
+
+/* click */
+
+sideNav.addEventListener("click", function(e){
+    e.stopPropagation();
+    toggleSidebar();
+});
+
+/* touch */
+
+sideNav.addEventListener("touchstart", function(e){
+    e.stopPropagation();
 });
   
-  
-  let currentStep = 1;
-const totalSteps = 3;
+let touchStartX = 0;
 
-function updateStepUI() {
-    document.querySelectorAll(".form-step").forEach((el, index) => {
-        el.classList.add("hidden");
-    });
+sideNav.addEventListener("touchstart", e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
 
-    document.getElementById(`step${currentStep}`).classList.remove("hidden");
+sideNav.addEventListener("touchend", e => {
 
-    // progress bar
-    const progress = (currentStep / totalSteps) * 100;
-    document.getElementById("progressBar").style.width = progress + "%";
+    let touchEndX = e.changedTouches[0].screenX;
 
-    document.getElementById("stepLabel").innerText =
-        `Step ${currentStep} of ${totalSteps}`;
-
-    // button logic
-    document.getElementById("nextBtn").classList.toggle("hidden", currentStep === totalSteps);
-    document.getElementById("submitBtn").classList.toggle("hidden", currentStep !== totalSteps);
-}
-
-function nextStep() {
-    if (currentStep < totalSteps) {
-        currentStep++;
-        updateStepUI();
+    if(Math.abs(touchStartX - touchEndX) > 30){
+        toggleSidebar();
     }
-}
 
-function prevStep() {
-    if (currentStep > 1) {
-        currentStep--;
-        updateStepUI();
+});
+  function toggleDarkMode(){
+
+    document.body.classList.toggle("dark-mode");
+
+    const btn =
+    document.getElementById("themeBtn");
+
+    if(
+      document.body.classList.contains("dark-mode")
+    ){
+        btn.innerHTML="☀️";
+    }else{
+        btn.innerHTML="🌙";
     }
+
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode")
+    );
 }
   
-  function calculateSkinScore(data) {
-    let score = 50; // base neutral
+  window.addEventListener("DOMContentLoaded",()=>{
 
-    // dryness penalty
-    if (data.feel === "dry") score -= 15;
-    if (data.feel === "oily") score -= 5;
+    if(
+        localStorage.getItem("darkMode")
+        === "true"
+    ){
+        document.body.classList.add(
+            "dark-mode"
+        );
+    }
 
-    // concerns
-    if (data.concerns.includes("acne")) score -= 15;
-    if (data.concerns.includes("pih")) score -= 10;
-    if (data.concerns.includes("aging")) score -= 10;
-    if (data.concerns.includes("dryness")) score -= 10;
-
-    // sensitivity
-    if (data.sensitivity === "high") score -= 10;
-
-    // sun exposure
-    if (data.sun === "high") score -= 10;
-
-    // clamp
-    if (score < 0) score = 0;
-    if (score > 100) score = 100;
-
-    return score;
-}
+});
     </script>
 </body>
 </html>
