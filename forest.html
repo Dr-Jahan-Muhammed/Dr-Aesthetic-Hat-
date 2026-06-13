@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,initial-scale=1">
+content="width=device-width, initial-scale=1.0">
 
-<title>Forest Retreat</title>
+<title>🌲 Forest Retreat | Dr Aesthetic Hat</title>
 
 <style>
 
-body{
-
+*{
 margin:0;
-
-overflow:hidden;
-
-background:black;
-
-font-family:Arial,sans-serif;
-
+padding:0;
+box-sizing:border-box;
 }
 
-video{
+body{
+background:black;
+overflow:hidden;
+font-family:Inter,sans-serif;
+}
+
+#forestVideo{
 
 position:fixed;
 
 top:0;
-
 left:0;
 
 width:100%;
-
 height:100%;
 
 object-fit:cover;
@@ -45,12 +43,12 @@ object-fit:cover;
 position:fixed;
 
 top:0;
-
 left:0;
 
 width:100%;
-
 height:100%;
+
+background:rgba(0,0,0,.35);
 
 display:flex;
 
@@ -60,29 +58,45 @@ justify-content:center;
 
 align-items:center;
 
-background:rgba(0,0,0,.25);
+text-align:center;
 
 color:white;
 
-text-align:center;
+padding:30px;
 
 }
 
 h1{
 
-font-size:2rem;
+font-size:2.5rem;
 
-margin-bottom:10px;
+font-weight:300;
+
+margin-bottom:15px;
 
 }
 
-button{
+p{
 
-padding:14px 24px;
+font-size:1rem;
+
+opacity:.9;
+
+max-width:320px;
+
+line-height:1.7;
+
+}
+
+.enterBtn{
+
+margin-top:25px;
+
+padding:16px 30px;
 
 border:none;
 
-border-radius:12px;
+border-radius:16px;
 
 background:#14b8a6;
 
@@ -90,11 +104,13 @@ color:white;
 
 font-size:16px;
 
-margin-top:15px;
+font-weight:bold;
+
+cursor:pointer;
 
 }
 
-.back{
+.backBtn{
 
 position:fixed;
 
@@ -102,18 +118,26 @@ top:20px;
 
 left:20px;
 
+z-index:999;
+
 text-decoration:none;
-
-color:white;
-
-font-size:18px;
 
 background:rgba(0,0,0,.4);
 
-padding:10px 15px;
+backdrop-filter:blur(10px);
 
-border-radius:10px;
+padding:12px 18px;
 
+border-radius:14px;
+
+color:white;
+
+font-size:14px;
+
+}
+
+.hidden{
+display:none;
 }
 
 </style>
@@ -122,31 +146,48 @@ border-radius:10px;
 
 <body>
 
-<video autoplay muted loop playsinline>
-
-<source src="videos/forest.mp4" type="video/mp4">
-
-</video>
-
-<audio id="forestAudio" loop>
-
-<source src="audio/forest.mp3" type="audio/mpeg">
-
-</audio>
-
-<a href="mind.html" class="back">
+<a href="mind.html" class="backBtn">
 
 ← Back
 
 </a>
 
-<div class="overlay">
+<video
+id="forestVideo"
+loop
+playsinline>
 
-<h1>🌲 Forest Retreat</h1>
+<source
+src="videos/forest.mp4"
+type="video/mp4">
 
-<p>Take a breath.</p>
+</video>
 
-<button onclick="startForest()">
+<div
+id="welcomeScreen"
+class="overlay">
+
+<h1>
+
+🌲 Forest Retreat
+
+</h1>
+
+<p>
+
+Take a moment.
+
+Slow down.
+
+Listen to the forest.
+
+Nothing else needs your attention right now.
+
+</p>
+
+<button
+class="enterBtn"
+onclick="enterForest()">
 
 Enter Forest
 
@@ -156,11 +197,22 @@ Enter Forest
 
 <script>
 
-function startForest(){
+function enterForest(){
+
+const video =
+document.getElementById(
+"forestVideo"
+);
+
+video.play();
 
 document
-.getElementById("forestAudio")
-.play();
+.getElementById(
+"welcomeScreen"
+)
+.classList.add(
+"hidden"
+);
 
 }
 
