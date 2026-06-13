@@ -31,6 +31,9 @@ background:linear-gradient(
 );
 
 overflow-x:hidden;
+width:100%;
+max-width:100vw;
+
 color:white;
 font-family:Inter,sans-serif;
 }
@@ -126,6 +129,7 @@ transform:scale(1);
   
 html{
 scroll-behavior:smooth;
+overflow-x:hidden;
 }
 
 #stars{
@@ -170,10 +174,10 @@ opacity:.2;
 <body>
   <div id="stars"></div>
   
-  <div style="
+<div style="
 position:fixed;
 top:50%;
-right:-2px;
+right:5px;
 transform:translateY(-50%);
 z-index:99999;
 display:flex;
@@ -306,39 +310,40 @@ Sometimes peace begins with a single thought.
 
 </div>
 
-<div class="grid md:grid-cols-3 gap-8">
+<div class="grid grid-cols-3 gap-3 max-w-3xl mx-auto">
 
-<div class="glass rounded-3xl p-8 floating">
+<div class="glass rounded-2xl p-3 text-center">
 
-<p class="text-4xl mb-5">☁️</p>
+<p class="text-sm font-semibold mb-1">
+🌲 Presence
+</p>
 
-<p class="text-xl leading-relaxed">
-You don't need to solve
-everything today.
+<p class="text-xs text-slate-400">
+Be where your feet are.
 </p>
 
 </div>
 
-<div class="glass rounded-3xl p-8 floating"
-style="animation-delay:2s;">
+<div class="glass rounded-2xl p-3 text-center">
 
-<p class="text-4xl mb-5">🌿</p>
+<p class="text-sm font-semibold mb-1">
+🌊 Acceptance
+</p>
 
-<p class="text-xl leading-relaxed">
-Growth happens quietly,
-one day at a time.
+<p class="text-xs text-slate-400">
+Let thoughts pass like waves.
 </p>
 
 </div>
 
-<div class="glass rounded-3xl p-8 floating"
-style="animation-delay:4s;">
+<div class="glass rounded-2xl p-3 text-center">
 
-<p class="text-4xl mb-5">🌙</p>
+<p class="text-sm font-semibold mb-1">
+🔥 Resilience
+</p>
 
-<p class="text-xl leading-relaxed">
-Rest is productive.
-Your mind deserves recovery.
+<p class="text-xs text-slate-400">
+Storms do not last forever.
 </p>
 
 </div>
@@ -377,17 +382,17 @@ It is created.
 
 const quotes = [
 
-"Peace is not found. It is created.",
+"Peace comes from within. Do not seek it without. — Buddha",
 
-"The quieter the mind, the clearer the vision.",
+"The quieter you become, the more you can hear. — Ram Dass",
 
-"Your worth is not measured by productivity.",
+"Nothing can bring you peace but yourself. — Ralph Waldo Emerson",
 
-"A calm mind is a powerful mind.",
+"You find peace not by rearranging life, but by realizing who you are. — Eckhart Tolle",
 
-"Healing often happens invisibly.",
+"Almost everything will work again if you unplug it for a few minutes, including you. — Anne Lamott",
 
-"Slow down. Nothing important is running away."
+"Nature does not hurry, yet everything is accomplished. — Lao Tzu"
 
 ];
 
@@ -439,7 +444,35 @@ star.style.animationDelay=Math.random()*4+"s";
 document.getElementById("stars").appendChild(star);
 
 }
-</script>
+let currentAudio = null;
+
+function toggleSound(soundName, button){
+
+const audio = document.getElementById("audio-" + soundName);
+
+if(currentAudio && currentAudio !== audio){
+currentAudio.pause();
+currentAudio.currentTime = 0;
+}
+
+if(audio.paused){
+
+audio.play();
+
+currentAudio = audio;
+
+button.classList.add("ring","ring-teal-400");
+
+}else{
+
+audio.pause();
+
+button.classList.remove("ring","ring-teal-400");
+
+}
+
+}
+    </script>
   <section class="py-28 px-6">
 
 <div class="max-w-5xl mx-auto text-center">
@@ -485,42 +518,99 @@ Inhale
 </div>
 
 </section>
-  <section class="py-24 px-6">
+ <section class="py-24 px-6">
 
 <div class="max-w-6xl mx-auto">
 
-<div class="text-center mb-14">
+<div class="text-center mb-12">
 
 <p class="text-teal-400 uppercase tracking-[6px] text-xs mb-3">
-SERENITY GALLERY
+
+IMMERSIVE SPACES
+
 </p>
 
 <h2 class="text-4xl md:text-5xl font-light">
-Moments Worth Feeling
+
+Choose Your Escape
+
 </h2>
 
-<p class="text-slate-400 mt-4">
-Peace often lives in simple places.
+</div>
+
+<div class="grid gap-6">
+
+<a href="forest.html"
+class="glass rounded-3xl overflow-hidden block">
+
+<img src="images/forest.jpg"
+class="w-full h-72 object-cover">
+
+<div class="p-6">
+
+<h3 class="text-2xl">
+
+🌲 Forest Retreat
+
+</h3>
+
+<p class="text-slate-400">
+
+Sunlight. Trees. Birdsong.
+
 </p>
 
 </div>
 
-<div class="grid md:grid-cols-3 gap-6">
+</a>
 
-<div class="overflow-hidden rounded-3xl glass">
-<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80"
-class="w-full h-80 object-cover hover:scale-110 transition duration-700">
+<a href="campfire.html"
+class="glass rounded-3xl overflow-hidden block">
+
+<img src="images/campfire.jpg"
+class="w-full h-72 object-cover">
+
+<div class="p-6">
+
+<h3 class="text-2xl">
+
+🔥 Campfire Night
+
+</h3>
+
+<p class="text-slate-400">
+
+Warm fire beneath endless stars.
+
+</p>
+
 </div>
 
-<div class="overflow-hidden rounded-3xl glass">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
-class="w-full h-80 object-cover hover:scale-110 transition duration-700">
+</a>
+
+<a href="raincabin.html"
+class="glass rounded-3xl overflow-hidden block">
+
+<img src="images/raincabin.jpg"
+class="w-full h-72 object-cover">
+
+<div class="p-6">
+
+<h3 class="text-2xl">
+
+🌧️ Rain Cabin
+
+</h3>
+
+<p class="text-slate-400">
+
+Rain. Warmth. Stillness.
+
+</p>
+
 </div>
 
-<div class="overflow-hidden rounded-3xl glass">
-<img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80"
-class="w-full h-80 object-cover hover:scale-110 transition duration-700">
-</div>
+</a>
 
 </div>
 
@@ -535,19 +625,28 @@ class="w-full h-80 object-cover hover:scale-110 transition duration-700">
       <button onclick="toggleSound('rain', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
         <p class="text-3xl mb-2">🌧️</p>
         <p class="text-sm tracking-widest">RAIN</p>
-        <audio id="audio-rain" loop src="https://cdn.freesound.org/previews/531/531947_11166466-lq.mp3"></audio>
+        <audio id="audio-rain"
+loop
+src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+        </audio> 
       </button>
 
       <button onclick="toggleSound('bowl', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
         <p class="text-3xl mb-2">🥣</p>
         <p class="text-sm tracking-widest">SINGING BOWL</p>
-        <audio id="audio-bowl" loop src="https://cdn.freesound.org/previews/442/442770_9015615-lq.mp3"></audio>
+        <audio id="audio-bowl"
+loop
+src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
+        </audio> 
       </button>
 
       <button onclick="toggleSound('forest', this)" class="glass rounded-2xl p-6 hover:bg-teal-900/30 transition cursor-pointer">
         <p class="text-3xl mb-2">🍃</p>
         <p class="text-sm tracking-widest">FOREST</p>
-        <audio id="audio-forest" loop src="https://cdn.freesound.org/previews/538/538965_10762696-lq.mp3"></audio>
+       <audio id="audio-forest"
+loop
+src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+       </audio>   
       </button>
 
     </div>
